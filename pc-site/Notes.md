@@ -8,7 +8,7 @@
 4. [Techniky přenosu dat](#techniky-přenosu-dat)
 5. [Síťová vrstva a směrování](#síťová-vrstva-a-směrování)
 6. [Transportní vrstva a protokoly](#transportní-vrstva-a-protokoly)
-7. [Internetworking](#internetworking-i)
+7. [Internetworking](#internetworking)
 8. [Adresy a adresování](#adresy-a-adresování)
 9. [Protokoly IPv4 a IPv6](#protokoly-ipv4-a-ipv6)
 
@@ -214,6 +214,8 @@ Gilder's law - přenosová cesta se každý rok ztrojnásobuje
 Disk law - každý rok se přibližně zdvojnásobí
 
 ## Taxonomie počítačových sítí
+
+Zpět na [Přehled](#přehled).
 
 Dva základní druhy sítí:
 Broadcast networks (distribuční) 1:n
@@ -482,6 +484,8 @@ Darknet - překryvná síť nad internetem, anonymizovaný přístup, spíše vy
 
 ## Vrstvy a vrstvové modely
 
+Zpět na [Přehled](#přehled).
+
 ### (A36) Principy vrstvových modelů
 
 Rozdělení komplikovaného konceptu do menších celků - modely které spolu spolupracují a samy řeší dílčí problémy.
@@ -707,9 +711,9 @@ Vznikal pomaleji, vymyšlela se myšlenka, zkusila, implementovala, vznikalo zdo
 (L4) Transportní vrstva
 (L7 + části L5 a L6) Aplikační vrstva
 
-# Oblast B
-
 ## Techniky přenosu dat
+
+Zpět na [Přehled](#přehled).
 
 ### (B01) Fyzická přenosová média
 
@@ -961,6 +965,8 @@ a pak frame.
 
 ## Síťová vrstva a směrování
 
+Zpět na [Přehled](#přehled).
+
 ### (B18) Routing a forwarding
 
 ### (B19) Směrovací a forwardovací tabulky
@@ -1051,9 +1057,9 @@ a pak frame.
 
 ### (B61) Opatření client buffering
 
-# Oblast C
+## Internetworking
 
-## Internetworking I
+Zpět na [Přehled](#přehled).
 
 ### (C01) Cíle internetworkingu
 
@@ -1092,8 +1098,6 @@ a pak frame.
 ### (C18) Principy propojování na L3
 
 ### (C19) Činnost síťového rozhraní
-
-## Internetworking II
 
 ### (C20) Pravidla 80:20 a 20:80
 
@@ -1137,9 +1141,9 @@ a pak frame.
 
 ### (C40) Paketové filtry a ACL
 
-# Oblast D
-
 ## Adresy a adresování
+
+Zpět na [Přehled](#přehled).
 
 ### (D01) Principy adresování na L2
 
@@ -1208,6 +1212,8 @@ a pak frame.
 ### (D33) Obecná struktura URI
 
 ## Protokoly IPv4 a IPv6
+
+Zpět na [Přehled](#přehled).
 
 ### (D34) Vlastnosti protokolu IPv4
 
