@@ -1,0 +1,39 @@
+multichoice
+1. Která slova nejsou v Javě klíčová?
+A. public
+B. static
+C. then
+D. begin
+Answer: C D
+
+singlechoice
+2. Existují v Javě přetížené 
+operátory?
+A. Ano, lze přetížit libovolný operátor
+B. Ano, ale programátor nemůže přetížit operátory  \n\n
+C. Ne
+Answer: B
+
+singlechoices
+3. Existují v Javě přetížené 
+operátory?
+A. Ano, lze přetížit libovolný operátor
+B. Ano, ale programátor nemůže přetížit operátory  \n\n
+C. Ne
+Answer: B S
+
+Jan
+1. C D
+2. B
+
+Pepa
+1. B C D
+2. C
+
+Vasek
+1. B D
+2. C A D
+
+Adam
+1. A
+2. A
