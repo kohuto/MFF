@@ -1011,6 +1011,8 @@ Zpět na [Přehled](#přehled).
 
 ## Transportní vrstva a protokoly
 
+Zpět na [Přehled](#přehled).
+
 ### (B39) End-to-end komunikace
 
 ### (B40) Transportní spojení
