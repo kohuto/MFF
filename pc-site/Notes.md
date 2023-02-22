@@ -145,36 +145,32 @@ Posílání paketů nespojovaným přenosem. Takto funguje např. Ethernet na L2
 
 ### (A05) Spolehlivé přenosy a nespolehlivé přenosy
 
-odpověď na otázku _*Jakou úroveň spolehlivosti přenosu požadujeme*_
+odpověď na otázku _*Jakou úroveň spolehlivosti přenosu požadujeme?*_
+
+#### Spolehlivé
 
 Přenos má povinnost zajistit spolehlivost.
-Detekce chybových situací - přidání kontrolních mechanismů (paritní bity, kontrolní součty, CRC..)
-Odesílatel přidákontrolní údaj, příjemce jej také vytvoří a pokud se shodují, pravděpodobně nedošlo k poškození. (detekce vždy funguje pouze do určité míry)
-Oprava:
-samoopravné kódy
-vyžádáme opakovaný přenos - posíláme tedy positivní nebo negativní potvrzení (žádost o znovy poslání)
 
-Příklad: TCP
+- Detekce chybových situací: paritní bity, kontrolní součty, CRC... (nikdy to ale není 100%)
+- řešení chybových situací: samoopravné kódy (ne příliš praktické), opakovaný přenos (pozitivní/negativní acknowledgment, negativní = pošli zprávu znovu)
 
-Není to zadarmo, zvyšuje se množství posílaných zpráv (potvrzující boky, opakování)
+Následky:
 
 - narušení plynulosti (při chybách)
+- větší množství zpráv (acknowledgments a nutnost znovuposílání)
 - větší zprávy (kvůli zabezpečovacím údajům)
-- vyžadyje vyšší přenosovou a výpočetní kapacitu
+- vyžaduje vyšší přenosovou a výpočetní kapacitu
 - neexistuje absolutní spolehlivost
-  někdy může být nízká a někdy vysoká úroveň zabezpečení
-  vždy je nějaký režijní overhead
 
-Nespolehlivé přenosy
+Příklad: TCP (L4)
 
-Když dojde k chybě, nebudeme ji řešit (například u multimediálních služem)
+#### Nespolehlivé
+
+Když dojde k chybě, nebudeme ji řešit (chyby ale nevytváříme cíleně :D)
 
 - tam kde je důležitější pravidelnost a latence, než přesnost
 
-Příklady:
-L4: UDP
-L3: IP
-L2: Ethernet
+Příklady: UDP (L4), IP (L3), Ethernet (L2), ATM (L2)
 
 ### (A6) Garantované a negarantované služby
 
