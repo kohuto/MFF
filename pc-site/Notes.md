@@ -199,28 +199,25 @@ Jaké pakety zahodit, když dojdou zdroje u negarantovaných přenosů?
 
 #### Telekomunikační sítě
 
-Starší, vznikl v době kdy byla komunikace vnímána jako strategická záležitost.
-Pro hlasové hovory, nově data.
-Pracují s chytrou sítí a hloupými koncovými uzly
-síť - páteřní síť, telefonní ústředny, jednoduchý centrální management, ale drahá jedno-účelová záležitost
-koncová zařízení - nevyžadujís skoro nic
-vlastnosti - přepojování okruhů, spojované, spolehlivé a garantované přenosy (QoS)
+Vlastnosti:
 
-Zdroje jsou limitované, nešlo uspokojit každého, byla snaha prodávat exkluzivní rezervaci zdrojů (báli se poskytovat nespolehlivé služby)
-Regulace ze strany státu a vlád, ale postupně se liberalizuje (monopoly se stávají incumbenty)
-Majiteli telekomunikačních sítí nejsou jejich koneční uživatelé.
+- Chytrá síť, hloupé koncové uzly
+  - síť je drahá, mohutná, neflexibilní
+- přepojování okruhů, spojované, spolehlivé a garantované přenosy (QoS)
+- Zdroje jsou limitované (není jich dostatek pro každého) - prodej exkluzivní rezervace zdrojů - prodej spolehlivé služby
+- Majiteli telekomunikačních sítí nejsou jejich koneční uživatelé.
 
 #### Počítačové sítě
 
-Novější, dříve data, nove multimediální přenosy.
-Síť hloupá, koncová zařízení chytrá (levnější)
-Síť - co nejminimalističtější, levná
+Vlastnosti:
 
-přepojování paketů, nespojované, nespolehlivé a negarantované přenosy (best effort)
-
-I zde je nedostatek zdrojů, ale vždy se předpokládalo, že jich bude dost (hybnou sylou jsou technické faktory)
-
-Od začátku liberalizováno -> problém s kompatibilitou a sjednocením.
+- Síť hloupá, koncová zařízení chytrá (levnější)
+  - síť je levná, jednodchá, flexibilní
+- přepojování paketů, nespojované, nespolehlivé a negarantované přenosy (best effort)
+- hlavní cíl je přenos dat (bez nutnosti chápat jejich význam)
+- nedostatek zdrojů není hlavní limitující faktor, nejdůlěžitější jsou technické faktory
+- vlastník sítě je většinou uživatel
+- nutnost řešit problém s kompatibilitou a sjednocením.
 
 ### (A09) Hospodaření se zdroji
 
