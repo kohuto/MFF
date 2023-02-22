@@ -1,0 +1,45 @@
+Access network - Přístupová síť
+Advanced exchange - Předsunutá ústředna
+Attenuation - Útlum
+Bandwidth - Šířka pásma
+Baseband - Základní pásmo
+Bathtub curve - Vanová křivka
+Bridge - Most
+Broadcast network - Distribuční síť
+Carrier - Nosná
+Circuit - Okruh
+Circuit switching - Přepojování okruhů
+Congestion control - Předcházení zahlcení sítě
+Connectionless - Nespojovaný
+Connection-oriented - Spojovaný
+Controller - Řadič
+Crosstalk - Přeslech
+Distortion - Zkreslení
+Encapsulation - Zapouzdření
+Escaping - Přepínání interpretací
+Flag - Křídlová značka
+Flow control - Řízení toku
+Framing - Rámování
+Gate - Brána
+Gate - Hradlo
+Generator polynomial - Charakteristický polynom
+Go-Back-N ARQ - Kontinuální potvrzování s návratem
+Harmonic - Harmonická složka
+Hub - Rozbočovač
+Interference - Rušení
+Local loop - Účastnické vedení
+Longitudinal parity - Podélná parita
+Overaly network - Překryvná síť
+Packet switching - Přepojování paketů
+Passband - Přeložené pásmo
+Repeater - Opakovač
+Router - Směrovač
+Selective Repeat ARQ - Kontinuální potvrzování se selektivním opakováním
+Session layer - Relační vrstva
+Stop-and-Wait ARQ - Jednotlivé potvrzování
+Switch - Přepínač
+Switchboard - Rozvaděč
+Switched network - Síť s přepojováním
+Telephone exchange - Telefonní ústředna
+Transceiver - Vysílač
+Transverse parity - Příčná parita

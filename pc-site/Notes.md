@@ -18,30 +18,48 @@ Zpět na [Přehled](#přehled).
 
 ### (A01) Proudové a blokové přenosy
 
-Proudové přenosy: Posíláme proud (sekvenci) dat po jednotlivých symbolech (bits, bytes, words)
+Odpověď na otázku "V jaké formě budou data posílaná?"
 
-- Zachovává pořadí
+#### Proudové přenosy
+
+Posíláme souvislý nestrukturovaný proud (sekvenci) dat, po jednotlivých symbolech (bits, bytes, words).
+
+Vlastnosti:
+
+- Zachovává pořadí (princip FIFO fronty)
 - Vhodnější pro dvou-bodová spojení
-- P5íklady: L1: Ethernet, Wi-Hi, L4: TCP
-  Blokové přenosy: Vstupní data rozdělíme do menších celků(bloků)
-  dva typy rozdělení - fixní velikost bloků a častější, proměnná délka bloků (typicky s horním omezením, může být i spodní)
-- pořadí není nutně zajištěno, bloky po sobě ani nemusí bezprostředně následovat
-- bloky často doplňujeme doprovodnými informacemi (hlavičkou)
-  -- Ukládáme si kdo je příjemce (adresa)
-  -- Odesílatel není nutný, ale hodí se mít jeho identifikaci v případě, že se blokům něco stane
-  -- Může probíhat víe různých přenosů vedle sebe zároveň, hodí se tedy identifikace konkrétních bloků
-  -- Vzhledem k tomu že není zajištěno pořadí je třeba aby bloky měly nějakou známku toho v jakém pořadí mají být
-  -- Hlavní součásti:
-  Hlavička, tělo, footer
 
-Bloky podle vrstev :
-L2: Ethernet - rámce, ATM - buňky
-L3: IPv4 - datagramy, IPv6 pakety
-L4: TCP - segmenty, UDP - datagramy
-L7: HTTP - zprávy
-Lze kombinovat obě možnosti
+Příklady:
 
-- posílání bloků proudem(framing)
+- L1: Ethernet (bits), Wi-fi (words),
+- L4: TCP (bytes)
+
+#### Blokové přenosy
+
+Data rozdělíme do menších celků (bloků)
+
+- fixní velikost bloků (nepkratické)
+- proměnná velikost bloků (typicky s horním omezením, může být i spodní)
+
+Blok je strukturovaný - header, body, footer
+
+Vlastnosti:
+
+- nemusí být zachované pořadí bloků
+- bloky po sobě ani nemusí bezprostředně následovat (mohou být prodlevy)
+- bloky často obsahují metadata (adresa odesílatele v případě poruchy, adresa příjemce, pořadí bloků pro zpětné sestavení, identifikace přenosu pro umožnění více přenosů zároveň)
+
+Terminologie bolků podle vrstev:
+
+- L2: rámce (ethernet), buňky (ATM)
+- L3: datagramy (IPv4), pakety (IPv6)
+- L4: segmenty (TCP), datagramy (UDP)
+- L7: zprávy (HTTP)
+- Lze kombinovat obě možnosti
+
+#### Kombinace obou přístupů
+
+- posílání bloků proudem (framing)
 - posílání bloků jinými bloky (encapsulation)
 - posílání proudů bloky
 
