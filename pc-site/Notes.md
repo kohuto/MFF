@@ -18,7 +18,7 @@ Zpět na [Přehled](#přehled).
 
 ### (A01) Proudové a blokové přenosy
 
-Odpověď na otázku "V jaké formě budou data posílaná?"
+Odpověď na otázku _*V jaké formě budou data posílaná?*_
 
 #### Proudové přenosy
 
@@ -63,6 +63,8 @@ Terminologie bolků podle vrstev:
 - posílání proudů bloky
 
 ### (A02) Spojované a nespojované přenosy
+
+Odpověď na otázku _*Musíme se domluvit na přenosu dopředu?*_
 
 Komunikující strany se na spojení dopředu dohodly, zajišťuje dodržení pořadí dat.
 Spojení má často nějaký identifikátor.
