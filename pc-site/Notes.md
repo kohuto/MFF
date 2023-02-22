@@ -141,19 +141,17 @@ Příklady:
 
 ### (A04) Virtuální okruhy a datagramová služba
 
-Pracujeme nad principem přepojování paketů, ale chceme spojovaný přenos.
-(virtuální, protože přepínáme pakety)
-Cesta je vytyčena virtuálně, jednotlivé přepojovací prvky si pamatují cestu a bloky si nesou pouze ID okruhu a jsou podle něj směřovány.
-Na konci je třeba informace zapomenout, vytyčené zdroje vrátit..
+#### virtuální okruhy
 
-Příklad:
-L2 : ATM
+Přepojování paketů (proto virtuální) pomocí spojovaného přenosu. Virtuálně se vytyčí cesta (VCI - virtual circuit identifier), jednotlivé přepojovací prvky si pamatují cestu. Bloky v sobě nesou ID okruhu a všechny jsou směrovány po tomto jednom okruhu. Takto funguje např. ATM na L2
 
-Datagramová služba
+#### Datagramová služba
 
-Posílání paketů nespojovaným přenosem.
+Posílání paketů nespojovaným přenosem. Takto funguje např. Ethernet na L2
 
 ### (A05) Spolehlivé přenosy a nespolehlivé přenosy
+
+odpověď na otázku _*Jakou úroveň spolehlivosti přenosu požadujeme*_
 
 Přenos má povinnost zajistit spolehlivost.
 Detekce chybových situací - přidání kontrolních mechanismů (paritní bity, kontrolní součty, CRC..)
