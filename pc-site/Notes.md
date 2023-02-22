@@ -66,31 +66,35 @@ Terminologie bolků podle vrstev:
 
 Odpověď na otázku _*Musíme se domluvit na přenosu dopředu?*_
 
-Komunikující strany se na spojení dopředu dohodly, zajišťuje dodržení pořadí dat.
-Spojení má často nějaký identifikátor.
-Začínáme navázáním spojení (například obě strany musí vůbec existovat), lze vyjednat celou řadu věcí:
-parametry, nastavení, vytyčit konkrétní cestu, alokovat zdroje.
-Když máme spojení, přesouváme data a na konec spojení uzavřeme (to je třeba aby nezůtala kapacita zablokovaná).
+#### Spojované
+
+Komunikující strany se musí dohodnout na navázání/udržení/přerušení spojení. Pořadí dat musí být zachováno.
+
+Navázání spojení zahrnuje: obě strany existují, jsou schopny se najít, souhlasí se spojení, domluví se na parametrech přenosu (alkoace zdroj, vytyčení cesty...)
 
 Příklady:
-L2: ATM
-L4: TCP (spojovaný, ale iluze, protože L3 není)
-L7: HTTP, SMTP, POP3 (protože používají TCP)
 
-Stavy: obě strany musí vědět o stavu komunikace, je třeba se vyhnout dead lockům.
+- L2: ATM
+- L4: TCP (spojovaný, ale iluze, protože L3 není)
+- L7: HTTP, SMTP, POP3 (protože používají TCP)
 
-NESPOJOVANÉ PŘENOSY
+Přenos má stavový charakter:
 
-Pouze odesíláme jednotlivé zprávy (nemá tedy smysl mluvit o pořadí).
+- komunikuji/nekomunikuji
+- je třeba se vyhnout dead lockům
+- je třeba detekovat a řešit nestandartní situace
 
-Posílají se datagramy.
-Nevíme jestli protistrana komunikuje.
-Každý datagram cestuje samostatně.
+#### Nespojované
+
+Odesílání jednotlivých zpráv (tzv. datagramů). Pořadí dat není zachované (analogie s poštou, pošlu tři dopisy, každý může dojít jindy).
+
+Není navázáno spojení (příjemce ani nemusí existovat). Bezstavový charakter. Každý datagram cestuje nezávisle. Datagram musí obsahovat kompletní identifiakci přijemce.
 
 Příklady:
-L4: UDP
-L3: IP, ICMP
-L2: Ethernet
+
+- L4: UDP
+- L3: IP, ICMP
+- L2: Ethernet
 
 ### (A03) Přepojování okruhů a paketů
 
