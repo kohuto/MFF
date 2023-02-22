@@ -1,13 +1,12 @@
-Základ - 1
-------
+## Základ - 1
 
-#### Označte nepravdivé tvrzení týkající se porovnání metody přepojování paketů a přepojování okruhů.
+### Označte nepravdivé tvrzení týkající se porovnání metody přepojování paketů a přepojování okruhů.
 
 Přepojování okruhů - vybere se pevná cesta pro celou komunikaci, jako přepojování telefonních ústředen. Rychlejší, plynulejší, výpadek znamená rozpad spojení.
 
 Přepojování packetů - každý packet se může v každém uzlu vydat jinou cestou. Výpadek uzlu není fatální.
 
-#### Který z následujících termínů nepatří mezi přenosové parametry počítačové sítě?
+### Který z následujících termínů nepatří mezi přenosové parametry počítačové sítě?
 
 Zpoždění=Latence/Delay
 
@@ -17,7 +16,7 @@ ztrátovost dat
 
 šířka pásma=Bandwidth
 
-#### Jaké charakteristiky z hlediska přenosových parametrů mají následující typy aplikací resp. protokolů?
+### Jaké charakteristiky z hlediska přenosových parametrů mají následující typy aplikací resp. protokolů?
 
 multimediální např. voip nebo video - jitter (ale může ztratit data)
 
@@ -25,19 +24,17 @@ email, web, data - ztrátovost dat
 
 voip - latence/zpoždění, video - může mít velkou latenci
 
-#### Které z následujících tvrzení týkajících se WAN je pravdivé?
+### Které z následujících tvrzení týkajících se WAN je pravdivé?
 
 Rozlehlé sítě, vzdálený přístup, velké vzdálenosti=větší zpoždění, mnoho vlastníků=distribuované řízení
 
-#### Které z následujících tvrzení týkajících se LAN je pravdivé?
+### Které z následujících tvrzení týkajících se LAN je pravdivé?
 
 Sdílení prostředků (tiskárny, databázové servery), menší vzdálenost=malé zpoždění, jednotné vlastnictví a řízení
 
 #### Které z následujících tvrzení o RFC je pravdivé?
 
 Request For Comments je prostředek standardizace internetu, mají různý charakter – standardy, informace, návody. Dokumenty se nemění, pokud je změna, prostě se vydá nové RFC – jeho platnost přepisuje starší), aktuální stav v indexovém souboru, zdaleka ne všemi dodržované, návrh RFC projde schvalovacím procesem IAB → IETF/IRTF → WG. Jsou veřejně přístupné.
-
-
 
 ## Vrstvy, NAT, URI - 2
 
@@ -95,13 +92,11 @@ Fragmentace = další dělení dat na síťové vrstvě díky malé velikosti MT
 
 #### Jak spolupracují vrstvy vertikálně?
 
-Předávají si navzájem data+řídící informace vyšší vrstvy do nižsí  (encapsulation) příjemce v opačném směru postupně rozbalí, každá se stará o odlišnou část, dohromady uskuteční proces
+Předávají si navzájem data+řídící informace vyšší vrstvy do nižsí (encapsulation) příjemce v opačném směru postupně rozbalí, každá se stará o odlišnou část, dohromady uskuteční proces
 
 #### Co nepatří mezi funkce protokolu?
 
 Protokol=konvence/standard, podle kterého probíhá el. Komunikace a přenos dat – definuje pravidla syntaxe, sémantiky a synchronizace vzájemné komunikace (detekce spojení, handshake, vyjednání parametrů spojení, zahájení a ukončení zpráv, formát zpráv, co dělat se špatnými/poškozenými daty, detekce a reakce na ztrátu spojení, ukončení relace/spojení)
-
-
 
 ## Šifrování - 3
 
@@ -133,7 +128,7 @@ Odesilatel vytvoří hash textu – hash zašifruje tajným klíčem, přiloží
 
 Způsob výměny informací mezi dvěma partnery po nezabezpečeném kanálu, tak aby oba získali sdílenou tajnou informaci (př symetrický šifrovací klíč)
 
-A a B mají tajná čísla a veřejná prvočísla 
+A a B mají tajná čísla a veřejná prvočísla
 
 #### Které tvrzení o klíčích a certifikátech je pravdivé?
 
@@ -147,20 +142,17 @@ algoritmus pro el. podpis
 
 elektronický podpis
 
-
-
 ## SSL/TLS - 3
 
 #### Jaké tvrzení o SSL resp. TLS je pravdivé?
 
 Mezivrstva mezi aplikační a transportní umožňuje AUTENTIKACI A šifrování (využívá i HTTPS port 443) Princip:
-1) Klient – požadavek na SSL spojení + parametry
-2) Server – odpověď + parametry + certifikát
-3) Klient – ověření serveru + vygenerovaný základ klíče, zašifrován veř. klíčem serveru
-4) Server – rozšifruje a vytvoří šifrovací klíč (stejně tak učiní klient)
-5) Vzájemně si potvrdí, odteď probíhá komunikace s tímto klíčem
 
-
+1. Klient – požadavek na SSL spojení + parametry
+2. Server – odpověď + parametry + certifikát
+3. Klient – ověření serveru + vygenerovaný základ klíče, zašifrován veř. klíčem serveru
+4. Server – rozšifruje a vytvoří šifrovací klíč (stejně tak učiní klient)
+5. Vzájemně si potvrdí, odteď probíhá komunikace s tímto klíčem
 
 ## Aplikační vrstva - 3
 
@@ -184,13 +176,11 @@ Jsou: DNS (EDNS), SMTP (ESMTP), POP3, IMAP, FTP, HTTP, Telnet, SSH, SIP, NFS, SM
 
 #### Jakým způsobem se v aplikačních protokolech TCP/IP obvykle řeší binární zápis celých čísel?
 
-Pořadí bytů – big endian (1 = 0x00, 0x00, 0x00, 0x01) ale Intel má little endian  (1 = 0x01, 0x00, 0x00, 0x00)
+Pořadí bytů – big endian (1 = 0x00, 0x00, 0x00, 0x01) ale Intel má little endian (1 = 0x01, 0x00, 0x00, 0x00)
 
 #### Jakým způsobem se v aplikačních protokolech TCP/IP řeší zápis textových řádek?
 
 Dvojice speciálních znaků CR LF, proměnlivá na OS. Win CR LF, Mac CR, Linux LF
-
-
 
 ## DNS - 3
 
@@ -224,8 +214,6 @@ Problematické, podpisy zabezpečené DNS (DNSSEC) je komplikované a rozšiřuj
 
 DNS
 
-
-
 ## FTP - 4
 
 ```
@@ -252,8 +240,6 @@ Heslo se přenáší otevřeně. Používá se jen tam, kde nehrozí nic bezpeč
 #### Pokud FTP klient pošle příkaz na FTP server na standardním portu, jaký z následujících portů může obsahovat odpověď jako zdrojový?
 
 21 – odpověď na příkaz, 20 při aktivním přenosu
-
-
 
 ## Pošta - 4 a 5
 
@@ -305,8 +291,6 @@ Nikdy není jistý odesilatel, ani shoda údajů v obálce a textu
 
 řešení: Sender policy framework=pokus o zpětné doručení, nebo systémem výzva/odpověď, elektronickým podpisem) → neotevírat dopisy neznámého původu, server může vyžadovat autentikaci odesilatele pomocí ESMTP – příkaz AUTH, nebo klient pomocí ESMTP příkazu STARTTLS žádat o spojení pomocí SSL/TLS (šifrování je jinak obecně problémem uživatele ne serveru)
 
-
-
 ## HTTP - 5
 
 #### Jak označujeme protokol, kterým se přenášejí webové stránky?
@@ -327,13 +311,13 @@ Port 80 nebo 443 pokud s TSL, typicky TCP (v1 textový a klient dělá požadavk
 
 Formát zprávy: úvodní řádka (požadavek/odpověď), doplňující hlavičky (požadavek: jazyk, kódování, stáří stránky, autentikace, odpověď: typ dokumentu, kódování, expirace) (volitelné: tělo dokumentu)
 
-* 1xx informativní odpověď (požadavek přijat, probíhá zpracování)
-* 2xx kladná definitivní odpověď
-* 3xx přesměrování (očekáván požadavek od klienta)
-* 4xx chyba na straně klienta (nesprávný požadavek)
-* 5xx chyba na straně serveru (nepodařilo se vyhovět požadavku)
+- 1xx informativní odpověď (požadavek přijat, probíhá zpracování)
+- 2xx kladná definitivní odpověď
+- 3xx přesměrování (očekáván požadavek od klienta)
+- 4xx chyba na straně klienta (nesprávný požadavek)
+- 5xx chyba na straně serveru (nepodařilo se vyhovět požadavku)
 
-Odpověď na jeden požadavek je obvykle jeden dokument, Po jednom perzistentním spojení může jít postupně více požadavků, klienti si většinou otevírají více spojení předem. Požadavky jsou nezávislé, komunikace je bezestavová, stav je přenášen dodatečnými daty *cookies*
+Odpověď na jeden požadavek je obvykle jeden dokument, Po jednom perzistentním spojení může jít postupně více požadavků, klienti si většinou otevírají více spojení předem. Požadavky jsou nezávislé, komunikace je bezestavová, stav je přenášen dodatečnými daty _cookies_
 
 #### Která z následujících metod ("příkazů") existuje v HTTP protokolu?
 
@@ -353,15 +337,13 @@ POST (přímo do těla requestu, není jednoduše v prohlížečích vidět) a G
 
 (Otázka z testu) „Ak chce dosáhnout dynamičnost stránky musí použít jazyk Java“ (Javascript) → něco v tomhle stylu
 
-*Poznámka: Java není Javascript. Obojí běží v klientovi. Java posílá nějak zkompilovanou binárku, Javascript posílá zdrojový kód a podobné jsou si akorát jménem. Je to špatná odpověď, protože dynamická povaha stránek může být dělaná i ze strany serveru, například pomocí reagování na cookies.*
+_Poznámka: Java není Javascript. Obojí běží v klientovi. Java posílá nějak zkompilovanou binárku, Javascript posílá zdrojový kód a podobné jsou si akorát jménem. Je to špatná odpověď, protože dynamická povaha stránek může být dělaná i ze strany serveru, například pomocí reagování na cookies._
 
 #### Vyberte správné tvrzení o dynamických WWW stránkách.
 
 Dynamické stránky je možné nechat vygenerovat serverem, s využitím informací, které uživatel zadal, cookies apod. Například jazyk PHP používá CGI nebo nějaký web server (třeba Apache) k vyprodukování dynamické web stránky. Generovat je samozřejmě může jakýkoliv jazyk, CGI umí využívat například Perl, Python... Nic vám nebrání napsat program, který vrací HTML pro webserver i v C# (viz ASP.NET), C++, C nebo dalších rozumných jazycích.
 
 Nebo přímo klientem (nejčastěji Javascript – zdrojový kód interpretován přímo, méně často Java applety – mezikód interpretován za pomoci lokálních knihoven). Zde také existují další alternativy.
-
-
 
 ## Telnet a SSH - 5
 
@@ -383,8 +365,6 @@ Přihlášení bez hesla se váže na privátní klíč - zjednodušeně: nechá
 
 Nikdy recipročně bez hesla (přihlašování na více serverů bez hesla) – ochrana proti červům
 
-
-
 ## VoIP - 5
 
 #### Co označuje pojem VoIP (Voice over IP)?
@@ -402,15 +382,11 @@ SIP řeší pouze hledání partnera a navázání spojení (používá RTP/RTCP
 Protokol, který se stará o navázání spojení dvou partnerů (vyhledat a spojit) pro komunikaci VoIP.
 Řeší jen signalizaci (vyhledá partnera a naváže spojení), přenos dat pomocí RTP/RTCP, Dohoda o parametrech datových kanálů řešena SDP (Description) – jeho data zabalena v SIP
 
-
-
 ## NFS a SMB - 6
 
 #### Který aplikační protokol se používá pro sdílení systému souborů?
 
 NFS (Network File System, má relační RPC a prezentační XDR vrstvy), SMB (Server Message Block)
-
-
 
 ## NTP - 6
 
@@ -426,8 +402,6 @@ výpočet užívá časové známky v odpovědi
 
 Stejné timestampy souborů (při sdílení disků např. NFS a SMB), možnost porovnávání událostí na různých počítačích – teoreticky by se dalo i bez NTP ale bylo by zbytečně nepohodlné (přepočítavat časové rozdíly mezi uzly atdp.)
 (Platnosti certifikátu? Od kdy do kdy platí? - aby pro všechny bylo synchronizované)
-
-
 
 ## DHCP - 6
 
@@ -449,8 +423,6 @@ Pronájem adresy je časově omezený, po uplynutí 4/8 musí zažádat o novou,
 -> 7/8 DHCPREQUEST (opět ACK nebo ticho)
 -> 8/8 DHCPDISCOVER
 ```
-
-
 
 ## Transportní vrstva - 6
 
@@ -545,9 +517,7 @@ Proto, Local Adress, Foreign Adress, State
 
 local address 0.0.0.0 - poslouchá na všech rozhraních
 
-foreign address 0.0.0.0 nebo * znamená, že se může připojit libovolný klient
-
-
+foreign address 0.0.0.0 nebo \* znamená, že se může připojit libovolný klient
 
 ## Síťová vrstva - 6
 
@@ -659,7 +629,7 @@ Vše záleží na zadání/možnostech odpovědí obecně znovu slidy 121-126
 
 nemůžu mít subnet samé nuly ani jedničky, adresa počítače nemohou být samé nuly ani jedničky
 
-místo 6 * 30 mohu mít 3 * 30 + 2 * 14 + 1 * 62
+místo 6 _ 30 mohu mít 3 _ 30 + 2 _ 14 + 1 _ 62
 
 #### Která z následujících kombinací představuje minimální síť pokrývající tyto unicastové adresy: 10.1.1.106, 10.1.1.111, 10.1.1.119?
 
@@ -671,9 +641,7 @@ spočítat subnet mask - nesmí být samé nuly ani samé jedničky, adresa konk
 
 Vše záleží na zadání/možnostech odpovědí obecně znovu slidy 121-126
 
-#### Defaultní router pro nějakou síť má adresu 172.31.219.33/27. Které z  následujících nastavení může být v této síti správnou adresou počítače?
-
-
+#### Defaultní router pro nějakou síť má adresu 172.31.219.33/27. Které z následujících nastavení může být v této síti správnou adresou počítače?
 
 ## Směrování - 7
 
@@ -695,8 +663,6 @@ Zvol nejspeciálnější záznam (nejdelší maska) → existuje (ne = není ces
 
 IP adresu cíle
 
-
-
 ## ICMP a ping - 7
 
 #### Jaké funkce plní ICMP (Internet Control Message Protocol)?
@@ -712,8 +678,6 @@ Program pro diagnostiku sítě (ověřuje funkčnost spojení, není potřeba sp
 Na žádný ICMP datagram nepřišla odpověď = problém se spojením po cestě nebo na cílové stanici, nebo server má zakázané reply
 (jedná se o loopback adress, někdo kdo otázku měl v testu tvrdil, že jediná odpověď co dávala smysl je že na počítači je špatně nainstalovaný IP software)
 
-
-
 ## TTL - 7
 
 #### Jaké pole IP záhlaví za normálních okolností mění router?
@@ -727,8 +691,6 @@ TTL (Time to live)
 #### Vyberte správné tvrzení o účelu nebo použití pole IP záhlaví označovaného jako TTL (Time To Live).
 
 Prostředek pro ochranu před zacyklením v případě routovací smyčky (chybná konfigurace routerů), udává počet hopů, kterí smí paket ještě přeskočit, při dosazení 0 se posílá ICMP Time Exceeded
-
-
 
 ## Routovací a směrové tabulky a protokoly - 7
 
@@ -779,8 +741,6 @@ externí routovací protokoly EGP – dnes používaný Border Gateway Protokol 
 
 (doteď jsme dělali interní routovací protokoly)
 
-
-
 ## IP filtrování, proxy, ARP - 7 a 8
 
 #### Která z charakteristik IP filtrování je správná?
@@ -801,8 +761,8 @@ IP filtrování typicky využívá vyšších vrstev než jen síťové.
 
 Je software na routeru (transparentně) nebo i separátní server (může být v netransp.), který stíní klienta přímo od serveru - funguje jako prostředník. Správce sítě může kontrolovat činnost klientů popř. omezit objem provozu na přípojné lince…
 
-* Transparentní – SW na hraničním routeru, zachytí a uloží požadavek, svým jménem naváže spojení dál (stejně opačně) – není třeba konfigurovat
-* Netransparentní – je třeba nakonfigurovat aby se požadavky neposílaly přímo, ale na proxy-server v lokální síti (nemusí být router), je nutná podpora protokolu
+- Transparentní – SW na hraničním routeru, zachytí a uloží požadavek, svým jménem naváže spojení dál (stejně opačně) – není třeba konfigurovat
+- Netransparentní – je třeba nakonfigurovat aby se požadavky neposílaly přímo, ale na proxy-server v lokální síti (nemusí být router), je nutná podpora protokolu
 
 může filtrovat na úrovni aplikačních protokolů
 
@@ -832,7 +792,7 @@ proxy ARP je na routeru oddělujícím podsítě, pošle stroji (který by se ji
 
 #### Jak budou vypadat zdrojové a cílové IP a MAC adresy paketu poslaného z notebooku na server na trase mezi routerem A a B?
 
-Vzhledem k ARP: Zdrojová: IP notebooku,  MAC routeru A, cílové MAC routeru B, IP Serveru
+Vzhledem k ARP: Zdrojová: IP notebooku, MAC routeru A, cílové MAC routeru B, IP Serveru
 
 #### Jak budou vypadat zdrojové a cílové IP a MAC adresy paketu poslaného jako odpověď serveru na požadavek z notebooku při průchodu podsítí označenou III?
 
@@ -841,8 +801,6 @@ Pokud není žádný router (obrázek?) pak prostě zdrojové přímo adresy ser
 #### Jaké kroky musí udělat klientský počítač, aby správně odeslal paket v případě, že cílový server není ve stejné síti?
 
 Vyslat ARP request aby zjistil MAC adresu routeru – poté packet co chtěl odeslat je vyslán přes router podle jeho směrovací tabulky (předtím počítač nezná adresu routeru proto ARP request)
-
-
 
 ## Linková vrstva, topologie - 8
 
@@ -873,15 +831,13 @@ Nedeterministicky (ethernet) - nikdo neomezuje uzly - musí se řešit kolize, r
 
 #### Které tvrzení o topologii sítě je pravdivé?
 
-*(Slide 153)*
+_(Slide 153)_
 
 Topologie sítí = uspořádání uzlů, zapojení různých prvků do sítě a zachycení jejich reálné a logické podoby „tvar/struktura sítě“ → Point-to-point (navzájem jen dva uzly) nebo Multipoint (Sběrnice, hvězda, Kruh)
 
 #### Co je základní funkcí CSMA/CD?
 
 Např. Ethernet, Detekce kolizí – během vysílání uzel současně detekuje případnou kolizi, při kolizi zastaví stanice vysílání, upozorní ostatní, počká určitou náhodnou dobu a pokus opakuje, obvykle se postupně prodlužuje interval čekání, doba vysílání rámce musí být delší než doba šíření z jednoho konce na druhý (kolizní okénko)
-
-
 
 ## ethernet, VLAN, wifi - 8
 
@@ -915,13 +871,11 @@ Tolikrát kolik je zařízení na dráze přenosu (zdrojový PC, každý router,
 
 #### Které tvrzení o WiFi je správné?
 
-*(Poznámka: není to protokol!)*
+_(Poznámka: není to protokol!)_
 
 Bezdrátová síť (WLAN), skupina protokolů, topologie je hvězda a používají CSMA/CA (přenos je brán jako point to point přes centrální AP access point), mnoho variant – souhrně IEEE 802.11x (x=a/b/g/n/y)
 
 problémem je zabezpečení, každá síť má SSID (Service set ID): řetězec 32 znaků pro rozlišení sítí, Struktura: ad-hoc peer-to-peer = dva klienti navzájem rovní, infrastruktura acces pointů = několik AP které vysílají své SSID, WiFi zařízení dnes všude, problém bezpečnost
-
-
 
 ## Fyzická vrstva - 8
 
@@ -953,8 +907,6 @@ Shielded Twisted Pair - kroucená dvojlinka s kovovým stíněním
 
 Spanning Tree Protocol – protokolu pro hledání koster grafu sítě (acyklické podmnožiny sítě – síť by se jinak zahltila přeposíláním rámců v cyklech)
 
-
-
 ## segmentace sítě a STA - 8
 
 #### Jak lze charakterizovat repeater, hub, bridge a switch?
@@ -975,10 +927,6 @@ Protokol pomocí kterého se switche domluví, který z nich nemá forwardovat a
 
 Router (směrovač) je v počítačových sítích aktivní síťové zařízení, které procesem zvaným routování přeposílá datagramy směrem k jejich cíli. Routování probíhá na třetí vrstvě referenčního modelu ISO/OSI (síťová vrstva). Router spojuje sítě nebo podsítě (pozor: switch spojuje počítače v místní síti = rozdíl), představuje jednu broadcast doménu
 
-
-
-
-
 #### Do hubu jsou zapojeny stanice A, B, C a D. Stanice A je právě uprostřed vysílání rámce stanici D, když stanice B potřebuje vysílat data stanici C. Co musí stanice B udělat?
 
 Počkat než AD dovysílají – jinak kolize
@@ -986,10 +934,6 @@ Počkat než AD dovysílají – jinak kolize
 #### Do switche jsou zapojeny stanice A, B, C a D. Stanice A je právě uprostřed vysílání rámce stanici D, když stanice B potřebuje vysílat data stanici C. Co musí stanice B udělat?
 
 Odeslat svá data (na nic nečeká)
-
-
-
-
 
 #### Jaký účel plní default gateway?
 
@@ -1002,4 +946,3 @@ Packet je poslán skrz default gateway – pokud takový záznam v tabulce je, p
 #### Jaký krok následuje poté, co www server připraví text stránky, rozdělí ho a naformátuje do TCP segmentů?
 
 TCP Segment = celá jednotka vytvořená na transportní vrstvě => pošle na síťovou vrstvu a ta přidá IP src, IP dst, typ
-
