@@ -98,52 +98,46 @@ Příklady:
 
 ### (A03) Přepojování okruhů a paketů
 
-Jak zajistit, že data můžeme doručit zamýšlenému příjemci?
-Vytvoříme okruh a komunikující strany jej mohou používat (mají pro sebe vyhrazenu nějakou kapacitu).
-Hlavně v telekomunikacích.
-Základním mechanismem je vytvořit okruh.
+Odpověď na otázku _*Jak se data dostanou k příjemci*_
 
-- Je třeba najít a vytyčit cestu (fyzicky ebo virtuálně)
-- Přes vytvořený okruh lze posílat data.
-  Příklady: originální přepojovací ústředny
+#### Přepojování okruhů
 
-Výhody a nevýhody:
+První vytvoříme okruh, přes který se posílají data. Najde se a vytyčí se cesta (fyzicky nebo virtuálně)
 
-- Máme vyhrazenu exkluzivní kapacitu - můžeme poskytovat garantované přenosy
-- Iluze přímého spojení s protistranou.
-- Jsme schopni zaručit pořadí posílaných dat.
-- Nízká, konstantní latence.
-- Z principu věci se jedná o spojovaný okruh komunikace.
+Vlastnosti:
 
-Hledání cesty porbíhá jen jednou, na začátku.
+- přenos musí být spojovaný
+- Iluze přímého spojení s protistranou
+- Nízká, konstantní latence (hledání cesty pouze jednou na začátku)
+- zachovává pořadí
+- v okruhu máme vyhrazenu exkluzivní kapacitu - můžeme poskytovat garantované přenosy
+- podporuje proudové i blokové přenosy
+- využití v telekomunikacích.
 
-PAKETY
+#### Přepojování paketů
 
-Budeme posílat bloky dat, každý blok má svou cestu, jednotlivé síťové prvky jej posílají dál.
-Sdílená přenosová kapacita.
-Robustnější a odolnější vůči chybám.
+Pro každý blok dat se najde cesta zvlášť. Po cestě prochází skrz přepojovací uzly:
 
-Data musí být v blocích, každý blok si žije vlastním životem a jednotlivě musí být nasměrován k příjemci.
-Máme přepojovací úzly
+- uzel má buffery pro příchozí a odchozí data
+- přijme blok a umístí ho do příchozího bufferu
+- postupně zpracovává bloky z příchozího bufferu
+- vybere blok, vybere mu nový směr a dá ho do odpovídajícího odchozího bufferu
+- zpracovaný blok čeká v odchozím bufferu na odeslání
 
-- jejich úkolem je zařídit předávání a směrování
-- každé má typicky více portů, u každého je buffer pro příchozí a odchozí data
-- přiteče blok - je ve vstupním bufferu a čeká na zpracování
-- pak je vybrán ke zpracování a je mu vybrán nový směr
-- blok je dán do odchozí fronty kde ček na odeslání
+Vlastnosti:
 
-Funguje pouze s blokovým přenosem
-
-- potřebujeme informaci o příjemci (adresa)
-- paralelně vedle sebe probíhá více komunikací
-
-Kapacita cest a přepojovacích uzlů je konečná a sdílená.
-Latence je zde vyšší, neposílám jednotlivé bity, ale trvá celý proces: přijmout -> buffer -> zpravovat - > buffer
-Je i proměnná, protože záleží i na okolních vlivech/
+- odolné vůči chybám
+- princip funogvání počítačových sítí
+- přenos musí být blokový - metadat musí obsahovat adresu příjemce a odesílatele
+- Kapacita cest a přepojovacích uzlů je omezená a sdílená
+  - dostupná kapacita může být nedostatečná a nadbytečné bloky mohou být zničeny!
+- vyšší latence (náročný proces v uzlech)
+  - je proměnlivá - závisí na aktuální vytíženosti cest a uzlů
 
 Příklady:
-L2: přepínače, switche
-L3: směrovače, routery
+
+- L2: přepínače, switche
+- L3: směrovače, routery
 
 ### (A04) Virtuální okruhy a datagramová služba
 
