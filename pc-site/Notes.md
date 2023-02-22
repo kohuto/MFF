@@ -145,7 +145,7 @@ Posílání paketů nespojovaným přenosem. Takto funguje např. Ethernet na L2
 
 ### (A05) Spolehlivé přenosy a nespolehlivé přenosy
 
-odpověď na otázku _*Jakou úroveň spolehlivosti přenosu požadujeme?*_
+Odpověď na otázku _*Jakou úroveň spolehlivosti přenosu požadujeme?*_
 
 #### Spolehlivé
 
@@ -172,7 +172,7 @@ Když dojde k chybě, nebudeme ji řešit (chyby ale nevytváříme cíleně :D)
 
 Příklady: UDP (L4), IP (L3), Ethernet (L2), ATM (L2)
 
-### (A6) Garantované a negarantované služby
+### (A06) Garantované a negarantované služby
 
 Garance dostatečného možství zdrojů (přenosová a výpočetní kapacita)
 Garantované - mám dostatek zdrojů (musím si zdroje zarezervovat, mám exkluzivníkapacitu) - přepínání okruhů - ekxkluzivní, předem zamluvená kapacita, chceme maximum co budeme potřebovat, ale pokud zabereme příliš, kapacita bude nevyužit - neefektivní a drahé řešení (chceme součet maxim požadavků)
