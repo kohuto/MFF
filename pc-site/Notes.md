@@ -184,13 +184,16 @@ Garance dostatečného možství zdrojů (přenosová a výpočetní kapacita) p
 
 Negarantované - jednodušší a efketivnější (škálováno na průměrnou zátěž). Při vyšším zatížení můžou dojít zdroje - zaplní se buffery, nebo procesor - některé pakety musí být zahozeny (jaké?)
 
-### (A7) Princip Best Effort a Quality of Service
+### (A07) Princip Best Effort a Quality of Service
 
-dokud to jde dobře, vše se doručí, jakmile dojdou zdroje, zahazují se náhodně nějaké pakety (IP, Ethernet, ATM)
+Jaké pakety zahodit, když dojdou zdroje u negarantovaných přenosů?
 
-Quality of Service
-
-poskytujeme nějaké garance - relativní (prioritizace) - různé druhy přenosů mají různé štítky s prioritou - pozdržujeme nebo zahazujeme na základě typu provozu (i tak ale mohou být zahozeny) - absolutní - je třeba bez ohledu na situaci předem rezervovat zdroje (všechny uzly musí souhlasit), pokud kapacita není, nemůže k navázání spojení dojít.
+- Best effort
+  - pakety jsou doručovány tak dlouho, jak je to možné. Pokud doručení není možné, začnou se zahazovat náhodně
+  - př. IP (L3), Ethernet (L2), ATM (L2)
+- Quality of Service (QoS)
+  - relativní QoS - princip prioritizace, jako první zahazujeme data s menší prioritou
+  - absolutní QoS - musíme dopředu zarezerovat zdroje. Pokud není kapacita, musí se rezervace odmítnout a tudíž nemůže dojít k přenosu (podobné jako přepojování paketů)
 
 ### (A8) Svět telekomunikačních a počítačových sítí
 
