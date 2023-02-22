@@ -195,37 +195,39 @@ Jaké pakety zahodit, když dojdou zdroje u negarantovaných přenosů?
   - relativní QoS - princip prioritizace, jako první zahazujeme data s menší prioritou
   - absolutní QoS - musíme dopředu zarezerovat zdroje. Pokud není kapacita, musí se rezervace odmítnout a tudíž nemůže dojít k přenosu (podobné jako přepojování paketů)
 
-### (A8) Svět telekomunikačních a počítačových sítí
+### (A08) Svět telekomunikačních a počítačových sítí
+
+#### Telekomunikační sítě
 
 Starší, vznikl v době kdy byla komunikace vnímána jako strategická záležitost.
 Pro hlasové hovory, nově data.
 Pracují s chytrou sítí a hloupými koncovými uzly
 síť - páteřní síť, telefonní ústředny, jednoduchý centrální management, ale drahá jedno-účelová záležitost
 koncová zařízení - nevyžadujís skoro nic
-! přepojování okruhů, spojované, spolehlivé a garantované přenosy (QoS)
+vlastnosti - přepojování okruhů, spojované, spolehlivé a garantované přenosy (QoS)
 
 Zdroje jsou limitované, nešlo uspokojit každého, byla snaha prodávat exkluzivní rezervaci zdrojů (báli se poskytovat nespolehlivé služby)
 Regulace ze strany státu a vlád, ale postupně se liberalizuje (monopoly se stávají incumbenty)
 Majiteli telekomunikačních sítí nejsou jejich koneční uživatelé.
 
-Svět počítačových sítí
+#### Počítačové sítě
 
 Novější, dříve data, nove multimediální přenosy.
 Síť hloupá, koncová zařízení chytrá (levnější)
 Síť - co nejminimalističtější, levná
 
-přepojování paketů, nespojvané, nespolehlivé a negarantované přenosy (best effort)
+přepojování paketů, nespojované, nespolehlivé a negarantované přenosy (best effort)
 
 I zde je nedostatek zdrojů, ale vždy se předpokládalo, že jich bude dost (hybnou sylou jsou technické faktory)
 
 Od začátku liberalizováno -> problém s kompatibilitou a sjednocením.
 
-### (A9) Hospodaření se zdroji
+### (A09) Hospodaření se zdroji
 
-Moore's law - každé dva roky se zdvojnásobí výkon (počet tranzistorů na mm) (postupně se zpomaluje)
--> srovantelnou výpočetní sílu budeme za nějaký čas mít za poloviční cenu
-Gilder's law - přenosová cesta se každý rok ztrojnásobuje
-Disk law - každý rok se přibližně zdvojnásobí
+- Moore's law - každé dva roky se zdvojnásobí výkon (počet tranzistorů na mm) (postupně se zpomaluje, půdobně to bylo každý rok).
+  - Z moorova zákona vyplývá, že každé dva roky máme srovnatelnou výpočetní sílu za poloviční cenu
+- Gilder's law - přenosová cesta(?) se každý rok ztrojnásobuje
+- Disk law - uložná kapacita se každý rok přibližně zdvojnásobí
 
 ## Taxonomie počítačových sítí
 
