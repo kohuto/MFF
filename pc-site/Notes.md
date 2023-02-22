@@ -116,18 +116,12 @@ Vlastnosti:
 
 #### Přepojování paketů
 
-Pro každý blok dat se najde cesta zvlášť. Po cestě prochází skrz přepojovací uzly:
-
-- uzel má buffery pro příchozí a odchozí data
-- přijme blok a umístí ho do příchozího bufferu
-- postupně zpracovává bloky z příchozího bufferu
-- vybere blok, vybere mu nový směr a dá ho do odpovídajícího odchozího bufferu
-- zpracovaný blok čeká v odchozím bufferu na odeslání
+Pro každý blok dat se najde cesta zvlášť. Po cestě prochází skrz přepojovací uzly. Uzel má buffery pro příchozí a odchozí data → přijme blok a umístí ho do příchozího bufferu → postupně zpracovává bloky z příchozího bufferu → vybere blok, vybere mu nový směr a dá ho do odpovídajícího odchozího bufferu → zpracovaný blok čeká v odchozím bufferu na odeslání
 
 Vlastnosti:
 
 - odolné vůči chybám
-- princip funogvání počítačových sítí
+- princip fungování počítačových sítí
 - přenos musí být blokový - metadat musí obsahovat adresu příjemce a odesílatele
 - Kapacita cest a přepojovacích uzlů je omezená a sdílená
   - dostupná kapacita může být nedostatečná a nadbytečné bloky mohou být zničeny!
