@@ -1,0 +1,173 @@
+#	Lecture	ID	Question [CS]	Question [EN]
+				
+01	Paradigms	A01	Proudové a blokové pøenosy	Stream and block transmissions
+		A02	Spojované a nespojované pøenosy	Connection-oriented and connectionless transmissions
+		A03	Pøepojování okruhù a paketù	Circuit and packet switching
+		A04	Virtuální okruhy a datagramová sluba	Virtual circuits and datagram service
+		A05	Spolehlivé a nespolehlivé pøenosy	Reliable and unreliable transmissions
+		A06	Garantované a negarantované pøenosy	Guaranteed and non-guaranteed transmissions
+		A07	Best Effort a Quality of Service	Best Effort and Quality of Service
+		A08	Svìty telekomunikaèních a poèítaèovıch sítí	Worlds of telecommunication and computer networks
+		A09	Hospodaøení s dostupnımi zdroji	Management of available resources
+				
+02	Taxonomy	A10	Distribuèní sítì a sítì s pøepojováním	Broadcast and switched networks
+		A11	Pevná a mobilní telefonní sí	Fixed and mobile telephone networks
+		A12	Páteøní a pøístupové sítì	Core and access networks
+		A13	Pøekryvné pøístupové sítì	Overlay access networks
+		A14	Technologie xDSL	xDSL technology
+		A15	Technologie PLC	PLC technology
+		A16	Technologie DOCSIS	DOCSIS technology
+		A17	Technologie FTTx	FTTx technology
+		A18	Datové sítì	Data networks
+		A19	Sítì PAN, LAN, MAN, WAN	PAN, LAN, MAN and WAN networks
+		A20	Architektura Internetu, peering a tranzit	Internet architecture, peering and transit
+		A21	Intranet, extranet a darknet	Intranet, extranet and darknet
+				
+03	Layers	A22	Principy vrstvovıch modelù	Principles of layer models
+		A23	Vertikální a horizontální komunikace	Vertical and horizontal communication
+		A24	Principy síovıch protokolù	Principles of network protocols
+		A25	Síové modely a architektury	Network models and architectures
+		A26	Referenèní model ISO/OSI	ISO/OSI reference model
+		A27	Úkoly fyzické vrstvy	Physical layer tasks
+		A28	Úkoly linkové vrstvy	Data link layer tasks
+		A29	Úkoly síové vrstvy	Network layer tasks
+		A30	Úkoly transportní vrstvy	Transport layer tasks
+		A31	Úkoly relaèní vrstvy	Session layer tasks
+		A32	Úkoly prezentaèní vrstvy	Presentation layer tasks
+		A33	Architektura TCP/IP	TCP/IP architecture
+				
+04	Techniques	B01	Fyzická pøenosová média	Physical transmission media
+		B02	Analogové a digitální pøenosy	Analog and digital transmissions
+		B03	Tvary a vlastnosti køivek	Shapes and properties of waveforms
+		B04	Pøenosy v základním pásmu	Baseband transmissions
+		B05	Principy a pøíklady linkovıch kódù	Principles and examples of line codes
+		B06	Problémy synchronizace, DC komponenty a disparity	Synchronization, DC component and disparity issues
+		B07	Techniky zajištìní synchronizace	Synchronization techniques
+		B08	Redundantní kódování, bit stuffing, scrambling	Redundant coding, bit stuffing, scrambling
+		B09	Blokové kódování	Block coding
+		B10	Pøenosy v pøeloeném pásmu	Passband transmissions
+		B11	Kvadraturní amplitudová modulace	Quadrature Amplitude Modulation
+		B12	Zajištìní transparence	Ensuring transparency
+		B13	Techniky framingu a zapouzdøení	Framing and encapsulation techniques
+		B14	Techniky stuffingu	Stuffing techniques
+		B15	Znakovì orientované protokoly	Character-oriented data link protocols
+		B16	Bitovì orientované protokoly	Bit-oriented data link protocols
+		B17	Bytovì orientované protokoly	Byte-oriented data link protocols
+				
+05	Routing	B18	Smìrovací a forwardovací tabulky	Routing and forwarding tables
+		B19	Obvyklé a alternativní pøístupy smìrování	Common and alternative routing approaches
+		B20	Klasifikace smìrovacích pøístupù	Classification of routing approaches
+		B21	Fixní (statické) a náhodné smìrování	Fixed directory and random walk routing
+		B22	Záplavové smìrování a techniky øízené záplavy	Flooding and controlled flooding techniques
+		B23	Centralizované smìrování	Centralized routing
+		B24	Metoda zpìtného uèení	Backward learning method
+		B25	Metoda zdrojového smìrování	Source routing method
+		B26	Smìrování distance-vector	Distance-vector routing
+		B27	Problém count to infinity	Count to infinity problem
+		B28	Protokol RIP	Protocol RIP
+		B29	Smìrování link-state	Link-state routing
+		B30	Srovnání distance-vector a link-state	Distance-vector and link-state comparison
+		B31	Hierarchické smìrování a smìrovací domény	Hierarchical routing and routing domains
+				
+06	Transport	B32	End-to-end komunikace a de/multiplexing	End-to-end communication and de/multiplexing
+		B33	Srovnání protokolù TCP a UDP	Comparison of TCP and UDP protocols
+		B34	Bytovı stream TCP	TCP byte streams
+		B35	Navazování spojení	Establishing connections
+		B36	Zajištìní spolehlivosti	Ensuring reliability
+		B37	Kontrola parity a kontrolní souèty	Parity bits and checksums
+		B38	Cyklické redundantní souèty	Cyclic Redundancy Check
+		B39	Potvrzovací strategie	Automatic repeat requests
+		B40	Jednotlivé potvrzování	Stop-and-Wait ARQ
+		B41	Kontinuální potvrzování s návratem	Go-Back-N ARQ
+		B42	Kontinuální potvrzování se selektivním opakováním	Selective Repeat ARQ
+		B43	Metoda posuvného okénka	Sliding window method
+		B44	Problém øízení toku	Flow control
+		B45	Pøedcházení zahlcení sítì	Congestion control
+		B46	Monosti zajištìní QoS	Quality of Service techniques
+		B47	Principy øešení DiffServ	Principles of DiffServ
+		B48	Principy øešení IntServ	Principles of IntServ
+		B49	Mechanismus client buffering	Client buffering mechanism
+				
+07	Internetworking	C01	Cíle internetworkingu	Internetworking objectives
+		C02	Aktivní a pasivní síové prvky	Active and passive network elements
+		C03	Propojování napøíè vrstvami	Interconnection across layers
+		C04	Principy propojování na L1	Internetworking principles at L1
+		C05	Pøístupová metoda CSMA/CD	Collisions and CSMA/CD access method
+		C06	Principy propojování na L2	Internetworking at principles L2
+		C07	Filtrování a cílené pøedávání	Filtering and forwarding at L2
+		C08	Èinnost linkového rozhraní	Network controller operation at L2
+		C09	Mechanismus Store&Forward	Store&Forward mechanism
+		C10	Mechanismus Cut-Through	Cut-Through mechanism
+		C11	Segmentace a mikrosegmentace sítì	Network segmentation and microsegmentation
+		C12	Srovnání pøepínaèù a mostù	Comparison of switches and bridges
+		C13	Principy propojování na L3	Internetworking at L3
+		C14	Èinnost síového rozhraní na L3	Network interface operation at L3
+		C15	Pravidla 80:20 a 20:80	80:20 and 20:80 rules
+		C16	L2 a místní a cílenı L3 broadcast	L2 and local and targeted L3 broadcasts
+		C17	Smìrovaèe a L3 pøepínaèe	Routers and L3 switches
+		C18	Vyuití L4 a L7 pøepínaèù	Usage of L4 and L7 switches
+		C19	Principy a koncepty sítí VLAN	Principles and concepts of VLAN networks
+		C20	Logickı model VLAN sítì	Logical model of VLAN network
+		C21	Pøístupové a trunkovací porty	Access and trunk ports
+		C22	Konfigurace VLAN sítí	Configuration of VLAN networks
+		C23	Tagování 802.1q Dot1q	802.1q Dot1q tagging
+		C24	Smìrování ve VLAN sítích	Routing in VLAN networks
+		C25	Princip a typy firewallù	Types and principles of firewalls
+		C26	Demilitarizovaná zóna a aplikaèní brány	Demilitarized zones and application gateways
+		C27	Realizace demilitarizovanıch zón	Deployment of demilitarized zones
+		C28	Paketové filtry a ACL	Packet filters and ACL lists
+				
+08	Addressing	D01	Principy adresování na L2	Principles of addressing at L2
+		D02	Adresy EUI-48 a EUI-64	EUI-48 and EUI-64 addresses
+		D03	Principy adresování na L3	Principles of addressing at L3
+		D04	IPv4 adresy a jejich tøídy	IPv4 addresses and their classes
+		D05	Speciální IPv4 adresy	Special IPv4 addresses
+		D06	IPv4 multicast	IPv4 multicast
+		D07	Øešení nedostatku IPv4 adres	IPv4 address space exhaustion
+		D08	Subnetting a supernetting	Subnetting and supernetting
+		D09	Mechanismus CIDR	CIDR mechanism
+		D10	Hierarchie registrátorù	Hierarchy of registries
+		D11	Koncepty privátních IP adres a NAT	Private IPv4 addresses and NAT concepts
+		D12	Doruèování datagramù pøi aktivním NAT	Forwarding of datagrams with NAT enabled
+		D13	Charakter NAT/PAT vazeb	Nature of NAT/PAT bindings
+		D14	Doruèování datagramù pøi aktivním PAT	Forwarding of datagrams with PAT enabled
+		D15	Varianty PAT kuelù	Variants of PAT cones
+		D16	Problémy NAT/PAT	Issues of NAT/PAT
+		D17	Cíle IPv6 adres a vztah k IPv4 adresám	Goals of IPv6 addresses and relationship to IPv4
+		D18	Struktura a zápis IPv6 adres	Structure and notation of IPv6 addresses
+		D19	Unicastové IPv6 adresy	IPv6 unicast addresses
+		D20	Principy adresování na L4	Principles of addressing at L4
+		D21	Porty a jejich èíslování	Ports and their numbering
+		D22	Principy adresování na L7	Principles of addressing at L7
+				
+09	Protocols	D23	Vlastnosti protokolu IPv4	IPv4 protocol features
+		D24	Struktura IPv4 datagramu	Structure of IPv4 datagrams
+		D25	Poloky IPv4 hlavièky	IPv4 header fields
+		D26	Poloka TTL a nástroj TraceRoute	TTL header field and TraceRoute tool
+		D27	IPv4 kontrolní souèet	IPv4 header checksum
+		D28	IPv4 doplòky hlavièky	IPv4 header options
+		D29	Principy IPv4 fragmentace	Principles of IPv4 fragmentation
+		D30	IPv4 varianty detekce MTU	IPv4 MTU detection strategies
+		D31	IPv4 Path MTU Discovery	IPv4 Path MTU Discovery
+		D32	Proces IPv4 fragmentace	Process of IPv4 fragmentation
+		D33	IPv4 fragmentaèní hlavièky	IPv4 fragmentation headers
+		D34	Proces IPv4 defragmentace	Process of IPv4 defragmentation
+		D35	Problémy IPv4 de/fragmentace	IPv4 de/fragmentation issues
+		D36	Protokol ICMPv4	ICMPv4 protocol
+		D37	Struktura ICMPv4 zprávy	Structure of ICMPv4 messages
+		D38	Pøíklady ICMPv4 zprávy	Examples of ICMPv4 messages
+		D39	Protokol ARP	ARP protocol
+		D40	Struktura ARP zprávy	Structure of ARP messages
+		D41	ARP dotazy a cachování	ARP queries and cache
+		D42	Reverzní ARP protokol	Reverse ARP protocol
+		D43	Protokol DHCP	DHCP protocol
+		D44	DHCP alokaèní strategie	DHCP allocation strategies
+		D45	Chování DHCP klienta	DHCP client behavior
+		D46	Rozdíly IPv6 oproti IPv4	Differences between IPv6 and IPv4
+		D47	Struktura IPv6 paketu	Structure of IPv6 packets
+		D48	Poloky IPv6 hlavièky	IPv6 header fields
+		D49	Koncept IPv6 tokù	Concept of IPv6 flows
+		D50	IPv6 rozšiøující hlavièky	IPv6 extension headers
+		D51	Principy IPv6 fragmentace	Principles of IPv6 fragmentation
+		D52	IPv6 Path MTU Discovery	IPv6 Path MTU Discovery
+		D53	Formát ICMPv6 zprávy	Format of ICMPv6 messages

@@ -1,0 +1,192 @@
+ACL - Access Control List
+ADSL - Asymmetric Digital Subscriber Line
+AfriNIC - African Network Information Centre
+AM - Amplitude Modulation
+APNIC - Asia-Pacific Network Information Centre
+ARIN - American Registry for Internet Numbers
+ARP - Address Resolution Protocol
+ARPANET - Advanced Research Projects Agency Network
+ARQ - Automatic Repeat Request
+AS - Autonomous System
+ASK - Amplitude-Shift Keying
+ASN.1 - Abstract Syntax Notation One X.690
+ATM - Asynchronous Transfer Mode
+BCP - Best Current Practice
+BER - Basic Encoding Rules
+BGP - Border Gateway Protocol
+Bluetooth - Bluetooth
+BOOTP - Bootstrap Protocol
+BPL - Broadband over Power Line
+BSC - Base Station Controller
+BSS - Base Station Subsystem
+BTS - Base Transceiver Station
+CATV - Community Antenna Television
+CDMA - Code-Division Multiple Access
+CESNET - Czech Education and Scientific Network
+CIDR - Classless Inter-Domain Routing
+CMTS - Cable Modem Termination System
+CP - Customer Premise
+CRC - Cyclic Redundancy Check
+CSMA/CA - Carrier Sense Multiple Access with Collision Avoidance
+CSMA/CD - Carrier Sense Multiple Access with Collision Detection
+DAB - Digital Audio Broadcasting
+DHCP - Dynamic Host Configuration Protocol
+DiffServ - Differentiated Services
+DMZ - Demilitarized Zone
+DNS - Domain Name System
+DOCSIS - Data Over Cable Service Interface Specification
+Dot1q - IEEE 802.1q
+DSH - Synchronous Digital Hierarchy
+DSL - Digital Subscriber Line
+DSLAM - DSL Access Multiplexer
+DVB - Digital Video Broadcasting
+EDGE - Enhanced Data rates for GSM Evolution
+EGP - Exterior Gateway Protocol
+EOOL - End of Option List
+Ethernet - Ethernet IEEE 802.3
+EUI - Extended Unique Identifier
+EuroDOCSIS - European DOCSIS
+FDDI - Fiber Distributed Data Interface
+FireWire - FireWire IEEE 1394
+FM - Frequency Modulation
+FR - Frame Relay
+FSK - Frequency-Shift Keying
+FTP - File Transfer Protocol
+FTTB - Fiber to the Building
+FTTC - Fiber to the Curb
+FTTH - Fiber to the Home
+FTTN - Fiber to the Node
+FTTx - Fiber to the X
+FUP - Fair Use Policy
+FWA - Fixed Wireless Access
+FYI - For Your Information
+GERAN - GSM EDGE Radio Access Network
+GSM - Global System for Mobile Communications
+HDLC - High-Level Data Link Control
+HDMI - High-Definition Multimedia Interface
+HFC - Hybrid Fiber-Coaxial
+HomePlug - HomePlug
+HTTP - Hypertext Transfer Protocol
+IAB - Internet Architecture Board
+IANA - Internet Assigned Numbers Authority
+ICANN - Internet Corporation for Assigned Names and Numbers
+ICMP - Internet Control Message Protocol
+IEEE - Institute of Electrical and Electronics Engineers
+IEEE RA - IEEE Registration Authority
+IETF - Internet Engineering Task Force
+IGMP - Internet Group Management Protocol
+IGP - Interior Gateway Protocol
+IHL - Internet Header Length
+IMAP - Internet Message Access Protocol
+IntServ - Integrated Services
+IP - Internet Protocol
+IPSEC - Internet Protocol Security
+IrDA - Infrared Data Association
+IRI - Internationalized Resource Identifier
+ISBN - International Standard Book Number
+ISDN - Integrated Services Digital Network
+ISL - Inter-Switch Link
+ISO - International Organization for Standardization
+ISOC - Internet Society
+ISP - Internet Service Provider
+ISSN - International Standard Serial Number
+ITU - International Telecommunication Union
+IXP - Internet Exchange Point
+JDBC - Java Database Connectivity
+LAA - Locally Administered Addresses
+LACNIC - Latin America and Caribbean Network Information Centre
+LAN - Local Area Network
+LIR - Local Internet Registry
+LLC - Logical Link Control
+LSR - Loose Source Route
+LTE - Long-Term Evolution
+MAC - Media Access Control
+MAN - Metropolitan Area Network
+MEPNET - Metropolitan Prague Network
+MPLS - Multiprotocol Label Switching
+MSC - Mobile Switching Center
+MTU - Maximum Transmission Unit
+MVRP - Multiple VLAN Registration Protocol IEEE 802.1ak
+NAP - Network Access Point
+NAPT - Network Address and Port Translation
+NAT - Network Address Translation
+NFC - Near-Field Communication
+NIC - Network Interface Controller
+NIR - National Internet Registry
+NIX.cz - Neutral Internet eXchange
+NRZ - Non-Return-To-Zero
+NSFNET - National Science Foundation Network
+NSS - Network Switching Subsystem
+OSI - Open Systems Interconnection Model
+OSPF - Open Shortest Path First
+OUI - Organizationally Unique Identifier
+OWL - Web Ontology Language
+P2MP - Point-to-MultiPoint
+P2P - Peer-to-Peer Network
+P2P - Point-to-Point
+PAN - Personal Area Network
+PASNET - Prague Academic and Scientific Network
+PDU - Protocol Data Unit
+PLC - Power-Line Communication
+PM - Phase Modulation
+PMTUD - Path MTU Discovery
+PON - Passive Optical Network
+PoP - Point of Presence
+POP3 - Post Office Protocol 3
+POTS - Plain Old Telephone Service
+PPP - Point-to-Point Protocol
+PSK - Phase-Shift Keying
+PSTN - Public Switched Telephone Network
+QAM - Quadrature Amplitude Modulation
+QoS - Quality of Service
+RARP - Reverse Address Resolution Protocol
+RFC - Request for Comments
+RIP - Routing Information Protocol
+RIPE - Réseaux IP Européens Network Coordination Centre
+RIR - Regional Internet Registry
+RPC - Remote Procedure Call
+RPF - Reverse Path Forwarding
+RR - Record Route
+RSU - Remote Subscriber Unit
+RSVP - Resource Reservation Protocol
+RTP - Real-Time Transport Protocol
+RTT - Round Trip Time
+RZ - Return-To-Zero
+SATA - Serial AT Attachment
+SCTP - Stream Control Transmission Protocol
+SIP - Session Initiation Protocol
+SLIP - Serial Line Internet Protocol
+SMTP - Simple Mail Transfer Protocol
+SNCF - Sequence Number Controlled Flooding
+SNMP - Simple Network Management Protocol
+SONET - Synchronous Optical Networking
+SSH - Secure Shell
+SSR - Strict Source Route
+STA - Spanning Tree Algorithm
+STD - Internet Standard
+STP - Spanning Tree Protocol
+TCP - Transmission Control Protocol
+TCP/IP - Internet Protocol Suite
+ToS - Type of Service
+TS - Time Stamp
+TTL - Time To Live
+UAA - Universally Administered Addresses
+UDP - User Datagram Protocol
+UMTS - Universal Mobile Telecommunications Systém
+URC - Uniform Resource Characteristics
+URI - Uniform Resource Identifier
+URL - Uniform Resource Locator
+URN - Uniform Resource Name
+USB - Universal Serial Bus
+VCI - Virtual Circuit Identifier
+VDSL2 - Very High-Speed Digital Subscriber Line 2
+VID - VLAN Identifier
+VLAN - Virtual Local Area Networks
+VoIP - Voice over Internet Protocol X.680
+VTP - VLAN Trunking Protocol
+W3C - World Wide Web Consortium
+WAN - Wide Area Network
+Wi-Fi - Wi-Fi IEEE 802.11
+WiMAX - Worldwide Interoperability for Microwave Access
+WLL - Wireless Local Loop
+X.25 - X.25
