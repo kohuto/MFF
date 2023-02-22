@@ -55,7 +55,6 @@ Terminologie bolků podle vrstev:
 - L3: datagramy (IPv4), pakety (IPv6)
 - L4: segmenty (TCP), datagramy (UDP)
 - L7: zprávy (HTTP)
-- Lze kombinovat obě možnosti
 
 #### Kombinace obou přístupů
 
