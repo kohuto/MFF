@@ -174,9 +174,15 @@ Příklady: UDP (L4), IP (L3), Ethernet (L2), ATM (L2)
 
 ### (A06) Garantované a negarantované služby
 
-Garance dostatečného možství zdrojů (přenosová a výpočetní kapacita)
-Garantované - mám dostatek zdrojů (musím si zdroje zarezervovat, mám exkluzivníkapacitu) - přepínání okruhů - ekxkluzivní, předem zamluvená kapacita, chceme maximum co budeme potřebovat, ale pokud zabereme příliš, kapacita bude nevyužit - neefektivní a drahé řešení (chceme součet maxim požadavků)
-Negarantované - jednodušší na realizaci, ale může nastat okamžik s problémy. - Přepínání okruhů - s dílená kapacita - stačí dimenzovat na průměrnou očekávanou zátěž, ale při vyšším zatížení můžou dojít zdroje - zaplní se buffery, nebo procesor - některé pakety musí být zahozeny (jaké?)
+Odpověď na otázku _*Bude po celou dobu dostupný dostatek zdrojů?*_
+
+#### Garantované
+
+Garance dostatečného možství zdrojů (přenosová a výpočetní kapacita) po celou dobu přenosu. Zdroje jsou zajištěny dopředu při navazování spojení (exkluzivní kapacita) - zabere se prostor pro maximální očekávanou zátěž - často nevyužita kapacita (nemůže být využita nikým jiným), protp drahé a neefektivní. Realizace vždy pomocí přepojování okruhů.
+
+#### Negarantované
+
+Negarantované - jednodušší a efketivnější (škálováno na průměrnou zátěž). Při vyšším zatížení můžou dojít zdroje - zaplní se buffery, nebo procesor - některé pakety musí být zahozeny (jaké?)
 
 ### (A7) Princip Best Effort a Quality of Service
 
