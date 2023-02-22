@@ -45,7 +45,35 @@ Lze kombinovat obě možnosti
 - posílání bloků jinými bloky (encapsulation)
 - posílání proudů bloky
 
-### (A02) Přepojování okruhů
+### (A02) Spojované a nespojované přenosy
+
+Komunikující strany se na spojení dopředu dohodly, zajišťuje dodržení pořadí dat.
+Spojení má často nějaký identifikátor.
+Začínáme navázáním spojení (například obě strany musí vůbec existovat), lze vyjednat celou řadu věcí:
+parametry, nastavení, vytyčit konkrétní cestu, alokovat zdroje.
+Když máme spojení, přesouváme data a na konec spojení uzavřeme (to je třeba aby nezůtala kapacita zablokovaná).
+
+Příklady:
+L2: ATM
+L4: TCP (spojovaný, ale iluze, protože L3 není)
+L7: HTTP, SMTP, POP3 (protože používají TCP)
+
+Stavy: obě strany musí vědět o stavu komunikace, je třeba se vyhnout dead lockům.
+
+NESPOJOVANÉ PŘENOSY
+
+Pouze odesíláme jednotlivé zprávy (nemá tedy smysl mluvit o pořadí).
+
+Posílají se datagramy.
+Nevíme jestli protistrana komunikuje.
+Každý datagram cestuje samostatně.
+
+Příklady:
+L4: UDP
+L3: IP, ICMP
+L2: Ethernet
+
+### (A03) Přepojování okruhů a paketů
 
 Jak zajistit, že data můžeme doručit zamýšlenému příjemci?
 Vytvoříme okruh a komunikující strany jej mohou používat (mají pro sebe vyhrazenu nějakou kapacitu).
@@ -66,7 +94,7 @@ Výhody a nevýhody:
 
 Hledání cesty porbíhá jen jednou, na začátku.
 
-### (A03) Přepojování paketů
+PAKETY
 
 Budeme posílat bloky dat, každý blok má svou cestu, jednotlivé síťové prvky jej posílají dál.
 Sdílená přenosová kapacita.
@@ -94,35 +122,7 @@ Příklady:
 L2: přepínače, switche
 L3: směrovače, routery
 
-### (A04) Spojované přenosy
-
-Komunikující strany se na spojení dopředu dohodly, zajišťuje dodržení pořadí dat.
-Spojení má často nějaký identifikátor.
-Začínáme navázáním spojení (například obě strany musí vůbec existovat), lze vyjednat celou řadu věcí:
-parametry, nastavení, vytyčit konkrétní cestu, alokovat zdroje.
-Když máme spojení, přesouváme data a na konec spojení uzavřeme (to je třeba aby nezůtala kapacita zablokovaná).
-
-Příklady:
-L2: ATM
-L4: TCP (spojovaný, ale iluze, protože L3 není)
-L7: HTTP, SMTP, POP3 (protože používají TCP)
-
-Stavy: obě strany musí vědět o stavu komunikace, je třeba se vyhnout dead lockům.
-
-### (A05) Nespojované přenosy
-
-Pouze odesíláme jednotlivé zprávy (nemá tedy smysl mluvit o pořadí).
-
-Posílají se datagramy.
-Nevíme jestli protistrana komunikuje.
-Každý datagram cestuje samostatně.
-
-Příklady:
-L4: UDP
-L3: IP, ICMP
-L2: Ethernet
-
-### (A06) Virtuální okruhy
+### (A04) Virtuální okruhy a datagramová služba
 
 Pracujeme nad principem přepojování paketů, ale chceme spojovaný přenos.
 (virtuální, protože přepínáme pakety)
@@ -132,11 +132,11 @@ Na konci je třeba informace zapomenout, vytyčené zdroje vrátit..
 Příklad:
 L2 : ATM
 
-### (A07) Datagramová služba
+Datagramová služba
 
 Posílání paketů nespojovaným přenosem.
 
-### (A08) Spolehlivé přenosy
+### (A05) Spolehlivé přenosy a nespolehlivé přenosy
 
 Přenos má povinnost zajistit spolehlivost.
 Detekce chybových situací - přidání kontrolních mechanismů (paritní bity, kontrolní součty, CRC..)
@@ -156,7 +156,7 @@ Není to zadarmo, zvyšuje se množství posílaných zpráv (potvrzující boky
   někdy může být nízká a někdy vysoká úroveň zabezpečení
   vždy je nějaký režijní overhead
 
-### (A09) Nespolehlivé přenosy
+Nespolehlivé přenosy
 
 Když dojde k chybě, nebudeme ji řešit (například u multimediálních služem)
 
@@ -167,21 +167,21 @@ L4: UDP
 L3: IP
 L2: Ethernet
 
-### (A10) Ne/garantované služby
+### (A6) Garantované a negarantované služby
 
 Garance dostatečného možství zdrojů (přenosová a výpočetní kapacita)
 Garantované - mám dostatek zdrojů (musím si zdroje zarezervovat, mám exkluzivníkapacitu) - přepínání okruhů - ekxkluzivní, předem zamluvená kapacita, chceme maximum co budeme potřebovat, ale pokud zabereme příliš, kapacita bude nevyužit - neefektivní a drahé řešení (chceme součet maxim požadavků)
 Negarantované - jednodušší na realizaci, ale může nastat okamžik s problémy. - Přepínání okruhů - s dílená kapacita - stačí dimenzovat na průměrnou očekávanou zátěž, ale při vyšším zatížení můžou dojít zdroje - zaplní se buffery, nebo procesor - některé pakety musí být zahozeny (jaké?)
 
-### (A11) Princip Best Effort
+### (A7) Princip Best Effort a Quality of Service
 
 dokud to jde dobře, vše se doručí, jakmile dojdou zdroje, zahazují se náhodně nějaké pakety (IP, Ethernet, ATM)
 
-### (A12) Quality of Service
+Quality of Service
 
 poskytujeme nějaké garance - relativní (prioritizace) - různé druhy přenosů mají různé štítky s prioritou - pozdržujeme nebo zahazujeme na základě typu provozu (i tak ale mohou být zahozeny) - absolutní - je třeba bez ohledu na situaci předem rezervovat zdroje (všechny uzly musí souhlasit), pokud kapacita není, nemůže k navázání spojení dojít.
 
-### (A13) Svět telekomunikačních sítí
+### (A8) Svět telekomunikačních a počítačových sítí
 
 Starší, vznikl v době kdy byla komunikace vnímána jako strategická záležitost.
 Pro hlasové hovory, nově data.
@@ -194,7 +194,7 @@ Zdroje jsou limitované, nešlo uspokojit každého, byla snaha prodávat exkluz
 Regulace ze strany státu a vlád, ale postupně se liberalizuje (monopoly se stávají incumbenty)
 Majiteli telekomunikačních sítí nejsou jejich koneční uživatelé.
 
-### (A14) Svět počítačových sítí
+Svět počítačových sítí
 
 Novější, dříve data, nove multimediální přenosy.
 Síť hloupá, koncová zařízení chytrá (levnější)
@@ -206,7 +206,7 @@ I zde je nedostatek zdrojů, ale vždy se předpokládalo, že jich bude dost (h
 
 Od začátku liberalizováno -> problém s kompatibilitou a sjednocením.
 
-### (A15) Hospodaření se zdroji
+### (A9) Hospodaření se zdroji
 
 Moore's law - každé dva roky se zdvojnásobí výkon (počet tranzistorů na mm) (postupně se zpomaluje)
 -> srovantelnou výpočetní sílu budeme za nějaký čas mít za poloviční cenu
