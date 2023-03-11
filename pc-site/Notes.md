@@ -324,14 +324,20 @@ Technické řešení:
 
 ### (A15) Technologie PLC
 
-Nad rozvody 230V/50Hz elektřiny - Na vyšší frekvenci realizujeme datové přenesy - různé standardy v různých zemích - na sloupech vyskového napětí nejsou kabely stíněné a fungují jako antény - je třeba kontrolovat vyzařované radiové signály aby nerušily ostatní signály - i v konkrétní domácnosti se jedná o zašuměné prostředí - vypnutí/zapnutí spotřebiče ovlivní všechny datové přenosy - transformery datové přenosy naruší a obecně na to dráty nejsou dělané
+Power-Line Communication - překrytí původní elektrické sítě (napětí 230V a frekvence 50Hz). Data přenášíme na vyšší frekvenci (frekvenční multiplex)
 
-Powerline communcations - lze využít na velké vzdálenosti, i na území celého státu (pak jde ale využívat pouze nízké frekvence, což znamená velmi nízké přenosové rychlosti) - užívá se správci elektrické soustavy pro monitorování a posílání spínacích signálů
+problémy:
 
-Last mile - drahé a v praxi nepoužívané - Broadband over Powerline - Střední napětí desítky kV mezi transformátory - Na nízkých 230V jiný přístup
+- různé standardy v různých zemích (110V, 120V, 60Hz atd.)
+- na sloupech vyskového napětí nejsou kabely stíněné a fungují jako antény
+- rušení vyzařovanými signály prostředí
+- rušení i v domácnosti (vypnutí/zapnutí spotřebiče...)
 
-Last Meter
-Homeplug - vnitřní rozvody za domácím elektroměrem lze využít k částečnému vybudování domácí sítě - až 500Mb/s, pod 100MHz
+Kdy tedy (ne)lze použít?
+
+- PLC lze využít na velké vzdálenosti → nízká frekvence → nízké přenosové rychlosti. Použití pro pro monitorování údržbu sítě
+- Last mile - drahé a nepoužívané - Broadband over Powerline - Střední napětí desítky kV mezi transformátory - Na nízkých 230V jiný přístup
+- Last Meter - Homeplug - vnitřní rozvody za domácím elektroměrem lze využít k částečnému vybudování domácí sítě (až 500Mb/s)
 
 ### (A16) Technologie DOCSIS
 
