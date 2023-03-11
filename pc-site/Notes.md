@@ -304,29 +304,23 @@ použijeme jiné frekvence nebo zapouzdření dat
 
 ### (A14) Technologie xDSL
 
-Digital Subscriber Line - využití struktury původních telefonních linek k datovým přenosům
-kroucené dvoulinky, původně měly přenášet analogové hlasové hovory (300 Hz-3.4 kHz)
-
-Frekvenční multiplex
-
-- využijeme stejnou dvoulinku, ale svá data budeme přenášet na jiné frekvenci
-  - nad 3.4kHz (v nadhovorovém pásmu)
-- dochází i k digitalizaci a je třeba řešit především vzdálenost (přenosové cesty mají rušení a útlum)
+Digital Subscriber Line - využití struktury původních pevných telefonních sítí POTS. POTS používali omezenou frekvenci (pouze pro přenos hlasu po kroucené dvoulince). Způsob překrytí - data budeme přenášet po stejné dvoulince ale pro přenos dat použijeme vyšší frekvenci (frekvenční multiplex). Největší problém je přenos na velkou vzdálenost
 
 Technické řešení:
-DSL modem (bere digitální data a moduluje je na analogový signál)
-<-> splitter (spojuje signály na vyšších a nižších frekvencích a naopak)
-<-> místní smyčka (přenáší obojí)
-<-> point of presence (zase splitter a modem) - zde jsou ale tisíce zařízení - je zde třeba integrované zařízení - DSLAM (DSL Access Multiplexer) - toto řeší problematiku splitterů a modemů pro všechny linky najednou - způsobí přesměrování do jiné páteřní sítě (páteřní telekomunikační síť je tedy jiná, protože by elkový datový přenos nevydržela)
 
-u DSL technologií vzdálenost zhoršuje kvalitu, útlum a zkreslení a snižuje přenosovou rychlost
--> proto vznikají předsunuté ústředny, aby se zkrátila vzdálenost
+- CP část:
+  - DSL modem - k modemu jsou připojení uživatelé (počítače) - mění digitální data na analogový signál
+  - splitter - odděluje/spojuje nižší frekvence (hlas) od vyšších (data) - místo, kde se spojí připojený telefon (stará síť) a DSL modem (s novými počítači)
 
-(1998) ADSL - Asymetric Digital Subscriber Line
-(25kHz-1.1MHz) - vzdálenost několika kilometrů - maximální přenosové rychlosti za ideálních podmínech 8Mb/s downstream, 1.5Mb/s upstream
+![CPpartxDsl](./images/CPxDSLpart.jpg)
 
-(2006) VDSL2 - Very High-Speed Digital Subscriber Line
-(až 35 MHz) - do 300m - 200Mb/stahování, 100Mb/s odesílnání
+- POP část
+  - místní smyčka (přenáší hlas i data)
+  - DSLAM (DSL Access Multiplexer) - zařízení v POP - datový přenos je rozdělen do více páteřních sítí
+
+![xDslschema](./images/xdslschema.gif)
+
+Čím vyšší frekvence, tím náročnější přenos - s větší frekvencí se snižuje přenosová vzdálenost -> vznik předsunutých ústředen (zkrácení vzdálenosti). Podle frekvence pak rozlišujeme použité technologie př. ADSL (Asymetric Digital Subscriber Line), VDSL2 (Very High-Speed Digital Subscriber Line)
 
 ### (A15) Technologie PLC
 
