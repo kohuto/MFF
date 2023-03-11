@@ -294,15 +294,13 @@ vlastnosti:
 
 ### (A13) Překryvné přístupové sítě
 
-Využiji existující infrastrukturu a přizpůsobím si ji tak abych nad ní mohla vybudovat vlastní infrastrukturu
+Využiji existující infrastrukturu, kterou modifikuji a vybuduji na ní vlastní infrastrukturu. Původní funkčnost je zachovaná.
 
-- pevné linky (miliony kroucených dvoulinek) - původně slouží k posílání hlasové služby, dnes internet
-- přenosy silové elektřiny
-- coaxiální kabely kabelové televize
+použijeme jiné frekvence nebo zapouzdření dat
 
-je třeba rozšířit nebo upravit původní síť
--> používáme odlišné frekvence (pak o sobě přenosy ani neví)
--> zapouzdrování dat do dat které síť už umí přenášet
+- fixní telefonní sítě (kroucené dvojlinky v lokálních smyčkách)
+- elektrické sítě (drátování silové elektřiny)
+- síť kabelové televize (koaxiální kabely)
 
 ### (A14) Technologie xDSL
 
