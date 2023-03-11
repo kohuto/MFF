@@ -452,53 +452,28 @@ př. CESNET (akademická výzkumná infrastruktura)
 
 - čím delší vzdálenost, tím vyšší latence, nižší spolehlivost, nesymetrická topologie, permanentní dostupnost
 
-### (A33) Architektura Internetu, peering a tranzit
+### (A20) Architektura Internetu, peering a tranzit
 
-Původně měl pouze jednu páteřní síť
+Dnes máme vrstevnatou architekturu (T1/2/3 poskytovatelé a access pointy)
 
-ARPANET - finincováno americkým ministerstvem obrany - první síť testující mechanismus přepojování paketů - pak převedeno na civilní zdroje
-NSFNET - pro výzkum a výuku
+Páteř - tvořena sítěmi všech Tier 1 poskytovatelů internetu, které jsou propojené pomocí IXP (internet exchange points) př. NIX.cz
 
-Časem existovalo sítí více, které si konkurovaly jako alternativy.
+přenosy:
 
-Dnes máme vrstevnatou architekturu
+- Peeringový - dohoda mezi dvěma ISP, přímá výměna dat mezi jejich sítěmi
+- Tranzit - koncový uživatel nebo ISP platí dalšímu ISP, aby zprostředkoval přenos do zbytku internetu
 
-- Páteř - sítě všech Tier 1 Internet Service Providers
-  - propojeny pomocí Internet eXchange Points
-    - propojování libovolných sítí
-    - NIX.cz (Neutral Internet eXchange) - 195 sítí, 10Tb/s
+provideři:
 
-Tier 1
-
-- 15 firem (Amerika - AT&T, Verizon, německo Deutsche Telekom, ...)
-- i více než 800 000km optických cest
-- operátor sem patří, pokud vlastní fyzickou infrastrukturu dostatečně rozsáhlou na to realizovat přímý přístup do jakékoliv sítě na světě aniž by za toto musel ostatním platit
-- vzájemně si za případný peering neplatí, je to pro ně marginální záležitost
-
-Tier 2
-
-- část dat může vyměňovat zdarma, ale do netriviální části si musí buď kupovat tranzit od Tier 1, nebo zajišťovat peering na stejné úrovni
-- státy / regiony
-
-Tier 3
-
-- poslední, nabízí služby koncovým uživatelům, mají nejvýše vlastní přístupovou síť, za veškerý tranzit si musí platit (i za peering)
-
-#### Peeringové a tranzitní přenosy
-
-Peeringový přenos
-
-- dva poskytovatelé se domluví, že si mezi sebou budou vyměňovat konkrétní data.
-
-Tranzit
-
-- vše co je směřováno až na Tier 1
+- Tier 1 - operátor vlastnící infrastrukturu s přímým přístup do jakékoliv sítě na světě. Nikomu neplatí za tranzit/peering (př. Deutsche Telekom)
+- Tier 2 - přístup zadarmo do některých sítí. Za tranzit/peering do nějaké částí internetu platí (státy, regiony)
+- Tier 3 - nabízí služby koncovým uživatelům, za veškerý tranzit/peering platí
 
 ### (A21) Intranet, extranet a darknet
 
 Klasifikuje jakým způsobem jsou využívány služby a prostředky
 
-- Intranet - služby pro vnitřní uživatele - sdílené tiskárny, data a programy v rámci firmy
+- Intranet - služby pro vnitřní uživatele - sdílené tiskárny, dokumenty a programy v rámci firmy
 - Extranet - nabízení služeb venkovním uživatelům - updaty, support, helpdesk, marketing
 - Darknet - překryvná síť nad internetem, anonymizovaný neveřejný přístup
 
