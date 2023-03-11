@@ -267,7 +267,7 @@ možné varianty:
 #### Mobilní telefonní síť (GSM)
 
 - Páteřní část - Network switching subsystem (NSS) - provádí spojení mezi účastníky jiných sítí
-- přístupová část - základem je systém základnových stanic (BSC). Tyto stanice řídí několik BTS stanic. BTS stanice propojuje koncového uživatele (telefon) se zbytkem sítě. V případě pohybu uživatele řídí BSC předávání hovoru mezi BTS. BTS může mít více antén (každá s vlastní frekvencí, každá frekvence pro jeden sektor, BTS tedy spravuje i více sektorů)
+- přístupová část - základem je systém základnových stanic (BSC). Tyto stanice řídí několik BTS stanic (v řádu desítek). BTS stanice propojuje koncového uživatele (telefon) se zbytkem sítě. V případě pohybu uživatele řídí BSC předávání hovoru mezi BTS. Uzemí, které je pokryto signálem mobilní sítě je rozděleno na malé oblasti (tzv. buňky - cells), Každou buňku obsluhuje jedna BTS. BTS může mít více antén (každá s vlastní frekvencí, každá frekvence pro jeden sektor, BTS tedy může spravovat i více sektorů, aniž by se sektory vzájemně rušily)
   ![Mobile telephone network](./images/mobile_telephone_network.png)
 
 ### (A12) Páteřní a přístupové sítě
@@ -370,48 +370,56 @@ obecně dělíme na:
 
 ### (A18) Datové sítě
 
-Datové sítě
-hloupá síť, chytrá koncová zařízení
-(lze vnímat jako podpřípad počítačových sítí)
-vznikly a jsou provozovány telekomunikačními společnostmi
-Počítačové sítě
-opět přenos dat
+hloupá síť, chytrá koncová zařízení - jediný účel sítě je přenést data.
 
-Hlavním účelem datových sítí je přenášet data. Hloupé sítě a chytrá koncová zařízení.
-Přenášejí data, ale vznikly ve světě telekomunikačních sítí
+Vlastnosti:
 
-Soukromá datová síť - vlastník je uživatelem (vybudoval ji sám pro sebe)
+- možné přepojování okruhů i paketů
+- používá Best Effort i QoS
+- podle vztahu vlastník+uživatel:
+  - privátní
+  - veřejná
+  - virtuální privátní
+
+#### Soukromé datové sítě
+
+= uživatel je vlastník (vybudoval ji sám pro sebe)
+
+výhody:
 
 - majitel rozhoduje o všech technologiích, protokolech, adresách, ...
-- drahé -> budou si to tedy moci dovolit pouze velké subjekty
-  - např ministerstvo vnitra -> přebrala česká pošta
-    - zahrnuje veškerou kritickou infrastrukturu státu (policie, záchranná služba, ...) a díky předimenzovanosti i pošta (datové schánky)
+
+nevýhody:
+
+- drahé - typicky buduje stát (u nás vybudovalo ministerstvo obrany, využívají ho datové schránky, IZS...)
 
 #### Veřejné datové sítě
 
-Telekomunikační operátor vybuduje veřejnou datovou síť a nabízí ji zákazníkům.
-Vlastník není zamýšleným uživatelem - platí se za objem přenesených dat, pořet spojení nebo jejich trvání
+Telekomunikační operátor vybuduje veřejnou datovou síť a nabízí ji zákazníkům za poplatek (cena podle množství přenesených dat) - vlastník není zamýšleným uživatelem
 K připojení je třeba kvalitní a podrobná dokumentace jak se připojit
 
-Výhoda - mohou se připojit i menší subjekty. - flexibilní, nejedná se o investici - sdílena všemi uživateli (bezpečnost), o všem rozhoduje vlastník
+výhody:
+
+- výhodné pro malé subjekty
+- flexibilní - využívá službu, není to investice
+
+nevýhody (pro zákazníka):
+
+- sdílena všemi uživateli (bezpečnost)
+- o všem rozhoduje vlastník
 
 #### Virtuální privátní datové sítě
 
-Kombinace předchozích
-Sdílená veřejná infrastruktura, navozujeme iluzi samostatných logických sítí. Tyto sítě jsou odděleny a uživatelé se vzájemně mezi různými stěmi nevidí.
-Levnější a rozumný kompromis v podobě trochy rozhodování (sdresní prostor, uživateké, oprávnění)
+Kombinace předchozích - sdílená veřejná infrastruktura, navozujeme iluzi samostatných sítí oddělených od sebe (uživatelé se navzájem nevidí)
+
+výhody:
+
+- levnější
+- nezávislost - nejdůležitější určí majitel (technologie, protokoly, ...), o zbytku rozhoduje uživatel (oprávění, ...)
 
 ### (A19) Sítě PAN, LAN, MAN, WAN
 
 Hloupá síť, chytrá koncová zařízení.
-
-PAN - Personal Area Network
-
-LAN - Local Area Network
-
-MAN - Metropolitan Area Network
-
-WAN - Wide Area Network
 
 #### Personal Area Networks
 
