@@ -352,19 +352,21 @@ struktura přístupové sítě - Hybrid Fiber-Coaxial systém (HFC):
 - mezi CMTS a CP leží optický uzel
   - z optického uzlu směrem k CMTS vede optické vlákno
   - z optického uzlu směrem k CP vede koaxiální kabel
-- u CP je Cable Modem (CM), který uvede do provozu
+- u CP je Cable Modem (CM), který uvede vše do provozu
 
 ### (A17) Technologie FTTx
 
-Aktivní - v rámci infrastruktury využívají aktivní síťové prvky - rozbočování, větvení, zesilování, tvarování, vylepšován systému - vyšší přenosové kapacity na mnohem další vzdálenosti - mnohem dražší
+obecné označení pro oblast sítě, která využívá optická vlákna na poslední míli připojení. `x` udává, jak blízko k užvateli jdu:
 
-Pasivní - zakopané pasivní elementy - možno pouze na menší vzdálenosti - levnější řešení
+- FTTH - home
+- FTTB - building
+- FTTC - curb (obrubník)
+- FFTN - node - využívá DOCSIS v HFC
 
-Fiber To The (Something) - pasivní - rodina technologií - "kam až s optikou ke koncovému zákazníkovi jdete?" - o to čím blíž to bude dražší a komplexnější - značná část od point of presence bude optikou, ale poslední čát bude řešena cloaxiálním kabelem nebo ethernetem...
-FTTH - home
-FTTB - building
-FTTC - curb - na obdubník
-FFTN - node - využívá se v DOCSIS
+obecně dělíme na:
+
+- Aktivní - v rámci infrastruktury využívají aktivní síťové prvky (rozbočování, zesilování...) zapojené do elektřiny. Vyšší přenosová kapacita, větší vzdálenost
+- Pasivní - zakopané pasivní elementy - na kratší vzdálenost
 
 ### (A18) Datové sítě
 
