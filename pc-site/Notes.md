@@ -201,6 +201,7 @@ Jaké pakety zahodit, když dojdou zdroje u negarantovaných přenosů?
 
 Vlastnosti:
 
+- pouze jeden účel - broadcast (TV, radio), přepínané (telefony)
 - Chytrá síť, hloupé koncové uzly
   - síť je drahá, mohutná, neflexibilní
 - přepojování okruhů, spojované, spolehlivé a garantované přenosy (QoS)
@@ -211,7 +212,7 @@ Vlastnosti:
 
 Vlastnosti:
 
-- Síť hloupá, koncová zařízení chytrá (levnější)
+- síť hloupá, koncová zařízení chytrá (levnější)
   - síť je levná, jednodchá, flexibilní
 - přepojování paketů, nespojované, nespolehlivé a negarantované přenosy (best effort)
 - hlavní cíl je přenos dat (bez nutnosti chápat jejich význam)
@@ -221,43 +222,41 @@ Vlastnosti:
 
 ### (A09) Hospodaření se zdroji
 
-- Moore's law - každé dva roky se zdvojnásobí výkon (počet tranzistorů na mm) (postupně se zpomaluje, půdobně to bylo každý rok).
+- Moore's law - každé dva roky se zdvojnásobí výkon (počet tranzistorů na mm) (postupně se zpomaluje, původně to bylo co rok).
   - Z moorova zákona vyplývá, že každé dva roky máme srovnatelnou výpočetní sílu za poloviční cenu
-- Gilder's law - přenosová cesta(?) se každý rok ztrojnásobuje
+- Gilder's law - přenosová kapacita cest se každý rok ztrojnásobuje
 - Disk law - uložná kapacita se každý rok přibližně zdvojnásobí
 
 ## Taxonomie počítačových sítí
 
 Zpět na [Přehled](#přehled).
 
-Dva základní druhy sítí:
-Broadcast networks (distribuční) 1:n
-chceme realizovat broadcastové přenosy (televizní/radiový program)
-nemá smysl řešit směrování, všechna data patří všem
-DVB (DVB-T2, DVB-C2, DVB-S2), DAB
-Sítě s přepojováním 1:1
-založeno na přepínání okruhů/paketů
-Okruhů: spojované, garantované, přenes bloků/proudu, spolehlivý/nespolehlivý
-Paketů: přenos bloků, spojované (virtual circuits - spolehlivé/nespolehliví, best effort/QoS) nespojované (datagramy, spolehlivé/nespolehlivé a Best effort/relativní QoS)
-
-Telekomunikační sítě
-distribuční (televize) nebo přepínané (telefony)
-jednoúčelové
-princip chytrých sítí a hloupých koncových zařízení
-Datové sítě
-hloupá síť, chytrá koncová zařízení
-(lze vnímat jako podpřípad počítačových sítí)
-vznikly a jsou provozovány telekomunikačními společnostmi
-Počítačové sítě
-opět přenos dat
-
 ### (A16) Telekomunikační sítě
 
-Charakteristická vnitřní struktura:
-páteřní (transportní) část - na nějakém území vybuduje základní infrastrukturu velkokapacitních cest a několika uzlů (centrálně řízené síťové prvky- telefonní ústředny), - cílem je překlenout dlouhé vzdálenosti (dnes třeba optickými kabely)
-přístupová část - umožňuje připojení konkrétních koncových uživatelů do naší infrastruktury - point of presence - rozhraní páteřní a přístupové sítě, vytváří na menším území (v obci) vstupní bod pro koncové uživatele - customer premises - přípojka kde se nachází odběratel služby
+### (A10) Distribuční sítě a sítě s přepojováním
 
-### (A17) Pevná telefonní síť
+#### Distribuční sítě
+
+přenosy 1:N (1 vysílá, N přijímá), neřešíme směrování (data patří všem), př. televize a radia
+
+technologie:
+
+- DVB (digital video broadcasting) - př. DVB-T2
+- DAB (digital audio broadcasting)
+
+#### Sítě s přepojováním
+
+přenosy 1:1 (řešíme routování a přeposílání)
+možné varianty:
+
+- přepojování okruhů
+  - vždy spojované a garantované přenosy
+  - volitelně: blokové/proudové, spolehlivé/nespolehlivé
+- přepojování paketů
+  - vždy blokový přenos
+  - volitelně: virtuální okruhy (spolehlivé/nespolehlivé, Best effort/QoS) nebo datagramová služba (spolehlivé/nespolehlivé, Best effort/relativní QoS)
+
+### (A11) Pevná a mobilní telefonní síť
 
 SPT Praha-> (1993) SPT Telecom -> (2000) Český Telecom -> (2006) Telefónica O2 Czech Republic -> (2014) O2 Czech Republic -> 2015 CETIN (Česká telekomunikační infrastruktura)
 páteř - 38 000 km optických kabelů
@@ -265,14 +264,18 @@ přístupová - 20 000 000 km kroucených dvoulinek (nejpodstatnější vývoj v
 
 Páteřní síť - 2 mezinárodní ústředny - 8 tranzitních ~ na 14 krajů - 140 lokálních (místních, v čechách "řídící") ~ na 77 okresů - ~3 tisíce předsunutých ~ na 6 tisíc obcí ( s 15000 částmi)
 
-### (A18) Mobilní síť GSM
+### Mobilní síť GSM
 
 Druhá generace
 Páteřní část - network switching subsystem - Mobile Switching Centers (13) - ústředny - Brány (Gateway MSC) do jiných sítí
 
 Přístupová část - base station subsystem - GERAN (GSM EDGE Radio Access Network) - (4500) základem jsou základnové přenosové stanice (Base Transceiver Station BTS) - vysílací věž - zajišťuje komunikaci koncových uživatelů (telefonů) se zbytkem sítě - BTS formuje buňku označující nejbližší geografické území, může mít více antén (každou pro jiný sektor s vlastní frekvencí) - (150) BSC - Base Station Controller - řídiče BTSek - 1300 sektorů
 
-### (A19) Přístupové sítě
+### (A12) Páteřní přístupové sítě
+
+#### Páteřní sítě
+
+#### Přístupové sítě
 
 POP (point of presence) jsou místní telefonní ústředny, nebo předsunuté ústředny
 
@@ -288,7 +291,11 @@ Prochází veřejnými prostory - výkopy, náročný proces (85% nákladů na i
 
 Chci vybudovat síť - vše je drahé a náročné - v dnešní dově buď bezdrátově, nebo optické kabely - historicky původní monopoly byli donuceni zpřístupnit svou infrastrukturu - NEBO PPŘEKRYVNÁ
 
-### (A20) Překryvné přístupové sítě
+Charakteristická vnitřní struktura:
+páteřní (transportní) část - na nějakém území vybuduje základní infrastrukturu velkokapacitních cest a několika uzlů (centrálně řízené síťové prvky- telefonní ústředny), - cílem je překlenout dlouhé vzdálenosti (dnes třeba optickými kabely)
+přístupová část - umožňuje připojení konkrétních koncových uživatelů do naší infrastruktury - point of presence - rozhraní páteřní a přístupové sítě, vytváří na menším území (v obci) vstupní bod pro koncové uživatele - customer premises - přípojka kde se nachází odběratel služby
+
+### (A13) Překryvné přístupové sítě
 
 Využiji existující infrastrukturu a přizpůsobím si ji tak abych nad ní mohla vybudovat vlastní infrastrukturu
 
@@ -300,7 +307,7 @@ je třeba rozšířit nebo upravit původní síť
 -> používáme odlišné frekvence (pak o sobě přenosy ani neví)
 -> zapouzdrování dat do dat které síť už umí přenášet
 
-### (A21) Technologie xDSL
+### (A14) Technologie xDSL
 
 Digital Subscriber Line - využití struktury původních telefonních linek k datovým přenosům
 kroucené dvoulinky, původně měly přenášet analogové hlasové hovory (300 Hz-3.4 kHz)
@@ -326,7 +333,7 @@ u DSL technologií vzdálenost zhoršuje kvalitu, útlum a zkreslení a snižuje
 (2006) VDSL2 - Very High-Speed Digital Subscriber Line
 (až 35 MHz) - do 300m - 200Mb/stahování, 100Mb/s odesílnání
 
-### (A22) Technologie PLC
+### (A15) Technologie PLC
 
 Nad rozvody 230V/50Hz elektřiny - Na vyšší frekvenci realizujeme datové přenesy - různé standardy v různých zemích - na sloupech vyskového napětí nejsou kabely stíněné a fungují jako antény - je třeba kontrolovat vyzařované radiové signály aby nerušily ostatní signály - i v konkrétní domácnosti se jedná o zašuměné prostředí - vypnutí/zapnutí spotřebiče ovlivní všechny datové přenosy - transformery datové přenosy naruší a obecně na to dráty nejsou dělané
 
@@ -337,7 +344,7 @@ Last mile - drahé a v praxi nepoužívané - Broadband over Powerline - Středn
 Last Meter
 Homeplug - vnitřní rozvody za domácím elektroměrem lze využít k částečnému vybudování domácí sítě - až 500Mb/s, pod 100MHz
 
-### (A23) Technologie DOCSIS
+### (A16) Technologie DOCSIS
 
 Rozvody kabelové televize - coaxiální kabely pro analogový jedno-směrný přenos
 -> chceme digitální a obousměrné
@@ -351,7 +358,7 @@ EuroDOCSIS (Data Over Cable Service Interface Specification)
 
 Dnes se vše řeší kombinací optických vláken a coaxiálních kabelů - Point of presence je CMTS (Sable Modem Termination System) - v budově kde je distribuční hub, stejně jako DS hub - Optická vlákna vedoucí k optickým uzlům na půl cesty, k jednotlivým zákaznkům coaxiální kabely - customer premise u zákazníků CM Cable Modem který vše uvádí do provozu
 
-### (A24) Optické přístupové sítě FTTx
+### (A17) Technologie FTTx
 
 Aktivní - v rámci infrastruktury využívají aktivní síťové prvky - rozbočování, větvení, zesilování, tvarování, vylepšován systému - vyšší přenosové kapacity na mnohem další vzdálenosti - mnohem dražší
 
@@ -363,7 +370,14 @@ FTTB - building
 FTTC - curb - na obdubník
 FFTN - node - využívá se v DOCSIS
 
-### (A25) Privátní datové sítě
+### (A18) Datové sítě
+
+Datové sítě
+hloupá síť, chytrá koncová zařízení
+(lze vnímat jako podpřípad počítačových sítí)
+vznikly a jsou provozovány telekomunikačními společnostmi
+Počítačové sítě
+opět přenos dat
 
 Hlavním účelem datových sítí je přenášet data. Hloupé sítě a chytrá koncová zařízení.
 Přenášejí data, ale vznikly ve světě telekomunikačních sítí
@@ -375,7 +389,7 @@ Soukromá datová síť - vlastník je uživatelem (vybudoval ji sám pro sebe)
   - např ministerstvo vnitra -> přebrala česká pošta
     - zahrnuje veškerou kritickou infrastrukturu státu (policie, záchranná služba, ...) a díky předimenzovanosti i pošta (datové schánky)
 
-### (A26) Veřejné datové sítě
+#### Veřejné datové sítě
 
 Telekomunikační operátor vybuduje veřejnou datovou síť a nabízí ji zákazníkům.
 Vlastník není zamýšleným uživatelem - platí se za objem přenesených dat, pořet spojení nebo jejich trvání
@@ -383,13 +397,13 @@ K připojení je třeba kvalitní a podrobná dokumentace jak se připojit
 
 Výhoda - mohou se připojit i menší subjekty. - flexibilní, nejedná se o investici - sdílena všemi uživateli (bezpečnost), o všem rozhoduje vlastník
 
-### (A27) Virtuální privátní datové sítě
+#### Virtuální privátní datové sítě
 
 Kombinace předchozích
 Sdílená veřejná infrastruktura, navozujeme iluzi samostatných logických sítí. Tyto sítě jsou odděleny a uživatelé se vzájemně mezi různými stěmi nevidí.
 Levnější a rozumný kompromis v podobě trochy rozhodování (sdresní prostor, uživateké, oprávnění)
 
-### (A28) Sítě PAN, LAN, MAN, WAN
+### (A19) Sítě PAN, LAN, MAN, WAN
 
 Hloupá síť, chytrá koncová zařízení.
 
@@ -401,13 +415,13 @@ MAN - Metropolitan Area Network
 
 WAN - Wide Area Network
 
-### (A29) Personal Area Networks
+#### Personal Area Networks
 
 1-10m - osobní prostor konkrétního uživatele
 
 - spojení zařízení které chcem používat - připojení periferií, tiskárna, sluchátek... drátové (USB) bezdrátové (wi-fi, bluetooth, IrDA)
 
-### (A30) Local Area Networks
+#### Local Area Networks
 
 10m - 1km - sítě v rámci domácnosti, firmy školy
 
@@ -418,7 +432,7 @@ WAN - Wide Area Network
 - dosahujeme kratší latence přenosů a vyšší spolehlivosti přenosů
 - může zde být i omezená dostupnost jednotlivých zařízení
 
-### (A31) Metropolitan Area Networks
+#### Metropolitan Area Networks
 
 1km -- 100km - kampus, město
 
@@ -429,7 +443,7 @@ WAN - Wide Area Network
 - vlastněny a provozovámy skupinami právnických osob nebo městy, uživatel nemusí odpovídat vlastníkovi
 - překlenují veřejné prostory
 
-### (A32) Wide Area Networks
+#### Wide Area Networks
 
 100km+ - stát, kontinent...
 
@@ -443,7 +457,7 @@ WAN - Wide Area Network
 - L1 -optická vlákna, L2 - MPLP, SONET/SDH, L3 - TCP/IP
 - čím delší vzdálenost, tím vyšší latence, nižší spolehlivost, nesymetrická topologie, permanentní dostupnost
 
-### (A33) Architektura Internetu
+### (A33) Architektura Internetu, peering a tranzit
 
 Původně měl pouze jednu páteřní síť
 
@@ -475,7 +489,7 @@ Tier 3
 
 - poslední, nabízí služby koncovým uživatelům, mají nejvýše vlastní přístupovou síť, za veškerý tranzit si musí platit (i za peering)
 
-### (A34) Peeringové a tranzitní přenosy
+#### Peeringové a tranzitní přenosy
 
 Peeringový přenos
 
