@@ -280,22 +280,17 @@ Propojuje na velké vzdálenosti hlavní komponenty celé infrastruktury. Tvoře
 
 umožňuje připojení koncových uživatelů do páteřní sítě
 
-- point of presence (POP) - místo porpojení páteřní a přístupové sítě
+- point of presence (POP) - místo propojení páteřní a přístupové sítě
 - customer premises (CP) - místo, kde se mohou vyskytovat potenciální zákazníci
 
-POP (point of presence) jsou místní telefonní ústředny, nebo předsunuté ústředny
+vlastnosti:
 
-ústředna má hlavní rozvaděč, do kterého se zapujují účastnická vedení (kroucené dvojlinky) vedoucí až na přístupová místa (mezi ústřednoua bytem je jedna dvoulinka)
-místní smyčka nemusí být přímá, může projít síťovými rozvaděči, navíc jsou ve svazcích
-jednotky kilometrů (1-2, <5)
-přípojek je asi 8M účastnických vedení (asi 700 tisíc se aktivně využívá, maximum bylo v 2011 kdy jich bylo využíváno 3.8M) - v 90 letech na přípojdu čekalo 600 tisíc lidí (na konci 80tých bylo čekatelů méně, ale o to delší doby)
+- pokrývají celé území (musí vést ke všem potenciálním zákazníkům, když ji buduji)
+- vede skrz veřejná místa (musím rozkopat ulici, abych mohl položit kabel), tudíž drahé a musím plánovat dlouho dopředu
+  - při budování používám aktuálně nejmodernější technologie
+  - vždy naddimenzovávám (když by mi stačilo 10 kabelů, tak položím 100 kabelů)
 
-(převážně fyziského charakteru jsou) celoplošného charakteru, husté - pokrývají velké územní
-Buduje se k potenciálním zákazníkům a pak se k ní mohou připojovat.
-Prochází veřejnými prostory - výkopy, náročný proces (85% nákladů na infrastrukturu jsou zemní práce) - vyžaduje značné plánování a synchronizaci s kýmkoliv dalším kdo chce ve městě kopat - když už se to dělá, dělá se to pořádně, nejlepšími materiály a předimenzovaně
-"poslední míle" - připojení koncových uživatelů (z pohledu operátorů, naopak první míle)
-
-Chci vybudovat síť - vše je drahé a náročné - v dnešní dově buď bezdrátově, nebo optické kabely - historicky původní monopoly byli donuceni zpřístupnit svou infrastrukturu - NEBO PPŘEKRYVNÁ
+"poslední míle" (z pohledu operátor "první míle") - propojení mezi koncovým uživatelem a koncovým bodem telefonní sítě
 
 ### (A13) Překryvné přístupové sítě
 
