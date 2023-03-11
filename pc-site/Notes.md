@@ -423,44 +423,33 @@ Hloupá síť, chytrá koncová zařízení.
 
 #### Personal Area Networks
 
-1-10m - osobní prostor konkrétního uživatele
-
-- spojení zařízení které chcem používat - připojení periferií, tiskárna, sluchátek... drátové (USB) bezdrátové (wi-fi, bluetooth, IrDA)
+1-10m - propojení zařízení v pracovním prstoru jednoho člověka (propojení monitoru, klávesnice, počítače, sluchátek tiskárny, ...)
 
 #### Local Area Networks
 
-10m - 1km - sítě v rámci domácnosti, firmy školy
+10m-1km - propojení zařízení v rámci domácnosti, firmy, školy
 
-- propojování počítačů/serverů/notebooků - pokud patří k sobě.
-- v širším pojetí se zde mohou vyskytovat směrovače na 3. vrstvě -> pak spíše soustava vzájemně propojených sítí
-- v užším pojetí máme pouze fyzickou a linkovou vrstvy - opakovače-repatery, přepínače-switche, mosty-bridge
-- Ethernet
-- dosahujeme kratší latence přenosů a vyšší spolehlivosti přenosů
-- může zde být i omezená dostupnost jednotlivých zařízení
+- v širším pojetí - jakákoliv síť menších rozměrů (zahrnujeme i routery - tedy soustavu sítí)
+- v užším pojetí . propojení pouze zařízení na L1 a L2 - repeatery, switche, ...
+
+oproti WAN nižší latence, vyšší spolehlivost, systematická topologie (sběrnice, hvězda, ...)
 
 #### Metropolitan Area Networks
 
-1km -- 100km - kampus, město
+1km-100km - propojení jednotlivých LAN (může se připojit i koncový uživatel, ale není to k tomu určené)
 
-- mohou se zde přippojovat i koncoví uživatelé, ale hlavní je propojovat lokální sítě
-- PASNET (Prague Academic and Scientific Network) - propojuje Akademii věd, UK, ČVUT a VŠE
-- MEPNET (Metropolitan Prague Network) - jednotlivé městské části, knihovny, policie
-- Ethernet, WiMAX, ATM, FDDI
-- vlastněny a provozovámy skupinami právnických osob nebo městy, uživatel nemusí odpovídat vlastníkovi
-- překlenují veřejné prostory
+příklady:
+
+- PASNET (Prague Academic and Scientific Network)
+- MEPNET (Metropolitan Prague Network)
+
+vlastník většinou právnická osoba nebo město. Rozléhají se přes veřejné prostory (oproti LAN)
 
 #### Wide Area Networks
 
-100km+ - stát, kontinent...
+100km a více - propojení jednotlivých LAN a MAN, přenos dat na velké vzdálenosti. Překračují i hranice států. Vlastnící jsou většinou velké firmy, poskytlovatelé připojení nebo operátoři.
+př. CESNET (akademická výzkumná infrastruktura)
 
-- propojují jednotlivé sítě typu LAN nebo MAN
-- přenost dat na větěí vzdálenosti (mezi státy a podmořskými kabely mezi kontinenty)
-- vlastníky jsou nadnárodní společnosti nebo poskytovatelé připojení a operátoři
-- CESNET (akademická výzkumná infrastruktura) - výpočtní datová centra
-  - propojuje všechna důležitá univerzitní města
-  - 100Gb/s linka do celoevropského systému G=EAN
-  - 10Gb/s k Internet via Telecom italia (Tier 1 provider)
-- L1 -optická vlákna, L2 - MPLP, SONET/SDH, L3 - TCP/IP
 - čím delší vzdálenost, tím vyšší latence, nižší spolehlivost, nesymetrická topologie, permanentní dostupnost
 
 ### (A33) Architektura Internetu, peering a tranzit
@@ -505,15 +494,13 @@ Tranzit
 
 - vše co je směřováno až na Tier 1
 
-### (A35) Intranet, extranet a darknet
+### (A21) Intranet, extranet a darknet
 
 Klasifikuje jakým způsobem jsou využívány služby a prostředky
 
-Intranet - sdílené tiskárny, data a programy v rámci firmy
-
-Extranet - nabízení služeb venkovním uživatelům
-
-Darknet - překryvná síť nad internetem, anonymizovaný přístup, spíše využíván k nelegálním aktivitám
+- Intranet - služby pro vnitřní uživatele - sdílené tiskárny, data a programy v rámci firmy
+- Extranet - nabízení služeb venkovním uživatelům - updaty, support, helpdesk, marketing
+- Darknet - překryvná síť nad internetem, anonymizovaný neveřejný přístup
 
 ## Vrstvy a vrstvové modely
 
