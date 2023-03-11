@@ -341,17 +341,18 @@ Kdy tedy (ne)lze použít?
 
 ### (A16) Technologie DOCSIS
 
-Rozvody kabelové televize - coaxiální kabely pro analogový jedno-směrný přenos
--> chceme digitální a obousměrné
+kabelová televize - televize připojena pomocí koaxiálního kabelu pro analogový jednosměrný přenos → chceme digitální a obousměrné
 
 EuroDOCSIS (Data Over Cable Service Interface Specification)
 
-- 1997 1.0 - 40Mb/s down 1Mb/s up
-- 2018 4.0 - 10 Gb/s down, 6Gb/s up
+struktura přístupové sítě - Hybrid Fiber-Coaxial systém (HFC):
 
-- nezáleží na vzdálenosti, jedná se o vyšší rychlosti (protože se jedná o lepší kabely)
-
-Dnes se vše řeší kombinací optických vláken a coaxiálních kabelů - Point of presence je CMTS (Sable Modem Termination System) - v budově kde je distribuční hub, stejně jako DS hub - Optická vlákna vedoucí k optickým uzlům na půl cesty, k jednotlivým zákaznkům coaxiální kabely - customer premise u zákazníků CM Cable Modem který vše uvádí do provozu
+- kombinace optických vláken a koaxiálních kabelů
+- CMTS - analogicky jako DSLAM
+- mezi CMTS a CP leží optický uzel
+  - z optického uzlu směrem k CMTS vede optické vlákno
+  - z optického uzlu směrem k CP vede koaxiální kabel
+- u CP je Cable Modem (CM), který uvede do provozu
 
 ### (A17) Technologie FTTx
 
