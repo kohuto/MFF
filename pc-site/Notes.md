@@ -231,8 +231,6 @@ Vlastnosti:
 
 Zpět na [Přehled](#přehled).
 
-### (A16) Telekomunikační sítě
-
 ### (A10) Distribuční sítě a sítě s přepojováním
 
 #### Distribuční sítě
@@ -258,24 +256,32 @@ možné varianty:
 
 ### (A11) Pevná a mobilní telefonní síť
 
-SPT Praha-> (1993) SPT Telecom -> (2000) Český Telecom -> (2006) Telefónica O2 Czech Republic -> (2014) O2 Czech Republic -> 2015 CETIN (Česká telekomunikační infrastruktura)
-páteř - 38 000 km optických kabelů
-přístupová - 20 000 000 km kroucených dvoulinek (nejpodstatnější vývoj v 90 letech)
+#### Pevná telefonní síť
 
-Páteřní síť - 2 mezinárodní ústředny - 8 tranzitních ~ na 14 krajů - 140 lokálních (místních, v čechách "řídící") ~ na 77 okresů - ~3 tisíce předsunutých ~ na 6 tisíc obcí ( s 15000 částmi)
+- páteřní část - hierarchie telefonních ústředen (mezinárodní, tranzitní, lokální, předsunuté Remote Subscriber Units RSU)
+- přístupová část
+  - POP - lokální ústředny/RSU s hlavním rozvaděčem
+  - z POP kroucené dvoulinky dlouhé max 5 km do všech CP
+  - CP - domy, kanceláře
 
-### Mobilní síť GSM
+#### Mobilní telefonní síť (GSM)
 
-Druhá generace
-Páteřní část - network switching subsystem - Mobile Switching Centers (13) - ústředny - Brány (Gateway MSC) do jiných sítí
+- Páteřní část - Network switching subsystem (NSS) - provádí spojení mezi účastníky jiných sítí
+- přístupová část - základem je systém základnových stanic (BSC). Tyto stanice řídí několik BTS stanic. BTS stanice propojuje koncového uživatele (telefon) se zbytkem sítě. V případě pohybu uživatele řídí BSC předávání hovoru mezi BTS. BTS může mít více antén (každá s vlastní frekvencí, každá frekvence pro jeden sektor, BTS tedy spravuje i více sektorů)
+  ![Mobile telephone network](./images/mobile_telephone_network.png)
 
-Přístupová část - base station subsystem - GERAN (GSM EDGE Radio Access Network) - (4500) základem jsou základnové přenosové stanice (Base Transceiver Station BTS) - vysílací věž - zajišťuje komunikaci koncových uživatelů (telefonů) se zbytkem sítě - BTS formuje buňku označující nejbližší geografické území, může mít více antén (každou pro jiný sektor s vlastní frekvencí) - (150) BSC - Base Station Controller - řídiče BTSek - 1300 sektorů
+### (A12) Páteřní a přístupové sítě
 
-### (A12) Páteřní přístupové sítě
+#### Páteřní (transportní) sítě
 
-#### Páteřní sítě
+Propojuje na velké vzdálenosti hlavní komponenty celé infrastruktury. Tvořena malým počtem uzlů, většinou propojených optickými vlákny
 
 #### Přístupové sítě
+
+umožňuje připojení koncových uživatelů do páteřní sítě
+
+- point of presence (POP) - místo porpojení páteřní a přístupové sítě
+- customer premises (CP) - místo, kde se mohou vyskytovat potenciální zákazníci
 
 POP (point of presence) jsou místní telefonní ústředny, nebo předsunuté ústředny
 
@@ -290,10 +296,6 @@ Prochází veřejnými prostory - výkopy, náročný proces (85% nákladů na i
 "poslední míle" - připojení koncových uživatelů (z pohledu operátorů, naopak první míle)
 
 Chci vybudovat síť - vše je drahé a náročné - v dnešní dově buď bezdrátově, nebo optické kabely - historicky původní monopoly byli donuceni zpřístupnit svou infrastrukturu - NEBO PPŘEKRYVNÁ
-
-Charakteristická vnitřní struktura:
-páteřní (transportní) část - na nějakém území vybuduje základní infrastrukturu velkokapacitních cest a několika uzlů (centrálně řízené síťové prvky- telefonní ústředny), - cílem je překlenout dlouhé vzdálenosti (dnes třeba optickými kabely)
-přístupová část - umožňuje připojení konkrétních koncových uživatelů do naší infrastruktury - point of presence - rozhraní páteřní a přístupové sítě, vytváří na menším území (v obci) vstupní bod pro koncové uživatele - customer premises - přípojka kde se nachází odběratel služby
 
 ### (A13) Překryvné přístupové sítě
 
