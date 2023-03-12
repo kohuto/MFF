@@ -481,21 +481,25 @@ Klasifikuje jakým způsobem jsou využívány služby a prostředky
 
 Zpět na [Přehled](#přehled).
 
-### (A36) Principy vrstvových modelů
+### (A22) Principy vrstvových modelů
 
-Rozdělení komplikovaného konceptu do menších celků - modely které spolu spolupracují a samy řeší dílčí problémy.
-Různá úrov abstrakce (vyšší vrstva, více abstrakce)
-Každá vrsstva něco nabízí bezprostředně vyšší vrstvě a využívá služeb nižší vrstvy.
-Základní požadavky: - každá vrstrva definuje své veřejné rozhraní - vrsta se zavazuje k řešení konkrétních úkolů - veškerá implementace je skryta - vrstvy hsou nezávislé - nabízí alternativní řešení - flexibilnější
+sítě příliš komplexní - snaha dekompozice problému do vrstev. Základní principy:
 
-### (A37) Vertikální komunikace
+- Nižší vrstva nabízí službu té vyšší, vyšší využívají služeb nižších
+- Čím vyšší vrstva tím vyšší míra abstrakce (fyzická - přenos bitů, aplikační - řešení komplexníxh služeb)
+- definováno veřejné rozhraní
+- vnitřní detaily skryty - vrstvy jsou na sobě nezávislé, možnost alternativních řešení, flexibilita (nová implementace je bezproblémová)
+
+### (A37) Vertikální a horizontální komunikace
+
+####
 
 Komunikace naskrz vrstvami
 Při komunikaci každá zpráva propadne vrstvami uzlem dolů, je poslána a pak stoupá nahoru.
 Odesílatel si připraví data a předá je nejbližší nižší vrstvě na odeslání-> až fyzická něco odesílá.
 Příjemce je zpracuje, rozbalí a pošle nahoru.
 
-### (A38) Horizontální komunikace
+#### Horizontální komunikace
 
 Komunikace uvnitř vrstvy
 Komunikace odpovídajících si entit uvnitř jedné vrsty vyskytujícíh se v různých uzlech (servery, počítače, nebo switche routery) - L1 opačné konce drátů - L2 protější síťová rozhraní - L3 uzly - L7 běžící aplikace
