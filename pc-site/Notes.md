@@ -490,22 +490,25 @@ sítě příliš komplexní - snaha dekompozice problému do vrstev. Základní 
 - definováno veřejné rozhraní
 - vnitřní detaily skryty - vrstvy jsou na sobě nezávislé, možnost alternativních řešení, flexibilita (nová implementace je bezproblémová)
 
-### (A37) Vertikální a horizontální komunikace
-
-####
-
-Komunikace naskrz vrstvami
-Při komunikaci každá zpráva propadne vrstvami uzlem dolů, je poslána a pak stoupá nahoru.
-Odesílatel si připraví data a předá je nejbližší nižší vrstvě na odeslání-> až fyzická něco odesílá.
-Příjemce je zpracuje, rozbalí a pošle nahoru.
+### (A23) Vertikální a horizontální komunikace
 
 #### Horizontální komunikace
 
-Komunikace uvnitř vrstvy
-Komunikace odpovídajících si entit uvnitř jedné vrsty vyskytujícíh se v různých uzlech (servery, počítače, nebo switche routery) - L1 opačné konce drátů - L2 protější síťová rozhraní - L3 uzly - L7 běžící aplikace
-V dané vrstvě zpravidla probíhá více komunikací najednou.
-Je třeba domluvit ti pravidla (prostřednictvím protokolů)
-Asynchronního charakteru - po odeslání je třeba řekat na reakci. Kromě fyzické vrstvy čistě virtuální charakter - pracujeme pouze s iluzí.
+Komunikace na jedné vrstvě nebo mezi síťovými prvky (tzn. komunikace mezi různými prvky nebo aktivními síťovými prvky na stejné vrstvě) - př. L1 opačné konce drátů, L2 protější síťová rozhraní, L3 uzly, L7 běžící aplikace
+
+pozorování:
+
+- V dané vrstvě zpravidla probíhá více komunikací najednou
+- entity dodržují pravidla definovnaná protokoly
+- Asynchronní charakter - po odeslání je třeba řekat na reakci
+- Virtuální charakter - pouze L1 skutečně něco posílá (zbytek je vlastně vertikální komunikace)
+
+#### veritkální komunikace
+
+Komunikace mezi vrstvanu ve stejném uzlu nebo aktivním síťovém prvku. Při zpracování dat nelze přeskočit žádnou vrstvu. Princip z pohledu:
+
+1. odesílatele - připraví data k odeslání a předá je nižší vrstvě
+2. příjemce - obdrží data → data rozbalí a předá vyšší vrstvě
 
 ### (A39) Principy síťových protokolů
 
