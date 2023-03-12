@@ -510,20 +510,20 @@ Komunikace mezi vrstvanu ve stejném uzlu nebo aktivním síťovém prvku. Při 
 1. odesílatele - připraví data k odeslání a předá je nižší vrstvě
 2. příjemce - obdrží data → data rozbalí a předá vyšší vrstvě
 
-### (A39) Principy síťových protokolů
+### (A24) Principy síťových protokolů
 
-konkrétní fixní a předem daná pravidla zajišťující fungování horizontální komunikace
-pravidla musí být nezávislá na platformě i konkrétní implementaci
-Formálně definuje: - veřejné rozhraní - co dělá + technické detaily vertikální komunikace - vzájemná pravidla naskrz horizontální komunikací - stavová komunikace - formát dat - strukturu a sémantiku dat - se kterými budeme pracovat
+Předem domluvená pravidla, nezávislá na konkrétní implementaci, podle kterých spolu entity komunikují
 
-Náleží jedné vrstvě a nelze rozkládat naskrz vrstev (ale může ve vrstvě koexistovat více protokolů)
+V protokolech musí být definováno:
 
-- mohou být alternatvami (TCP a UDP na L4)
-- mohou být komplementární - d2lají úplně jiné věci (SMTP, HTTP na L7)
+- veřejné rozhraní - pro vertikální komunikaci
+- komunikační pravidla - pro horizontální komunikaci - lze popsat stavovým diagramem (povolené a očekávané akce entit v různých situacích)
+- formát dat (PDU - protocol data unit) - vniřní struktura PDU (header, body, footer), MTU (maximalní velikost PDU)
 
-Jedna z věcí které je třeba definovat: struktura dat
-PDU - protocol data unit - jednotka dat se kterou protokol pracuje - frame, buňky, pakety - vnitřní struktura - hlavička (odesílatel, příjemnce) - tělo (užitečná data která chce vyšší vrstva přenét) - patička (kontrolní součty)
-MTU - MAximum Transition Unit - největší množství nákladu, které je vrstva ochotna převést
+pozorování:
+
+- protokol vždy souvisí pouze s jednou vrstvou
+- Na jedné vrstvě často existuje více protokolů - buď se jedna o alternativy UDP/TCP, nebo řeší odlišné úkoly SMTP/HTTP
 
 ### (A40) Síťové modely a architektury
 
