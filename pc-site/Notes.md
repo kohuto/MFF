@@ -525,10 +525,11 @@ pozorování:
 - protokol vždy souvisí pouze s jednou vrstvou
 - Na jedné vrstvě často existuje více protokolů - buď se jedna o alternativy UDP/TCP, nebo řeší odlišné úkoly SMTP/HTTP
 
-### (A40) Síťové modely a architektury
+### (A25) Síťové modely a architektury
 
-Model: počet vrstev, účely vrstev, jaké nabízí rozhraní, specifikace charakteru chování (spojovaný/nespojovaný, spolehlivý/nespolehlivý)
-Architektura: model + implementace a konkrétní protokoly
+Model - teoretický model popisující, jak by měla síť fungovat (počet vrstev a jejich účel, poskytované služby - (ne)spojované, (ne)spolehlivé). př. OSI model
+
+Architektura - konkrétní implemetace síťového modelu + definice protokolů. př. TCP/IP architektura
 
 ### (A41) Referenční model ISO/OSI
 
