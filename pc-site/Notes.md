@@ -503,7 +503,7 @@ pozorování:
 - Asynchronní charakter - po odeslání je třeba řekat na reakci
 - Virtuální charakter - pouze L1 skutečně něco posílá (zbytek je vlastně vertikální komunikace)
 
-#### veritkální komunikace
+#### Veritkální komunikace
 
 Komunikace mezi vrstvanu ve stejném uzlu nebo aktivním síťovém prvku. Při zpracování dat nelze přeskočit žádnou vrstvu. Princip z pohledu:
 
