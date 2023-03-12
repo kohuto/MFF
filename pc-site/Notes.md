@@ -531,29 +531,22 @@ Model - teoretický model popisující, jak by měla síť fungovat (počet vrst
 
 Architektura - konkrétní implemetace síťového modelu + definice protokolů. př. TCP/IP architektura
 
-### (A41) Referenční model ISO/OSI
+### (A26) Referenční model ISO/OSI
 
-MODEL Mezinárodní srandardizažní organizace - Open Systemc Interconnection Model
-Pochází ze světa spojů - preferuje spojované přenosy, spolehlivost, garantovné přenosy
-7 vrstev
+Sedmi vrstevný model preferující spojované, spolehlivé přenosy, podpora QoS.
 
-Megalomanské ambice, představa standardizace jednotlivých koncových uzlů ( i aplikací)
+Vrstvy:
 
-prokázal se být neimplementovatelným
--> Referenční model, terminologie, hlavní úkoly které je třeba plnit.
-
-### (A42) Význam vrstev ISO/OSI
-
-Nižší vrstvy: (zajišťují přenost, směřují na konkrétní uzel)
-L1 - fyzická vrstva
-L2 - linková vrstva
-L3 - síťová vrstva
-Adaptační vrstva: (end-to-end komunikace)
-L4 - transportní vrstva
-Vyšší vrstvy:
-L5 - relační vrstva
-L6 - prezentační vrstva
-L7 - aplikační vrstva
+- Nižší vrstvy: (zajišťují přenos, směřují na konkrétní uzel)
+  - L1 (fyzická vrstva) - posílá `bity` přes fyzické médium
+  - L2 (linková vrstva) - zajišťuje přenos `rámců` (až stovky MB dat) POUZE mezi dvěma přímo propojenými uzly
+  - L3 (síťová vrstva) - najde cestu přes mezilehlé uzly (příjemce a odesílatel nejsou sousedící uzly) → Poté zajišťuje směrování (routing) `paketů`
+- Adaptační vrstva: (end-to-end komunikace)
+  - L4 (transportní vrstva) - rozloží data na pakety (složí pakety zpět), označí je čísly, umožňuje komunikaci mezi entitami (díky síťové vrstvě neřeší topologii)
+- Vyšší vrstvy:
+  - L5 (relační vrstva) - navazuje, udržuje a ruší spojení mezi koncovými účastníky.
+  - L6 (prezentační vrstva) - řeší rozdíly mezi sémantikou dat na různých platformách, např. různá endianita celých čísel, nebo různé konce textových řádků
+  - L7 (aplikační vrstva) - posílá zprávy a požadavky klientských aplikací
 
 ### (A43) Úkoly fyzické vrstvy
 
