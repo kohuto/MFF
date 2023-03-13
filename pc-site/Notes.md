@@ -743,10 +743,22 @@ Ostré změny jsou problematické - vyšší frekvence jsou oříznuty
 
 - Nemodulovaný
 - frekvence blízko nuly
+- frekvence změny signálu = frekvence změny dat
 - využívá čtvercový tvar křivky
 - jeden datový signál zabírá celou šířku pásma (tzn. pokud využívám pro svůj přenos médium, nikdo jiný toto médium nemůže používat)
 - pouze na krátké vzdálenosti
 - typické pro wired media
+
+typické vlastnosti (ukázáno na linkových kódech níže):
+
+- polarita - kolik úrovní rozeznáváme
+  - unipolární - rozeznáváme low/hig → dva intervaly
+  - bipolární - negative/positive/zero → máme tři intervaly
+- NRZ (non return to zero), RZ (return to zero) → po vyslání hodnoty se (ne)vrátím zpátky na nulu (Bipolar RZ/NRZ)
+- bifázový - alespoň jeden přenos za bit
+- kódování
+  - buď měřím stabilní hladinu (unipolar/bipolar RZ/bipolar NRZ)
+  - nebo směr změny signálu (manchester)
 
 #### Passband přenos
 
@@ -754,12 +766,6 @@ Ostré změny jsou problematické - vyšší frekvence jsou oříznuty
 - vyšší frekvence
 - vhodné i pro velké vzdálenosti
 - typické pro bezdrátové připojení a optické kabely
-
-Cílem je vymyslet konkrétní kódování
-
-- polarita, návrat k nule?
-- dvojfázová (změna uprostř€d intervalu)
-- encoding - nahoře/dole nebo měnění
 
 ### (B05) Principy linkových kódů
 
