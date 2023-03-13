@@ -704,23 +704,25 @@ Přenášíme vždy elektromagnetické vlnění s určitou měřitelnou vlastnos
 - určité frekvence nelze vůbec přenést
 - čím větší vzdálenost, tím větší negativní vlivy
 
-![signal transmition problems](./images/signaltransmition.jpg)
+![signal transmission problems](./images/signaltransmition.jpg)
 
 Neexistuje dokonalý přenos → signál přenášíme tak, aby šel zpětně rekonstruovat
 
 ### (B02) Analogové a digitální přenosy
 
-Analogové- přenášíme veličinu (konkrétní napětí) a příjemce naměří nižší.
+Vždy se přenáší analogový signál, liší se pouze to, jak doručený signál interpretujeme.
 
-- přenášená hodnota je přímo informací kterou se snažíme získat (útlum naši informaci zkreslí)
+#### Analogové
 
-Digitální přenos - přenášené hodnoty rozdělíme na určité intervaly a podle intervalu rozlišujeme diskrétní možnosti
+Zajímá nás přímo naměřená hodnota. Doručená hodnota bude vždy zkreslená.
 
-reálně se vždy přenáší analogový signál
+![analog transmission](./images/analogtransmission.jpg)
 
-U analogových přenosů nelze dosáhnout dokonalosti (můžeme potlačovat negativní dopad, ale čím vyšší snaha tím vyšší cena) - navíc je třeba počítat i s negativními vlivy z okolí - každý úsek cesty zhoršuje efekt (někdy nejen sčítá, ale i násobí)
+#### Digitální
 
-U digitálních přenosů může dojít k ideálním přenosům - efektivnější (vyžaduje menší šířku frekvencí) - nehrozí řetězení (každé zařízení naměří hodnotu a posílá signál znovu zesílený (regenerovaný))
+Možné naměřené hodnoty jsou rozděleny do intervalů → podle intervalů určíme výsledek. Je optimální, daleko efektivnější. Vyžaduje menší šířku pásma. V každém uzlu je signál změřen a obnoven.
+
+![signal transmission problems](./images/digitaltransmission.jpg)
 
 ### (B03) Tvary a vlastnosti křivek
 
