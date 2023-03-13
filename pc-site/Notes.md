@@ -563,9 +563,9 @@ Hlavním cílem je přenášet bloky (framing) dat mezi síťovými rozhraními 
 - odesílatel vytvoří PDU a předá je L1 (MTU závisí na konkrétní technologii)
 - příjemce obdrží na L1 proud bitů - musí rozpoznat jednotlivé rámce (frames) → mohou být např. vloženy extra bity označující začátky a konce bloků.
 
-Data posíláme pomocí aktivních síťových prvků (bridges, switches) a interních mechanismů (Store&Forward, Cut-Through). Vytváříme iluzi přímé cesty (každý vrchol sítě je viditelný a dosažitelný). Vnitřní struktura sítě udává, jak data proudí (nemusí odpovídat topologii L1) - př. sběrnice, hvězda, kruh, mřížka, hyperkrychle.
+Data posíláme (směrujeme) pomocí aktivních síťových prvků (bridges, switches) a interních mechanismů (Store&Forward, Cut-Through). Vytváříme iluzi přímé cesty (každý vrchol sítě je viditelný a dosažitelný). Vnitřní struktura sítě udává, jak data proudí (nemusí odpovídat topologii L1) - př. sběrnice, hvězda, kruh, mřížka, hyperkrychle.
 
-Adresování - používáme fyzické adresy (MAC). Musí být unikátní v rámci sítě. Slouží k identifikiaci příjemce (aby byl nalezen a aby poznal svá data - typicky totiž přijímáme i rámce, které nám nepatří). Nutno zajistit přidělování adres (nemusí být celosvětově unikátní) - EUI-48 (MAC-48) nebo EUI-64
+Adresování - používáme fyzické adresy (MAC). Musí být unikátní v rámci sítě (globálně nemusí). Slouží k identifikiaci příjemce (aby byl nalezen a aby poznal svá data - typicky totiž přijímáme i rámce, které nám nepatří). Nutno zajistit přidělování adres (nemusí být celosvětově unikátní) - EUI-48 (MAC-48) nebo EUI-64
 
 filtrování a forwarding - mechanismus v bridges a switches k nalezení příjemce. Kdyby nebyl, museli bychom data posílat všemi směry.
 
@@ -583,34 +583,23 @@ Původní představa - přenosová média budou exkluzivní. Realita - více uzl
 - MAC (Media Access Control) - podvrstva řešící přístup k médiím
 - LLC (Logical Link Control) - podvrstva nahrazující 2
 
-### (A45) Úkoly síťové vrstvy
+### (A29) Úkoly síťové vrstvy
 
-Globální kontext, chceme doručovat bloky konečným zamýšleným příjemcům napříč vzájemně propojenými sítěmi. - routing & forwarding
+Hlavním cílem hop-to-hop (z uzlu na uzel) přenos a směrování paketů přes systém navzájem propojených sítí k příjemci (vědomí více sítí a jejich propojení - chybí iluze přímého propojení). Pakety posíláme (směrujeme) přes routery.
 
-hop-to-hop (z uzlu na uzel) - skrze celou soustavu sítí chceme doručit IP paket mezi odesílatelem a příjemcem
-V routerech řešíme routing a forwarding
+Adresování - uzly musí mít globálně jednoznačnou adresu (IPv4, IPv6). Adresy v rámci jedné sítě mají stejný prefix. Adresy přiřazujeme také sítím jako celku (potřeba poznat, do jaké sítě adresa patří). Nedostatek IPv4 se řeší pomocí např. subnetting, supernettingg, CIDR, privatná adresy a NAT, IPv6.
 
-Odesílatel si musí být vědom existence soustavy a vzájemné propojenosti sítí (znalost musí být, stačí ale částečná) - není iluze přímého spojení
-Začneme u odesílajícícho uzlu a paket skáče přes routery až k příjemci
+Posílání paketů:
 
-L3/4 Switche
+- přímé odesílání - IP adresa příjemce patří do stejné sítě → předáme paket L2 a doručíme v rámci lokální sítě
+- nepřímé odesílání - příjemce je v jiné síti → předám L2 a doručím routeru, který zařídí další směrování
+- lokální doručování (princip stejný u přímého/nepřímého) - paket zapouzdříme → předám L2, kde se vytvoří rámec → rámec se odešle (potřeba udělat překlad IP → MAC)
 
-Adresy a adresování: - IPv4 213.46.172.38 - adresy musí být celosvětově jedinečné a přidělované systematicky (uzly v jedné síti musejí sdílet prefix) - je třeba adresy přiřazovat konkrétním uzlům v naší síti, ale také sítím jako celkům -> přidělujeme bloky adres - je třeba i poznat do jaké sítě IP adresa patří - reálně dochází k docházení IPv4 adres.
+Routing - hledání optimální cesty skrz routery (_hledání nejkratší cesty v ohodnoceném multigrafu_). K výpočtu je potřeba znát trochu topologii sítě (uloženo v routovacích tabulkách - nelze mít jednu tabulku v případě velkých sítí → dekompozice na části př. Autonomous system). Používají se různé strategie výpočtu (dynamické/statické, izolované/centralizované...)
 
-Poílání paketů:
-přímé odesílání - IP patří do stejné sítě, předáme paket druhé vrstvě a doručíme v rámci lokální sítě
-nepřímé odesílání - příjemce je jinde, pomocí směrovacích tabulek najdeme router a paket pošleme routeru který zajistí další posílání s směrování
-lokální doručování - Představa: paket zapouzdříme a předáme nižší vrstvě kde se vytvoří příslušný rámec/buňka a ten odešleme - Realita: známe IP adresu, ale L2 používá MAC adresy
+Forwarding - posílání paketů po spočítané trase (pomocí forwarding tables)
 
-Směrovače (ROUTER)
-ROUTING - spočítají a najdou optimální cestu skrz směrovače pro paket (hledání cesty ve váženém multigrafu) - je třeba poměrně dost informací - informace o tomto se ukládají do směrovacích tabulek na základ2 celých dochází k počítání nejkratších cest - různé přístupy
-FORWARDING - posílání na základě tabulek (standardně vykonává router)
-
-Při velkých sítích budou tabulky i jejich aktualizační informace obrovské
--> je třeba je dekomponovat do menších celků (směrovacích domén)
-a uvnitř a napříč nimi se používají jiné hierarchické systémy směrování
-
-Fragmentace - IP pakety mohou být větší než MTU využívané L2 - je třeba je fragmentovat a pak opět defragmentovat
+Fragmentace - IP pakety mohou být větší než MTU využívané konrétní L2 → je třeba je fragmentovat
 
 ### (A46) Úkoly transportní vrstvy
 
