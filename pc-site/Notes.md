@@ -643,15 +643,19 @@ Co by dále měla řešit L5:
 - dvoufázové protokoly ujišťování domluv
 - bezpečenost - autentizace (ověření identity), autorizace (co protistrana / uživatel může), šifrování dat
 
-### (A48) Úkoly prezentační vrstvy
+### (A32) Úkoly prezentační vrstvy
 
-Automatická konverze a serializace strukturovaných dat
+Hlavním cílem je automatická serializaci, která umožní přenos a konverzi dat a která zajistí stejnou skladbu na různých platformách. (_to neznamená, že data přijdou nezměněná, je důležitý správný překlad_). V praxi se opět neimplementuje.
 
-Chceme přenášet nepozměněná data - ze sémantického hlediska - uzly mohou být na různých systémech a lokalizacích
--> chceme najít serializaci dat do síťového formátu - konverze mezi hodnotami a různá kódování - textová kódování, big/little-endian, reprezentace čísel - i pro strukturované hodnoty, pole záznamy, tenzory (matice), struktury provázané pointery (ty na druhém uzlu určitě nebudou dávat smysl) - je třeba komplexní strukturu rozdělit na poslatelné části - Abstraktní syntaxe - popsání struktury dat
-ASN.1 - Transformace dat do abstraktní syntaxe
-BER
-Reálně se toto řeš např u SQL (Protocol Buffers)
+Typicky: různé kódování, endianita, číselné formáty. S
+
+Serializace:
+
+- jednouduché strukutry (pole, sets apod.) - přímočaré
+- složitější strukutry
+  - 2D, 3D,... matice - přenosová cesta je vždy 1D
+  - objekty s pointery - odesílatel/příjemce mají vždy svůj adresový prostor
+  - komplexní struktura se rozdělí na poslatelné části - Abstraktní syntaxe: popsání struktury dat, př. ASN.1 → přenosová syntaxe: serializace dat do formátu, př. BER
 
 ### (A49) Úkoly aplikační vrstvy
 
