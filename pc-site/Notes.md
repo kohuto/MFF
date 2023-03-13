@@ -657,17 +657,15 @@ Serializace:
   - objekty s pointery - odesílatel/příjemce mají vždy svůj adresový prostor
   - komplexní struktura se rozdělí na poslatelné části - Abstraktní syntaxe: popsání struktury dat, př. ASN.1 → přenosová syntaxe: serializace dat do formátu, př. BER
 
-### (A49) Úkoly aplikační vrstvy
+### (A33) Úkoly aplikační vrstvy
 
-Posílání zpráv a užívání nebo nabízení user-oriented služeb
+Hlavním cílem je zajistit přístup ke komunikačnímu rozhraní a umoožnit aplikaci zasílat a přijímat zprávy, díky kterým se poskytují služby
 
-Původně se zde měly vložit celé aplikace - to by vyžadovalo serializaci, což je nereálné
--> nakonec zde jsou pouze komponenty aplikací které zajišťují komuniaci
+Původně měla L7 obsahovat celé aplikace → nereálné → realita: obsahuje pouze komunikační základ, ne UI
 
-Identifikace: IRI identifikátory (url adresy)
-DNS (hierarchie doménových jmen, překlady na IP adresy)
+adresování - Identifikace pomocí IRI (př. URL), lokalizace pomocí DNS
 
-protokoly implementující konkrétní přenosy (HTTP, ...)
+protokoly implementující konkrétní přenosy (HTTP, SMTP, ...)
 
 ### (A50) Architektura TCP/IP
 
