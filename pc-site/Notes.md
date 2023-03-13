@@ -548,7 +548,7 @@ L4-L7 jsou implementované pouze v koncových uzlech (př. v routeru je nejvyš�
 
 ### (A27) Úkoly fyzické vrstvy
 
-Hlavním cílem je přenést bity přes přenosové médium. Média mohou být kovová (kroucená dvoulinka, koaxiální kabel), optická (optické kabely) nebo bezdrátová. Nerozumí významu dat.
+Hlavním cílem je přenést bity přes přenosové médium. Nerozumí významu dat.
 
 Přenášený signál je vždy analogový (kov - elektrické signály, optika - světlo, bezdrát - vlnění) → po přijetí interpretujeme jako analogový/digitální.
 
@@ -675,7 +675,7 @@ Ze světa počítačů - preferuje nespojovaný charakter komunikace, nespolehli
 
 Vznikal pomaleji, vymyšlela se myšlenka, zkusila, implementovala, vznikalo zdola nahoru.
 
-### (A51) Srovnání ISO/OSI a TCP/IP
+Srovnání ISO/OSI a TCP/IP
 
 (L1+L2) Vrstva síťového rozhraní (wifi, ethernet)
 (L3) Síťová vrstva
@@ -688,26 +688,25 @@ Zpět na [Přehled](#přehled).
 
 ### (B01) Fyzická přenosová média
 
-Přenáší jednotlivé bity (respektive symboly)
-Vedené - kovové - kroucená dvojlinka, coax - optické
-Nevedené
--radio, infrared
+- Vedené
+  - kovové - kroucená dvojlinka, koaxiální kabely
+  - optické - optické kabely
+- Nevedené
+  - bezdrátové - radio, infračervené atd.
 
-Přenášíme vždy elektromagnetické vlnění - elektrické signály, světlo, nebo radiové vlny
+Přenášíme vždy elektromagnetické vlnění s určitou měřitelnou vlastností - elektrické signály (napětí, proud), světlo (intenzita), nebo radiové vlny (frekvence, fáze)
 
-Vlastnosti fyzických médií
+(nechtěnné) Vlastnosti fyzických médií:
 
-- útlum (zeslabení)
+- útlum (zeslabení signálu)
 - zkreslení (posunutí, deformace)
-- rušení (signál se prolíná s jinými)
-  - dva současně vedené vodiče vyzařují
-  - proto je dvoulinka kroucená
-  - lze řešit i nějakým tlumením
+- rušení (signál se prolíná s jinými) - př. dva paralelní dráty se chovají jako anténa
+- určité frekvence nelze vůbec přenést
+- čím větší vzdálenost, tím větší negativní vlivy
 
-Ideálně chceme přenášet signál dokonale, realisticky jej posíláme alespoŇ tak dobře, aby šel s dobrou mírou spolehlivosti rekonstrovat.
-Přenosový potenciál je vždy omezený -> některé signály lze přenášet dobře,
--určité frekvence, nebo povahy frekvencí nelze přenést, nebo se přenášejí špatně (nebo to dokonce nejde vůbec)
-Negativní efekt je navíc přímo úměrný vzdálenosti
+![signal transmition problems](./images/signaltransmition.jpg)
+
+Neexistuje dokonalý přenos → signál přenášíme tak, aby šel zpětně rekonstruovat
 
 ### (B02) Analogové a digitální přenosy
 
