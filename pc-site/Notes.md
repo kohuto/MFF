@@ -538,15 +538,13 @@ Sedmi vrstevný model preferující spojované, spolehlivé přenosy, podpora Qo
 Vrstvy:
 
 - Nižší vrstvy: (zajišťují přenos, směřují na konkrétní uzel)
-  - L1 (fyzická vrstva) - posílá `bity` přes fyzické médium
-  - L2 (linková vrstva) - zajišťuje přenos `rámců` (až stovky MB dat) POUZE mezi dvěma přímo propojenými uzly
-  - L3 (síťová vrstva) - najde cestu přes mezilehlé uzly (příjemce a odesílatel nejsou sousedící uzly) → Poté zajišťuje směrování (routing) `paketů`
+  - L1 (fyzická vrstva), L2 (linková vrstva), L3 (síťová vrstva)
 - Adaptační vrstva: (end-to-end komunikace)
-  - L4 (transportní vrstva) - rozloží data na pakety (složí pakety zpět), označí je čísly, umožňuje komunikaci mezi entitami (díky síťové vrstvě neřeší topologii)
+  - L4 (transportní vrstva)
 - Vyšší vrstvy:
-  - L5 (relační vrstva) - navazuje, udržuje a ruší spojení mezi koncovými účastníky.
-  - L6 (prezentační vrstva) - řeší rozdíly mezi sémantikou dat na různých platformách, např. různá endianita celých čísel, nebo různé konce textových řádků
-  - L7 (aplikační vrstva) - posílá zprávy a požadavky klientských aplikací
+  - L5 (relační vrstva), L6 (prezentační vrstva), L7 (aplikační vrstva)
+
+L4-L7 jsou implementované pouze v koncových uzlech (př. v routeru je nejvyšší vrstva L3)
 
 ### (A27) Úkoly fyzické vrstvy
 
@@ -585,7 +583,7 @@ Původní představa - přenosová média budou exkluzivní. Realita - více uzl
 
 ### (A29) Úkoly síťové vrstvy
 
-Hlavním cílem hop-to-hop (z uzlu na uzel) přenos a směrování paketů přes systém navzájem propojených sítí k příjemci (vědomí více sítí a jejich propojení - chybí iluze přímého propojení). Pakety posíláme (směrujeme) přes routery.
+Hlavním cílem je hop-to-hop (z uzlu na uzel) přenos a směrování paketů přes systém navzájem propojených sítí k příjemci (vědomí více sítí a jejich propojení - chybí iluze přímého propojení). Pakety posíláme (směrujeme) přes routery.
 
 Adresování - uzly musí mít globálně jednoznačnou adresu (IPv4, IPv6). Adresy v rámci jedné sítě mají stejný prefix. Adresy přiřazujeme také sítím jako celku (potřeba poznat, do jaké sítě adresa patří). Nedostatek IPv4 se řeší pomocí např. subnetting, supernettingg, CIDR, privatná adresy a NAT, IPv6.
 
@@ -601,9 +599,13 @@ Forwarding - posílání paketů po spočítané trase (pomocí forwarding table
 
 Fragmentace - IP pakety mohou být větší než MTU využívané konrétní L2 → je třeba je fragmentovat
 
-### (A46) Úkoly transportní vrstvy
+### (A30) Úkoly transportní vrstvy
 
-End-to-End komunikace, přizpůsobovací mezivrstva, komunikace konkrétních entit (běžících procesů uvnitř entit), vypořádává se s tm co nabízejí nižší vrstvy a zajišťuje to co vyžadují vyšší
+Hlavním cílem je End-to-End komunikace mezi koncovými zařízeními (mezi běžícími procesy uvnitř).
+
+Adresování
+
+, přizpůsobovací mezivrstva, komunikace konkrétních entit (běžících procesů uvnitř entit), vypořádává se s tm co nabízejí nižší vrstvy a zajišťuje to co vyžadují vyšší
 
 Komunikace konkrétních entit uvnitř uzlů
 Tato vrstva je implementována výhradně uvnitř (koncových zařízení)
@@ -621,19 +623,25 @@ Přizpůsobovací : Navrhuje vyšším vrstvám varianty připojení které niž
 FlowControl - řízení toku - je třeba předejít zahlcení příjemce
 Congestion control - kontrola zahlcení sítě
 
-### (A47) Úkoly relační vrstvy
+### (A31) Úkoly relační vrstvy
 
-Management relací, otevírání, navazování a organizace výměny dat, řešení dialogu.
+Hlavním cílem je management relací (otevírání/uzavírání/udržování spojení, organizace výměny dat). Dnes už se většinou neimplementuje.
 
-Nabízíme mechanismy pro řízení a organizaci dialogů mezi komunikujícími stranami
+udržování relací
 
-- navazování a kontrola relací
+- Jedna L5 relace nad několika L4 přenosy:
+  - Více soubežných přenosů - dosažení vyšší přenosové kapacity (bonding)
+  - více navazujicích přenosů - nutno zajistit pokračování při selhání jednoho přenosu (bundling?)
+- Více L5 relací nad jedním L4 přenosem
+  - více navazujících relací - minimalizace počtu L4 spojení
+  - více souběžných relací - multiplexing (zapouzdření do jedné) relací
 
-Reálně se toto nedělá apokud to nějaká aplikace chce, pořeší si to sama
+Co by dále měla řešit L5:
 
-Ve vztahu k čtvrté vrstvě díky relacím dosahujeme: - nad více paralelními transportními spojeními vytvoříme jednu relaci v 5. vrstvě - bonding, bundling - opětovné navazování přerušovaných spojení k vytvoření nepřerušované relace - jedno transportní spojení, vytvoříme posloupnost navazujících relací - jedno transportní spojení ale více paralelních relací
-
-Mělo řešit i: - synchronzaci komunikujících entit - simplex, hlaf-duplex, full-duplex - předcházení deadlockům - atomicitu a konzistenci (checkpointing - vytváření bodů obnovy) - dvoufázové protokoly ujišťování domluv - identifikace protistran - autentizace (ověření identity) - autorizace (co protistrana / uživatel může) - bezpečnost - šifrování dat
+- synchronzaci komunikujících entit - iluze synchronní komunikace (L4 je asynchronní), simplex/half-duplex/full-duplex, předcházení deadlockům
+- vytváření checkpointů na požádání - obnovení dat po chybě
+- dvoufázové protokoly ujišťování domluv
+- bezpečenost - autentizace (ověření identity), autorizace (co protistrana / uživatel může), šifrování dat
 
 ### (A48) Úkoly prezentační vrstvy
 
