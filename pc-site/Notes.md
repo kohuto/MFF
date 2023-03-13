@@ -726,18 +726,16 @@ Možné naměřené hodnoty jsou rozděleny do intervalů → podle intervalů u
 
 ### (B03) Tvary a vlastnosti křivek
 
-Čtvercový -> nejčastěji posílaný
-Trojúhelníkový
-Sinusoida (má amplitudu, frekvenci a fázi)
+- Čtvercový, Trojúhelníkový, Sinusoida
 
-z Fourierovy transformace vyplývá
-lze být dekomponována do řady sinusoid.
-Přenosové cesty mají omezenou šířku pásma (určité frekvence dobře, určité hůř a určité vůbec)
-lze znázornit pomocí vanové křivky (prostřední se přenášejnejlépe, pak hůř a ke kraji se rychle zhoršuje kvalita)
+![shape of waves](./images/shapeswaves.jpg)
+Libovolná křivka může být interpretovaná jako součet sinusoid (Fourierova transformace)
 
-Ostré změny jsou problematické - vyšší frekvence keré k tomuto jsou třeba se špatně přenášejí
--> je lepší vyvarovat se ostrým přechodům
--> kvalita přenosu záleží na kvalitě média
+Přenosové cesty mají omezenou šířku pásma → spolehlivě lze přenášet pouze některé frekvence (charakterizuje to vanová křivka - prostřední se přenášejí dobře, krajní špatně)
+
+Ostré změny jsou problematické - vyšší frekvence jsou oříznuty
+
+![deformation of waves](./images/deformationwaves.jpg)
 
 ### (B04) Přenosy v základním pásmu
 
