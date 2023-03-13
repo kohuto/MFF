@@ -548,32 +548,13 @@ Vrstvy:
   - L6 (prezentační vrstva) - řeší rozdíly mezi sémantikou dat na různých platformách, např. různá endianita celých čísel, nebo různé konce textových řádků
   - L7 (aplikační vrstva) - posílá zprávy a požadavky klientských aplikací
 
-### (A43) Úkoly fyzické vrstvy
+### (A27) Úkoly fyzické vrstvy
 
-Chceme přes přenosové médium poslat bity.
+Hlavním cílem je přenést bity přes přenosové médium. Média mohou být kovová (kroucená dvoulinka, koaxiální kabel), optická (optické kabely) nebo bezdrátová. Nerozumí významu dat.
 
-Přenosové médium:
+Přenášený signál je vždy analogový (kov - elektrické signály, optika - světlo, bezdrát - vlnění) → po přijetí interpretujeme jako analogový/digitální.
 
-- vedené
-  - kroucené dvoulinky, coaxiální kabely -> elektrické signály
-  - optická vlákna -> světlo
-- nevedené
-  - bezdrátové -> radiové elektromagnetické vlny
-
-posíláme konkrátní symboly
-Vrstva neví co posílá, nerozlišuje mezi tím.
-V reále jsou přenosové cesty utlumené, zkreslené, rušené... a přenosový potenciál je tedy vždy limitován.
-Vždy jsme omezeni vzdáleností (zvyšuje vliv negativních jevů)
-
-Přenášený signál jako takový je vždy analogový. Až při přijetí je třeba jej interpretovat jako analogový nebo digitální.
-
-Při zasílání dat řešíme i další věci:
-kódování (tvrdíme že posíláme bity, ale posíláme symboly)
-modulování - vysílání signálů pro jednotlivé bity jako zvýšení, snížení je nepraktické
--> reálně posíláme sinusoidu ale měníme její amplitudu, frekvenci, nebo fázový posun (zde jsou pak uložena data)
-časování (bitový interval - dostatečně dlouhý s mezerami mezi nimi)
-synchronizace - odesílatel i příjemce mají vlastní hodiny a je třeba se synchronizovat aby p5íjemce uměl data rozeznávat
-šířka páska - rozdíl mezi minimální a maximální frekvencí k dispozici (vyšší šířka pásma -> vyšší modulační rychlost -> pošleme více symbolů -> více bitů)
+Aspekty k řešení: signál je limitován (útlum, rušení...), kódování, modulování (reálně posíláme sinusoidu - měníme amplitudu, frekvenci, fázový posun), časování (bitový interval), synchronizace (odesílatel/příjemce mají různé hodiny), šířka páska (rozdíl mezi minimální a maximální frekvencí)
 
 ### (A44) Úkoly linkové vrstvy
 
