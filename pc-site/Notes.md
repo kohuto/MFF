@@ -556,37 +556,32 @@ Přenášený signál je vždy analogový (kov - elektrické signály, optika - 
 
 Aspekty k řešení: signál je limitován (útlum, rušení...), kódování, modulování (reálně posíláme sinusoidu - měníme amplitudu, frekvenci, fázový posun), časování (bitový interval), synchronizace (odesílatel/příjemce mají různé hodiny), šířka páska (rozdíl mezi minimální a maximální frekvencí)
 
-### (A44) Úkoly linkové vrstvy
+### (A28) Úkoly linkové vrstvy
 
-V lokální síti chceme konkrátním příjemcům zasílat bloky dat
+Hlavním cílem je přenášet bloky (framing) dat mezi síťovými rozhraními a jednotlivými uzly v rámci lokální sítě.
 
-Opakovače, Switche, Mosty - přenos bloků dat mezi jednotlivými konkrétními uzly
-Pracujeme s představou že naše síť má přímé spojení s každým uzlem sítě
-Reálně může být síť komplikovaná -> poslaný rámec může projít celou sítí a být potenciálně přijat každým uzlem
+- odesílatel vytvoří PDU a předá je L1 (MTU závisí na konkrétní technologii)
+- příjemce obdrží na L1 proud bitů - musí rozpoznat jednotlivé rámce (frames) → mohou být např. vloženy extra bity označující začátky a konce bloků.
 
-Vnitřní struktura - jak skládat a projovat nebo rozdělovat segmenty - kde dát vnitřní zařízení a jak fungují - aplikujeme logickou topologii (ne nutně odpovídající fyzické, jak vypadá datový tok?) - sběrnice, hvězda, kruh, mřížka, hyperkrychle
+Data posíláme pomocí aktivních síťových prvků (bridges, switches) a interních mechanismů (Store&Forward, Cut-Through). Vytváříme iluzi přímé cesty (každý vrchol sítě je viditelný a dosažitelný). Vnitřní struktura sítě udává, jak data proudí (nemusí odpovídat topologii L1) - př. sběrnice, hvězda, kruh, mřížka, hyperkrychle.
 
-Blok dat typicky doručujeme jednomu konkrétnímu příjemci - vyžaduje adresu. - MAC adresa - musí být v rámci sítě unikátní, slouží k identifikaci konkrétních uzlů - slouží k nalezení konkrétních uzlů - typicky přijímáme rámce které nám nepatří a díky adrese poznáme, zda nám patří
--> Je třeba zajistit přidělování adres (mohou být celosvětově jednoznačné, ač to není třeba) - EUI-48 (MAC-48) nebo EUI-64 - FC:77:74:19:41:1E
--> původně vymyšleno pro Ethernet, ale využívá se i u dalších analogicky fungujících sítí (Wi-Fi, Bluetooth)
+Adresování - používáme fyzické adresy (MAC). Musí být unikátní v rámci sítě. Slouží k identifikiaci příjemce (aby byl nalezen a aby poznal svá data - typicky totiž přijímáme i rámce, které nám nepatří). Nutno zajistit přidělování adres (nemusí být celosvětově unikátní) - EUI-48 (MAC-48) nebo EUI-64
 
-Filtrování a forwarding
+filtrování a forwarding - mechanismus v bridges a switches k nalezení příjemce. Kdyby nebyl, museli bychom data posílat všemi směry.
 
-- topologie může být komplikovaná, vyplatí se tedy řešit filtrování
-- filtrování - zamezaní zbytečného předávání
-- forwarding - předávání pouze směrem kde se vyskytuje zamýšlený příjemce
+- filtrování - zamezení zbytečného předávání
+- forwarding - předávání pouze směrem, kde je příjemce
 
-Transparentnost - aby druhá vrstva dokázala fungovat, potřebujeme umět předávat data a zároveň kontrolní signály a metadata
--> Je třeba rozeznat co jsou metadata a co užitečná data (escaping - přepínání režimu, framing - hlavičkování, stuffing - umělé vkládání dalších bytů)
-Framing - posíláme bloky - je třeba vymyslet fungování bloků - zkonstuujeme blok, přidáme náklad, předáme fyzické vrstvě (bloky = ethernetové rámce) - máme tedy maximální velikost užitečného bloku, který mumíme přenét - příjemce přijímá proud jednotlivých symbolů a musí umět jednotlivé bloky rozeznat -netriviální problém - druhá vrstva úmyslně vkládá bity navíc aby označila začátky a konce bloků, pomáhá synchronizaci
--> první a druhá vrstva spolu musí blízce komunikovat a spolupracovat
+Transparentnost - musíme umět předávat data a zároveň kontrolní signály a metadata a umět je od sebe rozeznávat. Techniky:
 
-Původní představa byla taková, že přenosová média budou exkluzivní, reálně jsou sdílená
--> Je třeba druhou vrstvu na toto připravit -> K jedné přenosové cestě je připojeno více uzlů - v jednu chvíli může vysílat pouze jede
--> třeba vyřešit přenosové metody (soutěže, předávání tokenu)
--> je třeba aby vysílal pouze jeden (toto není v OSI zohledněno a vedlo k rozdělení druhé vrstvy)
-MAC (Media Access Control) - podvrstva řešící přístup k médiím
-LLC (Logical Link Control) - podvrstva nahrazující 2
+- escaping - přepínání režimu
+- framing - hlavičkování
+- stuffing - umělé vkládání dalších bytů
+
+Původní představa - přenosová média budou exkluzivní. Realita - více uzlů sdílí jedno přenosové médium. V jednu chvíli může vysílat pouze jeden (OSI s tím nepočítal) → rozdělení na dvě vrstvy
+
+- MAC (Media Access Control) - podvrstva řešící přístup k médiím
+- LLC (Logical Link Control) - podvrstva nahrazující 2
 
 ### (A45) Úkoly síťové vrstvy
 
