@@ -739,17 +739,21 @@ Ostré změny jsou problematické - vyšší frekvence jsou oříznuty
 
 ### (B04) Přenosy v základním pásmu
 
-nemodulované
-Přímo médiem přenásíme pulsy informací (vlastní data) - 0 dole, 1 nahoře
-nižší frekvence, celou šířku přen. pásma používáme k přenosu jednoho signálu
-snadno implementovatelné, vhodné pouze pro krátké vzdálenosti
+#### Baseband přenos
 
-Není vhodné pro vysoké frekvence
+- Nemodulovaný
+- frekvence blízko nuly
+- využívá čtvercový tvar křivky
+- jeden datový signál zabírá celou šířku pásma (tzn. pokud využívám pro svůj přenos médium, nikdo jiný toto médium nemůže používat)
+- pouze na krátké vzdálenosti
+- typické pro wired media
 
-Unipolar (střídá vysokou a nízkou hladinu)
-Bipolární NRZ (kladné napětí a záporné napětí) bez vracení k nule
-Bipolární RZ (s vracením k nule)
-Manchester - důležitá hodnota je na přechodu (pády a vzestupy)
+#### Passband přenos
+
+- modulované - informace je reprezentovaná změnami ve vlnovém parametru
+- vyšší frekvence
+- vhodné i pro velké vzdálenosti
+- typické pro bezdrátové připojení a optické kabely
 
 Cílem je vymyslet konkrétní kódování
 
@@ -759,20 +763,18 @@ Cílem je vymyslet konkrétní kódování
 
 ### (B05) Principy linkových kódů
 
-konkrétní kódování
+informace reprezentována různými výškami signálu nebo hranami. Signál vysílán po určitou dobu
 
-hlavní účel:
-je možné řešit scrambling/překlad (blokové kodovaní)
-na nižším levelu je třeba vymyslet vzory pro přenášení (rozdíly, přechody, detekce změn...)
+- unipolární (1V = -1, 0 V = -0 → po celý interval)
+- bipolární RZ
+  - 0 → polovina intervalu v -1V, pak polovina intervalu v 0V
+  - 1 → polovinu intervalu v 1V, pak polovina intervalu v 0V
+- bipolární NRZ (stejné jako uni, ale 1V = 1, -1V = 0)
+- manchester
+  - 0 → v polovině intervalu je klesající hrana
+  - 1 → v polovině intervalu je rostoucí hrana
 
-Chceme garantovat synchronizaci, ideálně vyváženou DC komponentu a omezenou disparitu, ale zároveň jednoduchý (levný) hardware
-
-chcem v signálu co nejvíce pravidelných změn
-problémy: chceme vysokou přenosovou rychlost a vysokou míru spolehlivosti
-
-Slíbili jsme že budeme umět přenášet bity, ale nad nimi nemáme kontrolu
-Každé fyzické medium má specifick vlastnosti
--> kodování je na míru mediu
+![link codes](./images/deformationwaves.jpg)
 
 ### (B06) Problém synchronizace
 
