@@ -814,18 +814,33 @@ _clock recovery - proces extrahování času_
   - izochronní self-clocking - hodinový signál je poslán ve stejný čas jako data
     - direct recovery
       - přenášené signály mají v každém bitovém intervalu nějakou změnu - změna udává tiky hodin
-      - techniky - redundant coding
+      - techniky: redundant coding
     - indirect recovery
       - není zajistěn neustálý tikot, synchronizace chvíli vydrží, musíme se vyhnout dlouhým stejným sekvencím
-      - techniky - bit stuffing, block coding
+      - techniky: bit stuffing, block coding
   - neizochornní self-clocking - hodinový signál je poslán v jiný čas než data, nepoužívá se
 
 ### (B08) Redundantní kódování, bit stuffing, scrambling
 
-Řešení:
-Redundandní kódování: MANCHESTER - během každého bitu je přechod navíc, 100% overhead, zajistí synchronizaci - směr uprostřed bitu definuje bit - clock signal se měří mezi bity - self clocking, DC balanced - nevhodné pro větší objemy dat a vzdálenosti - Ethernet, NFC
-Bitový stuffing: - pokud odesílatel detekuje příliš vysoké množství stejných symbolů (běh) uměle vloží opačný bit - přijímající bit zase odstraní - režije se limitně blíží nule - zajistí synchronizaci
-Scrambling: - bity např€d namícháme s pseudo-náhodnou sekvencí - zlepšuje disparitu, ale nic nelze zaručit - je třeba zajistit, že příjemce detekuje stejnou posloupnost náhodných čísel
+#### Rendundantní kódování
+
+Každý bitový interval obsahuje alespoň jednu změnu (0 → 1 nebo 1 → 0). Zajištěna synchronizace, ale 100% overhead.
+
+Příklady:
+
+- Manchester
+  - směr změny uprostřed bitvého interalu určuje datový bit → hodinový signál je uprostřed bitového intervalu
+  - self-clocking, DC vyvážený, nevhodné pro velké objemy dat a velké vzdálenosti
+  - využití: ethernet (10 MB/s), NFC
+- Bipolar RZ
+
+#### Bitový stuffing
+
+V případě dlouhé sekvence stejných symbolů vloží odesílatel opačný bit (příjemce bit odstraní). Zajištěna synchronizace, limitně 0% overhead.
+
+#### Scrambling
+
+Bity první namícháme s pseudo-náhodnou sekvenci (příjemce musí být schopen vygenerovat stejnou sekvenci pro zpětnou rekonstrukci). Zlepšuje disparitu a synchronizaci.
 
 ### (B09) Blokové kódování
 
