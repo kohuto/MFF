@@ -956,9 +956,13 @@ Specifické techniky (závislé na L1):
 
 ### (B14) Techniky stuffingu
 
-Záměrné přidávání umělých znaků/bitů/bytů k označení konkrétního místa v přenášených datech
-na linkové vrstvě tím zajišťujeme označení začátku/konce bloku (je pak třeba hlídat prostředek)
-lze vnímat tak, že linková a fyzická vrstva si mohou pomáhat
+Záměrné přidávání speciálních znaků/bitů/bytů k označení konkrétního místa v přenášených datech
+
+Využití (na L2):
+
+- transparence (escaping, framing)
+- řešení výskytů flag-sekvencí v užitečných datech → potlačení meta významu flag-sekvencí uvnitř užitečných dat
+- kooperace mezi fyzickou a linkovou vrstvou
 
 ### (B15) Znakově orientované protokoly
 
