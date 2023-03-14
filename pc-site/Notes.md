@@ -782,42 +782,50 @@ informace reprezentována různými výškami signálu nebo hranami. Signál vys
 
 ![link codes](./images/linkcodes.jpg)
 
-### (B06) Problém synchronizace
+### (B06) Problém synchronizace, DC komponenty a disparity
 
-Bit period = časový interval na poslaní jednoho bitu.
+#### Problém synchronizace
+
+bitový interval (Bit period) = časový interval na poslaní jednoho bitu.
 
 Potřeba synchronizovat čas odesílatele a příjemce, aby byly signály správně reprezentovány:
 
 ![synchronization problem](./images/lossbits.jpg)
 
-Řešení:
+#### DC komponenta a disparita
+
+_DC → stejnosměrný proud_
+
+DC komponenta = průměrná amplituda přenášené vlny
+
+zejména na delší vzdálenosti chceme vybalancovanou (žádnou) DC amplitudu. Přístupy:
+
+- konstantně vyvážený kód - každý symbol je vybalancovaný sám o sobě
+- párovaný disparitní kód- balancování naskrz po sobě jdoucími symboly (hlídání disparity)
+
+průběžná disparita = rozdíl počtu 0 a 1. Ideál je vyvážená disparita
+
+### (B07) Techniky zajištění synchronizace
+
+_clock recovery - proces extrahování času_
 
 - oddělený hodinový signál - v praxi se nepoužívá
 - self-clocking - hodinový signál je začleněn do dat (musíme přenášet dostatečné množství dat)
-  - clock recovery - proces extrahování času
+  - izochronní self-clocking - hodinový signál je poslán ve stejný čas jako data
+    - direct recovery
+      - přenášené signály mají v každém bitovém intervalu nějakou změnu - změna udává tiky hodin
+      - techniky - redundant coding
+    - indirect recovery
+      - není zajistěn neustálý tikot, synchronizace chvíli vydrží, musíme se vyhnout dlouhým stejným sekvencím
+      - techniky - bit stuffing, block coding
+  - neizochornní self-clocking - hodinový signál je poslán v jiný čas než data, nepoužívá se
 
-techniky:
+### (B08) Redundantní kódování, bit stuffing, scrambling
 
-- izochronní self-clocking - hodinový signál je poslán ve stejný čas jako data
-  - direct recovery
-    - přenášené signály mají v každém bitovém intervalu nějakou změnu - změna udává tiky hodin (Manchester, bipolar RZ)
-    - techniky - redundant coding
-  - indirect recovery
-    - není zajistěn neustálý tikot, synchronizace chvíli vydrží, musíme se vyhnout dlouhým stejným sekvencím
-    - techniky - bit stuffing, block coding
-- neizochornní self-clocking - hodinový signál je poslán v jiný čas než data, nepoužívá se
-
-### (B08) DC komponenta a disparita
-
-DC - stejnosměrný proud
-
-- průměrná amplituda přenášené vlny - zejména na delší vzdálenosti je třeba mít vybalancovanou (žádnou) DC amplitudu - Manchester - konstrantně vyvýžený symbol - balancování naskrz po sobě jdoucími symboly (hlídání disparity)
-  -> cílem je omezená disparita
-  -> hlídáním jde vyvážit DC komponenta (je to jen jedn z možností)
-  Řešení:
-  Redundandní kódování: MANCHESTER - během každého bitu je přechod navíc, 100% overhead, zajistí synchronizaci - směr uprostřed bitu definuje bit - clock signal se měří mezi bity - self clocking, DC balanced - nevhodné pro větší objemy dat a vzdálenosti - Ethernet, NFC
-  Bitový stuffing: - pokud odesílatel detekuje příliš vysoké množství stejných symbolů (běh) uměle vloží opačný bit - přijímající bit zase odstraní - režije se limitně blíží nule - zajistí synchronizaci
-  Scrambling: - bity např€d namícháme s pseudo-náhodnou sekvencí - zlepšuje disparitu, ale nic nelze zaručit - je třeba zajistit, že příjemce detekuje stejnou posloupnost náhodných čísel
+Řešení:
+Redundandní kódování: MANCHESTER - během každého bitu je přechod navíc, 100% overhead, zajistí synchronizaci - směr uprostřed bitu definuje bit - clock signal se měří mezi bity - self clocking, DC balanced - nevhodné pro větší objemy dat a vzdálenosti - Ethernet, NFC
+Bitový stuffing: - pokud odesílatel detekuje příliš vysoké množství stejných symbolů (běh) uměle vloží opačný bit - přijímající bit zase odstraní - režije se limitně blíží nule - zajistí synchronizaci
+Scrambling: - bity např€d namícháme s pseudo-náhodnou sekvencí - zlepšuje disparitu, ale nic nelze zaručit - je třeba zajistit, že příjemce detekuje stejnou posloupnost náhodných čísel
 
 ### (B09) Blokové kódování
 
