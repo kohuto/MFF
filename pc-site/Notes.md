@@ -896,17 +896,26 @@ Pozorování:
 - vyšší frekvence
 - typické pro bezdrátové připojení a optické kabely
 
-### (B11) Kvadraturní amplitudová modulace
+### (B11) Kvadraturní amplitudová modulace (QAM)
 
-informace reprezentována změnami v parametrech vlny
+informace reprezentována změnami v parametrech vlny (analogová a digitální modulace)
 
-- 16stavová(symbol -> 4 bity), 64-stavová(6 bitů)
-- u WiFi6-1024 stavů
-- 16st-> svě vlny posunuté o 90stupňů.
-  - jedna se moduluje amplitudovým způsobem na 3 stavy
-  - druhá fáově na 12 stavů
-  - velkem tedy 36 stavů, záměrně používáme jen 16, dostatečně vzdálených aby nebylo snadné je zaměnit
-  - každému stavu přiřadíme užitečnou hodnotu - Greyovy kódy - dva sousední stavy se řeší právě v jednom bitu (aby byla chyba co nejmenší)
+alternativy:
+
+- 16-QAM (16 stavů → 4b symboly)
+- 64-QAM (64 stavů → 6b symboly) - Wifi 2/3/4, DVB-T
+- 256-QAM (256 stavů → 8b symboly) - WiFi 5, DVB-T2
+- 1024-QAM (1024 stavů → 10b symboly) - WiFi 6
+
+#### 16-QAM
+
+- vysíláme dvě vlny posunuté o $\frac{\pi}{2}$
+- u první vlny amplitudová modulace (3 možné stavy → na obrázku níže reprezentované jako kružnice)
+- u druhé fázová modulace (12 možných stavů → na obrázku níže reprezentované jako úsečky)
+- celkem 36 možných stavů → používáme pouze 16 z nich (ty, které lze od sebe snadno rozlišit)
+- namapujeme stavy na hodnoty (Greyovy kódy) - dva sousední stavy se řeší právě v jednom bitu (případná chyba je malá)
+
+![16-qam](./images/16qam.jpg)
 
 ### (B12) Zajištění transparence
 
