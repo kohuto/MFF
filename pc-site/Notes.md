@@ -780,25 +780,32 @@ informace reprezentována různými výškami signálu nebo hranami. Signál vys
   - 0 → v polovině intervalu je klesající hrana
   - 1 → v polovině intervalu je rostoucí hrana
 
-![link codes](./images/deformationwaves.jpg)
+![link codes](./images/linkcodes.jpg)
 
 ### (B06) Problém synchronizace
 
-Odesílání každého bitu trvá nějak dlouho, je třeba synchronizovat časování odesílatele a příjemce aby vnímal příjemce správě
+Bit period = časový interval na poslaní jednoho bitu.
 
-- aby příjemce vzorkoval se stejnou frekvencí
+Potřeba synchronizovat čas odesílatele a příjemce, aby byly signály správně reprezentovány:
 
-Můžeme mít vlastní sběrnici přenášející tikot -drahé
-Začleníme jej přímo do přenášeného proudu - clock recovery
--> lepší vnímání hodinek, lepší šance na správný sampling
+![synchronization problem](./images/lossbits.jpg)
 
-### (B07) Techniky synchronizace
+Řešení:
 
-Isochronní - hodinové signály jsou ve stejnou dobu jako data
-přímý - přenášené signály mají v každém bitovém intervalu nějakou změnu (redundantní kodování)
-nepřímo - není zajistěn neustálý tikot, ale z běhu lze poznat že k tikání docházelo - bit stuffing, blokové kodovaní - alespoň čas od času nějaká změna
+- oddělený hodinový signál - v praxi se nepoužívá
+- self-clocking - hodinový signál je začleněn do dat (musíme přenášet dostatečné množství dat)
+  - clock recovery - proces extrahování času
 
-lze i neisochronně, ale to se nepoužívá
+techniky:
+
+- izochronní self-clocking - hodinový signál je poslán ve stejný čas jako data
+  - direct recovery
+    - přenášené signály mají v každém bitovém intervalu nějakou změnu - změna udává tiky hodin (Manchester, bipolar RZ)
+    - techniky - redundant coding
+  - indirect recovery
+    - není zajistěn neustálý tikot, synchronizace chvíli vydrží, musíme se vyhnout dlouhým stejným sekvencím
+    - techniky - bit stuffing, block coding
+- neizochornní self-clocking - hodinový signál je poslán v jiný čas než data, nepoužívá se
 
 ### (B08) DC komponenta a disparita
 
