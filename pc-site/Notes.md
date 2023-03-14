@@ -767,9 +767,15 @@ typické vlastnosti (ukázáno na linkových kódech níže):
 - vhodné i pro velké vzdálenosti
 - typické pro bezdrátové připojení a optické kabely
 
-### (B05) Principy linkových kódů
+### (B05) Principy a příklady linkových kódů
 
 informace reprezentována různými výškami signálu nebo hranami. Signál vysílán po určitou dobu
+
+Cíle:
+
+- zajistit dostatečně pravidelné změny v přenášených datech (důvody viz dále) → problém: vstupní data nemáme pod kontrolou
+
+Příklady:
 
 - unipolární (1V = -1, 0 V = -0 → po celý interval)
 - bipolární RZ
@@ -869,6 +875,12 @@ Příklady:
 
 ### (B10) Přenosy v přeloženém pásmu
 
+- modulované přenosy
+- harmonická nosná vlna (vyšší frekvence, využívány jenom frekvence okolo nosné vlny, abychom zůstali v pásu)
+- na delší vzdálenosti, vyšší využití (bezdrátová média a optika)
+
+---
+
 modulované
 Přenášíme sinusovku (nosnou harmonickou vlnu)
 Samotná vlna nenese informaci - ta je ve změně frekvence, amplitudy nebo fáze
@@ -885,6 +897,10 @@ Změna fáze lze nejsnadněji detekovat.
 Příklad - Quadraturní Amplitudová modulace
 
 ### (B11) Kvadraturní amplitudová modulace
+
+- informace reprezentována změnami v parametrech vlny
+
+---
 
 - 16stavová(symbol -> 4 bity), 64-stavová(6 bitů)
 - u WiFi6-1024 stavů
