@@ -931,37 +931,28 @@ Strategie pro proudové přenosy:
 - oddělená přenosová cesta - nepoužívá se
 - escaping - dva módy data/signály. Je potřeba mít přepínací mechanismus mezi módy
 
-strategie pro blokové přenosy:
+Strategie pro blokové přenosy:
 
 - framing
 
-### (B13) Principy a cíle framingu
+### (B13) Techniky framingu a zapouzdření
 
 Jak zajistit přenos a transparenci blokových dat.
 
-Encapsulation - zapouzdření - konstruuje blok dat jako takový (hlavička, patička..)
+Encapsulation (zapouzdření) - vytvoření rámce (obecně PDU). Potřeba mít definovaný formát (hlavička, tělo, patička..)
 
-Framing - už máme blok, vyznačujeme jeho hranice
+Framing - vymezení hranic rámce v datech (vytvořených v rámci encapsulation). L1 přenáší pouze stream bitů → příjemce musí být schopen identifikovat začátek/konec rámce v nestrukturované sekvenci
 
-- fyzická vrstva přenáší pouze bity, odesílatel nemá problém, příjemce potřebuje být schopen zjistit kde začínají a jak dlouhé jsou bloky
+Obecné techniky (nezávislé na L1):
 
-Ohraničení:
+- Flag (byte, sekvence bitů) na začátku a na konci rámce → potřeba vyřešit, aby se nevyskytl někde uprostřed
+- Start flag + délka - označíme flagem začátek rámce, konec rámce je spočítán pomocí délky. Není moc používané kvůli tomu, že je obtížné zpětné obnovení v případě desynchronizace
 
-- Flag na začátku a na konci (konkrétní byte) (je třeba zajistit aby se flagy nevyskytly uprostřed)
-- Označení začátku a uložení délky - je těžké znovu-objevit synchronizaci
+Specifické techniky (závislé na L1):
 
-Vrstvy by mezi sebou neměly být závislé
-
-Označení začátku a implicitní konce
-
-- s koncem rámce skončí nosná vlna
-
-Coding violation - 4B5B využijeme nedatová slova k označení bloků
-
-fyzická přenosová cesta, multiplexing, chceme více přenosů najednou - kapacitu je třeba rozdělit
-
-- multiplex na základě dělení času - různé sloty pro různé přenosy
-- jsou jednotkové délky a pak odpočítáváním slotů známe jak jsou dlouhé
+- starting flag + implicitní konec - Začátek rámce je označen flagem, konec rámce odpovídá konci přenosu. Př. Ethernet II s Manchester coding
+- Coding violation - speciální nedatové symboly označují start/konec bloků. Př. 4B5B
+- Počítání bloků - délka bloků spočítaná na základě dělení času (funguje pouze pro bloky s fixní délkou). Př. digital hiearchies
 
 ### (B14) Techniky stuffingu
 

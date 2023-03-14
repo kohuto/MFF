@@ -29,7 +29,7 @@ Hub - Rozbočovač
 Interference - Rušení
 Local loop - Účastnické vedení
 Longitudinal parity - Podélná parita
-Overaly network - Překryvná síť
+Overlay network - Překryvná síť
 Packet switching - Přepojování paketů
 Passband - Přeložené pásmo
 Repeater - Opakovač
