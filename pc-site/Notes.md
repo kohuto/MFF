@@ -844,24 +844,28 @@ Bity první namícháme s pseudo-náhodnou sekvenci (příjemce musí být schop
 
 ### (B09) Blokové kódování
 
-- vezme se skupina n bitů a přeloží se na k>n bitů před posláním
-  - na základě pravidel, nebo přednastavoného slovníku
-  - třeba 4->5 bitů
-  - chceme co nejvíce změn v našich přenosech
-  - pro jednu vstupní máme více výstupních sekvencí - vybíráme je podle toho kteý se nám hodí více k balancování
-  - některé výstupní kódy jsou navíc - jde je použít třeba pro řídící signály, nebo detekci chyb
-  - 4B5B
-    - 4->5 bitů
-    - self clocking, DC balanced jenom se scramble, disparita nevyvážená
-    - 25% overhead
-    - fast ethernet
-  - 8B10B
-    - 5+3b -> 6+4 b
-    - garantuje synchronizaci, vyváženou DC komponentu i omezenou disparitu
-    - běh nejvýše 5 stejnýh bitů zasebou
-    - celkový rozdíl (disparita) +-2
-    - 25% overhead
-    - Gigabit Ethernet, HDMI, SATA, USB 3.0
+Před posláním vezme se skupina n bitů a přeloží se na základě daného mapování na $k>n$ bitů. Př. 0001 → 01001
+
+Funkce:
+
+- výsledná sekvence má hodně změn (0/1)
+- pro jednu vstupní máme více výstupních sekvencí (lze vybrat vhdonou pro vybalancování)
+- některé výstupní kódy jsou navíc (používají se jako řídící signály nebo detekce chyb)
+
+Příklady:
+
+- 4B5B
+  - 4b → 5b
+  - self clocking, DC balanced jenom se scramble, disparita nevyvážená
+  - 25% overhead
+  - použití: fast ethernet
+- 8b/10b
+  - 5+3b → 6+4b
+  - garantuje synchronizaci, self clocking, DC vyvážený, omezená disparita
+    - běh nejvýše 5 stejnýh bitů za sebou
+    - maximální disparita $\pm$ 2
+  - 25% overhead
+  - použití: Gigabit Ethernet (1GB/s), HDMI, SATA, USB 3.0
 
 ### (B10) Přenosy v přeloženém pásmu
 
