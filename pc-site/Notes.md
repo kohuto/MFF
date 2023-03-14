@@ -919,18 +919,21 @@ alternativy:
 
 ### (B12) Zajištění transparence
 
-Aby linková vrstva fungovala, musí přenášet užitečná data a zárovn vlastní užitečná metadata pro funkcinalitu druhé vrstvy.
-Užitečná nemáme pod kontrolou, musíme je přenášet beze změny.
-Ve skutečnosti se občas přidávají další symboly.
+Aby linková vrstva fungovala, musí přenášet užitečná data a kontrolní singály a rozeznávat je od sebe
 
-Řídící signály - je třeba umět je detekovat a interpretovat.
+- Užitečná (data pro vyšší vrstvy) - nelze je modifikovat, respektive můžeme, ale příjemce je musí umět zpětně zrekonstruovat
+- Řídící signály - je třeba umět je detekovat a interpretovat.
 
-Transparence -> rozlišování užitečných dat od signálů
+Transparence = rozlišování užitečných dat od signálů
 
-- oddělená přenosová cesta (dělo se u nejstarších modemů), drahé, komplikované
-- přepínání inerpretací (escapint)
-  - datový nebo příkazový režim
-  - u novějších modemů i mimo sítě
+Strategie pro proudové přenosy:
+
+- oddělená přenosová cesta - nepoužívá se
+- escaping - dva módy data/signály. Je potřeba mít přepínací mechanismus mezi módy
+
+strategie pro blokové přenosy:
+
+- framing
 
 ### (B13) Principy a cíle framingu
 
