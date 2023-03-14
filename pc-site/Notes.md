@@ -737,9 +737,7 @@ Ostré změny jsou problematické - vyšší frekvence jsou oříznuty
 
 ![deformation of waves](./images/deformationwaves.jpg)
 
-### (B04) Přenosy v základním pásmu
-
-#### Baseband přenos
+### (B04) Přenosy v základním pásmu (baseband)
 
 - Nemodulovaný
 - frekvence blízko nuly
@@ -759,13 +757,6 @@ typické vlastnosti (ukázáno na linkových kódech níže):
 - kódování
   - buď měřím stabilní hladinu (unipolar/bipolar RZ/bipolar NRZ)
   - nebo směr změny signálu (manchester)
-
-#### Passband přenos
-
-- modulované - informace je reprezentovaná změnami ve vlnovém parametru
-- vyšší frekvence
-- vhodné i pro velké vzdálenosti
-- typické pro bezdrátové připojení a optické kabely
 
 ### (B05) Principy a příklady linkových kódů
 
@@ -873,34 +864,41 @@ Příklady:
   - 25% overhead
   - použití: Gigabit Ethernet (1GB/s), HDMI, SATA, USB 3.0
 
-### (B10) Přenosy v přeloženém pásmu
+### (B10) Přenosy v přeloženém pásmu (passband)
 
-- modulované přenosy
-- harmonická nosná vlna (vyšší frekvence, využívány jenom frekvence okolo nosné vlny, abychom zůstali v pásu)
-- na delší vzdálenosti, vyšší využití (bezdrátová média a optika)
+[článek](https://resources.system-analysis.cadence.com/blog/msa2021-types-of-digital-modulation)
 
----
+modulované - Přenášíme sinusovku (nosnou harmonickou vlnu) → samotná vlna nenese informaci, informace je reprezentovaná **změnami** ve vlnovém parametru
 
-modulované
-Přenášíme sinusovku (nosnou harmonickou vlnu)
-Samotná vlna nenese informaci - ta je ve změně frekvence, amplitudy nebo fáze
-nepoužíváme celé frekvenční pásmo
-menší zkreslení, mnohem delší vzdálenost - lepší kvalita i rychlost přenosu
+![analog modulation](./images/analogmodulation.jpg)
 
-Přenášíme nosnou vlnu - sínusovku která sama nepřenáší užitečnou informaci.
-Amplitudová (vyšší vlna), frekvence (rychlejší), phase (změna směru)
+dva typy modulace - analogová a digitální. Jediný rozdíl je v tom, že u digitální modulace rozeznáváme omezené (diskrétní) množství stavů (česky - buď reprezentujeme danou změnu jako 0 nebo jako 1). Př. (vztaženo k obrázku nahoře):
 
-klíčování == digitální modulace
+- amplituda
+  - 1 → vyšší amplituda
+  - 0 → nižší amplituda
+- frekvence
+  - 1 → vyšší ferkvence
+  - 0 → nižší frekvence
+- phase
+  - 1 → vyšší
+  - 0 → nižší
 
-Změna fáze lze nejsnadněji detekovat.
+klíčování = digitální modulace. Techniky:
 
-Příklad - Quadraturní Amplitudová modulace
+- Amplitude-shift keying (ASK) - odlišné amplitudy
+- Frequency-shift keying (FSK) - odlišné frekvence
+- Phase-shit keying (PSK) - odlišné phases
+
+Pozorování:
+
+- menší zkreslení → přenos na větší vzdálenost → vyšší využití (bezdrátová média a optika)
+- vyšší frekvence
+- typické pro bezdrátové připojení a optické kabely
 
 ### (B11) Kvadraturní amplitudová modulace
 
-- informace reprezentována změnami v parametrech vlny
-
----
+informace reprezentována změnami v parametrech vlny
 
 - 16stavová(symbol -> 4 bity), 64-stavová(6 bitů)
 - u WiFi6-1024 stavů
