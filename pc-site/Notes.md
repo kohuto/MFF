@@ -966,35 +966,58 @@ Využití (na L2):
 
 ### (B15) Znakově orientované protokoly
 
-Dnes už se nepoužívají
-Přenášená data vnímáme na úrovni znaků
-využijeme netisknutelné znaky.
+Kontrolní příkazy jsou vyjádřeny pomocí speciálních netisknutelných ASCII znaků. Dnes se již nepoužívá.
 
-Znaky - start header, start text, end text + znak data link escape (escapovací znak aktivuje ostatní)
-DLE symboly v těle se zdvojují - pak je vidět že tam není žádná fce
+struktura rámce:
 
-nebo mů6€me před celou tabulku dát dva synchronizační znaky
+- hlava/tělo:
+  - SOH (start of header) - začátek (nepovinné) hlavičky
+  - STX (start of text) - začátek dat
+  - ETX (end of text) - koenc dat
+- kladný escaping (DLE) je potřeba pro aktivaci meta významu. DLE symboly v těle se zdvojují → poznáme, že to nemá mít žádný speciální význam, ale že jsou to data
 
-SLIP - pro dvoubodová spojení bereme IP pakety jako takové a na konec a začátek dáme konec/začátek
-(pokud je uprostřed, dáme k němu escape symbol a transponujeme jej, escape symbol taky oescapujeme a taky transponujeme)
+![character oriented protocols](./images/characteroriented.jpg)
+
+Pro lepší synchronizaci s L1 přidáváme na začátek rámce dva synchronizační charaktery SYN
+![character oriented protocols syn](./images/synznakoriented.jpg)
+
+Příklad: SLIP
+
+- protokol pro P2P a fully duplex spojení umožňující přímé zapozdření IP paketů. Potřeba pouze framing, nic víc
+- začátek a konec rámce je označen pomocí END flagu
+- END uprostřed
+
+![slip](./images/slipframe.jpg)
 
 ### (B16) Bitově orientované protokoly
 
-Na začátek a konec dáme křídlovou značku 0111111110 např. Je třeba zajišťovat aby se flag nevyskytl uprostřed
-Když detekujeme 7 za sebou odeslných 1 uměle vložíme 0, čímž zabráníme chybnmu flagu
+Na začátek a konec rámce dáme flag → flag má strukturu $N$ jedniček a po krajích nuly (př. 0111111110). Potřeba zajistit, aby se flag nevyskytl uprostřed → když odešleme $N-1$ jedniček, tak uměle vložíme (pošleme) nulu. Příjemce tuto nulu odstraní.
 
-6-8 jedniček
+![bit oriented protocols](./images/bitoriented.jpg)
+
+Příklad: HDLC
+
+- spojovaný i nespojovaný protokol pro P2P a P2MP cesty
+
+![hdlc](./images/hdlcframe.jpg)
+
+Princip rámcování:
+
+- Flag s $N=6$
+- bit stuffing pro zajištění transparentnosti bloků
 
 ### (B17) Bytově orientované protokoly
 
-Kompromis, výhody obojího
-Označujeme začátek nebo konec křídlovými značkami. Značka je jedne nebo dvy byty.
-Escaping - escapovací znaky(byty) které využijeme k označení vnitřních výskytů značek.
+Označujeme začátek nebo konec jako u bitově orientovaných protokolů, pouze je potřeba zarovnání na celé byty. Také se používají escapovací byty jako ve znakově orientovaných protokolech, které využijeme k označení vnitřních flagů. Také mohou být použity synchronizační flagy.
 
-Příklad Ethernet:
-7bytů 0x55 - preambule (10101010) - little endian.
-Start frame delimeter (10101011)
-a pak frame.
+Příklad: Ethernet
+
+![ethernet](./images/ethernetframe.jpg)
+
+princip rámcování:
+
+- synchronizační preambule - sekvence 7B `0x55` přenesných jako `10101010`
+- začátek rámce - SFD: `0xD5` přenesených jako `10101011`
 
 ## Síťová vrstva a směrování
 
