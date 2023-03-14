@@ -1016,7 +1016,7 @@ Příklad: Ethernet
 
 princip rámcování:
 
-- synchronizační preambule - sekvence 7B `0x55` přenesných jako `10101010`
+- synchronizační preambule - sekvence 7B `0x55` přenesných jako `10101010` (LE pořadí pro bity)
 - začátek rámce - SFD: `0xD5` přenesených jako `10101011`
 
 ## Síťová vrstva a směrování
