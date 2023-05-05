@@ -791,14 +791,18 @@ Potřeba synchronizovat čas odesílatele a příjemce, aby byly signály správ
 
 #### DC komponenta a disparita
 
+problém mám médiu - podívám se na přenášené signály - když zprůmměruju amplitudu signálu (+1 -1) - je potřeba abychom se pohybovali okolo nuly - tomu se říká vybalanocvaná (nebo také že tam není žádna)
+
+kdybych přenášel dlouho pozitivní/negativní --> tak je faktem, že to médium to fyzicky nezvládá
+
 _DC → stejnosměrný proud_
 
 DC komponenta = průměrná amplituda přenášené vlny
 
 zejména na delší vzdálenosti chceme vybalancovanou (žádnou) DC amplitudu. Přístupy:
 
-- konstantně vyvážený kód - každý symbol je vybalancovaný sám o sobě
-- párovaný disparitní kód- balancování naskrz po sobě jdoucími symboly (hlídání disparity)
+- konstantně vyvážený kód - každý symbol (tzn. to, jak zakóduju jeden symbol pomocí 1/0) je vybalancovaný sám o sobě, tzn uvnitř jednoho symbolu je +- stejný počet 1/0
+- párovaný disparitní kód- balancování naskrz po sobě jdoucími symboly (hlídání disparity) --> průběžně počítám počet 1/0 a snažím se průběžně zajistit, aby jejich počet byl podobný
 
 průběžná disparita = rozdíl počtu 0 a 1. Ideál je vyvážená disparita
 
@@ -821,43 +825,46 @@ _clock recovery - proces extrahování času_
 
 #### Rendundantní kódování
 
-Každý bitový interval obsahuje alespoň jednu změnu (0 → 1 nebo 1 → 0). Zajištěna synchronizace, ale 100% overhead.
+Každý bitový interval obsahuje (je to garantované) alespoň jednu změnu (0 → 1 nebo 1 → 0). Zajištěna synchronizace, ale 100% overhead.
 
 Příklady:
 
 - Manchester
   - směr změny uprostřed bitvého interalu určuje datový bit → hodinový signál je uprostřed bitového intervalu
+  - dvojnásobný objem přenesých dat, 100% overhead (pro přenesení jednoho bitu potřebuju změnu --> tzn. potřebuju přenést dva bity mezi kterými je změna --> a to je ten jeden bit --> jinak řečeno jeden bitový interval ve kterém s epřenese jeden bit, obsahuje vždycky dva bity)
   - self-clocking, DC vyvážený, nevhodné pro velké objemy dat a velké vzdálenosti
-  - využití: ethernet (10 MB/s), NFC
+  - využití (kdysi): ethernet (10 MB/s), NFC
 - Bipolar RZ
 
 #### Bitový stuffing
 
-V případě dlouhé sekvence stejných symbolů vloží odesílatel opačný bit (příjemce bit odstraní). Zajištěna synchronizace, limitně 0% overhead.
+V případě dlouhé sekvence stejných symbolů vloží odesílatel opačný bit (příjemce bit odstraní). Zajištěna synchronizace, limitně 0% overhead (bit navíc dávám jenom výjimečně --> synchronizace se chvíli udrží --> je potřeba vkládat opačný symbol pouze v případě, že mám po sobě jdoucích N stejných symbolů (tzv. běh). takových dlouhých běhů ale není mnoho).
 
 #### Scrambling
 
-Bity první namícháme s pseudo-náhodnou sekvenci (příjemce musí být schopen vygenerovat stejnou sekvenci pro zpětnou rekonstrukci). Zlepšuje disparitu a synchronizaci.
+Bity první namícháme s pseudo-náhodnou sekvenci (příjemce musí být schopen vygenerovat stejnou sekvenci pro zpětnou rekonstrukci). Zlepšuje disparitu a synchronizaci. Samo o sobě to ale nic negarantuje.
 
 ### (B09) Blokové kódování
 
-Před posláním vezme se skupina n bitů a přeloží se na základě daného mapování na $k>n$ bitů. Př. 0001 → 01001
+\*v dnešní době nejdůležitější
+
+Před posláním vezme se skupina n bitů (blok) a přeloží se na základě daného (většinou pevně dané tabulkou, kterou spočítali chytří maatematici) mapování na $k>n$ bitů. Př. 0001 → 01001
 
 Funkce:
 
-- výsledná sekvence má hodně změn (0/1)
-- pro jednu vstupní máme více výstupních sekvencí (lze vybrat vhdonou pro vybalancování)
-- některé výstupní kódy jsou navíc (používají se jako řídící signály nebo detekce chyb)
+- výsledná sekvence má hodně změn (0/1) - nejsou dlouhé běhy
+- pro jednu vstupní máme více výstupních sekvencí, konkrétně 2 (nemůžu si vybrat libovolně --> jsem nucen použít tu, která aktuálně lépe vybalancuje disparitu)
+- některé výstupní kódy jsou navíc - typicky třeba když by vzniklo `00000` nebo `11111` (aby nebyly úplně zbytečné, tak se používají jako řídící signály nebo detekce chyb)
 
 Příklady:
 
 - 4B5B
   - 4b → 5b
   - self clocking, DC balanced jenom se scramble, disparita nevyvážená
-  - 25% overhead
+  - 25% overhead (na každou čtveřici bitů přidáme jeden bit navíc)
   - použití: fast ethernet
 - 8b/10b
-  - 5+3b → 6+4b
+  - 5+3b → 6+4b (osmici rozdělím na dvě části 5b+3b, tudíž mapování probíhá dvakrát)
   - garantuje synchronizaci, self clocking, DC vyvážený, omezená disparita
     - běh nejvýše 5 stejnýh bitů za sebou
     - maximální disparita $\pm$ 2
@@ -868,9 +875,11 @@ Příklady:
 
 [článek](https://resources.system-analysis.cadence.com/blog/msa2021-types-of-digital-modulation)
 
-modulované - Přenášíme sinusovku (nosnou harmonickou vlnu) → samotná vlna nenese informaci, informace je reprezentovaná **změnami** ve vlnovém parametru
+modulované přenosy - Přenášíme sinusovku (tzv. nosnou harmonickou vlnu) → samotná vlna nenese informaci, informace je reprezentovaná **změnami** ve vlnovém parametru (3 parametry = 3 možnosti co měnit)(nese změny, proto nosná --> carrier)
 
 ![analog modulation](./images/analogmodulation.jpg)
+
+mohu změnu parametrů kombinovat (ne všechno lze ale kombinovat --> třeba změna amplitudy je náročná realizovat na velké vzdálenosti --> prostřední je frekvence --> nejlepší je změna fáze, to je nezpochybnitelné vždy a nejsnadněji detekovatelná)
 
 dva typy modulace - analogová a digitální. Jediný rozdíl je v tom, že u digitální modulace rozeznáváme omezené (diskrétní) množství stavů (česky - buď reprezentujeme danou změnu jako 0 nebo jako 1). Př. (vztaženo k obrázku nahoře):
 
@@ -884,7 +893,7 @@ dva typy modulace - analogová a digitální. Jediný rozdíl je v tom, že u di
   - 1 → vyšší
   - 0 → nižší
 
-klíčování = digitální modulace. Techniky:
+klíčování = digitální modulace (v češtině se ale tento termín nepoužívá). Techniky:
 
 - Amplitude-shift keying (ASK) - odlišné amplitudy
 - Frequency-shift keying (FSK) - odlišné frekvence
@@ -899,13 +908,14 @@ Pozorování:
 ### (B11) Kvadraturní amplitudová modulace (QAM)
 
 informace reprezentována změnami v parametrech vlny (analogová a digitální modulace)
+používá se např. u wifi
 
 alternativy:
 
-- 16-QAM (16 stavů → 4b symboly)
-- 64-QAM (64 stavů → 6b symboly) - Wifi 2/3/4, DVB-T
-- 256-QAM (256 stavů → 8b symboly) - WiFi 5, DVB-T2
-- 1024-QAM (1024 stavů → 10b symboly) - WiFi 6
+- 16-QAM (16 stavů → 4b symboly → tzn. odesláním jednoho symbolu odešlu 4 bity)
+- 64-QAM (64 stavů → 6b symboly)
+- 256-QAM (256 stavů → 8b symboly)
+- 1024-QAM (1024 stavů → 10b symboly)
 
 #### 16-QAM
 
@@ -913,23 +923,23 @@ alternativy:
 - u první vlny amplitudová modulace (3 možné stavy → na obrázku níže reprezentované jako kružnice)
 - u druhé fázová modulace (12 možných stavů → na obrázku níže reprezentované jako úsečky)
 - celkem 36 možných stavů → používáme pouze 16 z nich (ty, které lze od sebe snadno rozlišit)
-- namapujeme stavy na hodnoty (Greyovy kódy) - dva sousední stavy se řeší právě v jednom bitu (případná chyba je malá)
+- namapujeme stavy na hodnoty (Greyovy kódy) - dva sousední stavy se liší právě v jednom bitu (v případě, že dojde k chybě při interpretaci stavů, tak bude chyba pouze v jednom bitu)
 
 ![16-qam](./images/16qam.jpg)
 
 ### (B12) Zajištění transparence
 
-Aby linková vrstva fungovala, musí přenášet užitečná data a kontrolní singály a rozeznávat je od sebe
+Aby linková vrstva fungovala, musí uěmt přenášet jak užitečná data tak kontrolní singály a rozeznávat je od sebe
 
 - Užitečná (data pro vyšší vrstvy) - nelze je modifikovat, respektive můžeme, ale příjemce je musí umět zpětně zrekonstruovat
 - Řídící signály - je třeba umět je detekovat a interpretovat.
 
 Transparence = rozlišování užitečných dat od signálů
 
-Strategie pro proudové přenosy:
+Strategie pro proudové přenosy (v telekomunikačních sítích):
 
-- oddělená přenosová cesta - nepoužívá se
-- escaping - dva módy data/signály. Je potřeba mít přepínací mechanismus mezi módy
+- oddělená přenosová cesta - zvlášť cesta pro data a zvlášť pro signály - pravěk
+- escaping (přepínání interpretací) - dva módy data/signály, teď se přenáší data → přepne se mód → teď se přenáší data. Je potřeba mít přepínací mechanismus mezi módy
 
 Strategie pro blokové přenosy:
 
@@ -939,20 +949,24 @@ Strategie pro blokové přenosy:
 
 Jak zajistit přenos a transparenci blokových dat.
 
-Encapsulation (zapouzdření) - vytvoření rámce (obecně PDU). Potřeba mít definovaný formát (hlavička, tělo, patička..)
+Encapsulation (zapouzdření) - vytvoření rámce (obecně PDU) --> vezmu data a pomocí definovaného formátu přidám metadata (hlavička, tělo, patička..)
 
-Framing - vymezení hranic rámce v datech (vytvořených v rámci encapsulation). L1 přenáší pouze stream bitů → příjemce musí být schopen identifikovat začátek/konec rámce v nestrukturované sekvenci
+Framing - již mám vytvořený rámec → nyní přichází framing → vymezení hranic rámce v datech. L1 přenáší pouze stream bitů → příjemce musí být schopen identifikovat začátek/konec rámce v nestrukturované sekvencim kterou nám přidala L1
 
 Obecné techniky (nezávislé na L1):
 
+níže popsané metody využívavjí techniku stuffingu (vložíme navíc nějaké informace/bity/flagy)
+
 - Flag (byte, sekvence bitů) na začátku a na konci rámce → potřeba vyřešit, aby se nevyskytl někde uprostřed
-- Start flag + délka - označíme flagem začátek rámce, konec rámce je spočítán pomocí délky. Není moc používané kvůli tomu, že je obtížné zpětné obnovení v případě desynchronizace
+- Start flag + délka - označíme flagem začátek rámce, konec rámce je spočítán pomocí délky (ta je uložena většinou v hlavičce). Není moc používané kvůli tomu, že je obtížné zpětné obnovení v případě desynchronizace
 
 Specifické techniky (závislé na L1):
 
-- starting flag + implicitní konec - Začátek rámce je označen flagem, konec rámce odpovídá konci přenosu. Př. Ethernet II s Manchester coding
+- starting flag + implicitní konec - Začátek rámce je označen flagem, konec rámce odpovídá konci přenosu (mám garantovné, že nemůžu lepit rámce přímo za sebe, tudíž mám garantovanou pauzu v přenosu).
 - Coding violation - speciální nedatové symboly označují start/konec bloků. Př. 4B5B
-- Počítání bloků - délka bloků spočítaná na základě dělení času (funguje pouze pro bloky s fixní délkou). Př. digital hiearchies
+- Počítání bloků -
+  určím si časový interval (5 sekund --> blbost ale pro ilustraci) --> za tento interval pošlu X bloků, nevím kolik --> první blok, který pošlu je inicializační (natolik specifická sekvence, že ho bezpečně poznám) --> ten mi řekne, jak je dlouho se posílá jeden blok --> poté vydělím interval délkou pro tento blok a zjistím na jakém místě je jaky blok (dá mi to intervaly pro jednotlivé bloky --> slot)
+  délka bloků spočítaná na základě dělení času (funguje pouze pro bloky s fixní délkou).
 
 ### (B14) Techniky stuffingu
 
@@ -962,6 +976,7 @@ Využití (na L2):
 
 - transparence (escaping, framing)
 - řešení výskytů flag-sekvencí v užitečných datech → potlačení meta významu flag-sekvencí uvnitř užitečných dat
+  - tady vlastně řeším problémy stuffingu stuffingem
 - kooperace mezi fyzickou a linkovou vrstvou
 
 ### (B15) Znakově orientované protokoly
@@ -970,11 +985,12 @@ Kontrolní příkazy jsou vyjádřeny pomocí speciálních netisknutelných ASC
 
 struktura rámce:
 
-- hlava/tělo:
-  - SOH (start of header) - začátek (nepovinné) hlavičky
+- hlavička (je nepovinná) a tělo:
+  - SOH (start of header) - začátek hlavičky
   - STX (start of text) - začátek dat
   - ETX (end of text) - koenc dat
-- kladný escaping (DLE) je potřeba pro aktivaci meta významu. DLE symboly v těle se zdvojují → poznáme, že to nemá mít žádný speciální význam, ale že jsou to data
+- kladný escaping (DLE) je potřeba pro aktivaci meta významu → tzn. když datech narazím na samotný SOH/STX/ETX tak mi to nevadí, protože, před nimi nebude DLE.  
+  problém by byl, kdyby byl v užitečných datech DLE + něco → v takovém případě zdvojíme DLE → poznáme, že to nemá mít žádný speciální význam, ale že jsou to data
 
 ![character oriented protocols](./images/characteroriented.jpg)
 
@@ -983,7 +999,7 @@ Pro lepší synchronizaci s L1 přidáváme na začátek rámce dva synchroniza�
 
 Příklad: SLIP
 
-- protokol pro P2P a fully duplex spojení umožňující přímé zapozdření IP paketů. Potřeba pouze framing, nic víc
+- z obrázku vidíme, že chybí hlavička (ždáná adresa, prostě nic), pouze užitečná data → je to proto, že protokol je určen pouze pro P2P a fully duplex spojení → umožňuje přímé zapozdření IP paketů bez hlavičky. Potřeba pouze framing, nic víc
 - začátek a konec rámce je označen pomocí END flagu
 - END uprostřed
 
@@ -1008,7 +1024,7 @@ Princip rámcování:
 
 ### (B17) Bytově orientované protokoly
 
-Označujeme začátek nebo konec jako u bitově orientovaných protokolů, pouze je potřeba zarovnání na celé byty. Také se používají escapovací byty jako ve znakově orientovaných protokolech, které využijeme k označení vnitřních flagů. Také mohou být použity synchronizační flagy.
+Označujeme začátek nebo konec flagy jako u bitově orientovaných protokolů, pouze je potřeba zarovnání na celé byty (tzn. flag má velikost celých bytů - 1,2...). Také se používají escapovací byty jako ve znakově orientovaných protokolech, které využijeme k označení vnitřních flagů. Také mohou být použity synchronizační flagy.
 
 Příklad: Ethernet
 
@@ -1016,46 +1032,237 @@ Příklad: Ethernet
 
 princip rámcování:
 
-- synchronizační preambule - sekvence 7B `0x55` přenesných jako `10101010` (LE pořadí pro bity)
+- synchronizační preambule - sekvence 7B `0x55` přenesných jako `10101010` (LE pořadí pro bity), neslouží k framingu, opravdu slouží pouze pro synchronizaci
 - začátek rámce - SFD: `0xD5` přenesených jako `10101011`
 
 ## Síťová vrstva a směrování
 
 Zpět na [Přehled](#přehled).
 
+úkolem síťové vrstvy je dostat pakety přes **systémy sítí**, které jsou propojené routery.
+
 ### (B18) Routing a forwarding
+
+- Routing - Proces hledání optimální cesty
+- Forwarding - Proces samotného posílání paketů
 
 ### (B19) Směrovací a forwardovací tabulky
 
+Routovací tabulky:
+
+- Cíl - IP adresa cílové sítě (př. 192.168.2.0)
+- Interface - IP adresa síťové karty, která má být použita pro předání IP datagramu
+- Gateway - IP adresa sousedního routeru (př. 192.168.1.1)
+- Metrika - vzdálenost (_cena_) při použití dané trasy do cíle (př. 11)
+
+Forwardowací tabulky
+
+- Předpočítané tras
+
 ### (B20) Obvyklé přístupy směrování
+
+- Destination-based - založeno na cílové adrese (ne na zdrojové)
+- Least-cost - výběr cesty podle nejmenší ceny
+- Hop-by-hop - každý router se rozhoduje nezávsilé na jiných
+- Content-independent - neberou se v potaz posílaná data
+- Stateless - neberou se v potaz výsledky minulých posílání
 
 ### (B21) Klasifikace směrovacích přístupů
 
+- Adaptivní/neadaptivní - Jestli se berou v potaz změny v síti
+- Centralizované/distribuované - Jestli routery dělají rozhodnutí v závislosti na jiných routerech
+- Izolované/neizolované - Jestli se očekává spolupráce routerů
+- Interior/exterior - jaký je rozsah nasazení v rámci hierarchického směrování → uzly "uprostřed" (interior) grafu s mnoha propojeními budou muset zpracovat více dat, než uzly na okraji (exterior), které nejsou tak vytížené
+
 ### (B22) Adaptivní a neadaptivní směrování
 
-### (B23) Statické (fixní) směrování
+#### Adaptivní (dynamické)
+
+Berou se v potaz změny v síti (vytíženost cest, routerů, změny v topologii). Routovací tabulky se neustále přepočítávají
+
+cíl: routing convergence - všechny routery mají stejné informace o topologii
+
+#### Neadaptivní (statické)
+
+Neberou se v potaz změny v síti → tudíž nepotřebují komunikvoat s ostatními uzly. Routovací tabulky se nemění.
+
+př. Fixed directory routing, Random walk, flooding
+
+### (B23) Statické (fixní) směrování (Fixed directory routing)
+
+Routovací tabulky jsou nastaveny manuálně administrátorem
+výhody:
+
+- známe dopředu cestu (neaktualizujeme)
+- vyšší bezpečnost (aktualizované informace mohou být padělané)
+
+Nevýhody:
+
+- nepřístupné změnám
+- pomalé ve velkých sítích
+- administrátor může udělat chybu
+
+Lze kombinovat s adaptivním přístupem → nastavení defaultních routerů nebo použití v případě, že dynamické routování je aktuálně nedostupné
 
 ### (B24) Záplavové směrování
 
+Příchozí pakety jsou duplikovány a rozeslány všemi dostupnými směry (krom toho, odkud paket přijel)
+
+výhody:
+
+- nejsou potřeba informace o síti (tedy žádné routovací tabulky)
+- jednoduché na implementaci
+- pakety vždy dorazí do cíle, pokud existuje cesta (použití při posílání důležitých zpráv, či vojenských oznámeních)
+
+Nevýhody:
+
+- přílišné zatížení sítě - v případě existence ($\geq2$) cyklů může dojít až k exponenciální duplikaci paketů ve stejném uzlu.
+
 ### (B25) Techniky řízené záplavy
+
+Technika, jak vyřešit problém caklů (paket přijde dvakrát do jednoho uzlu)
+
+#### Hop count
+
+Paket dostane na startu číslo. V každém routeru se sníží o jedna. Když je na nule, paket se zničí. (číslo musí být dost velké, aby paket mohl dorazit do cíle).
+
+#### Sequence numbers
+
+pakety dostanou pořadové číslo. V každém uzlu si pamatuji seznam dvojic _adresa odesílatele + pořadové číslo_. Přijde-li "stejná dvojice", je paket ignorován.
+
+problémy:
+
+- omezená paměť uzlu
+- v případě navázaní nového spojení mohou být nově posílané pakety považovány za staré
+
+#### Reverse path forwarding
+
+V uzlu si pamatuju směr, odkud očekávám, že přijde daný paket, když přijde tento paket jinou cestou, zruším ho.
+
+#### Spanning tree
+
+Nejdříve se vytvoří kostra grafu (sítě), pakety jsou posílány pouze po cestách, které jsou součástí kostry.
 
 ### (B26) Centralizované směrování
 
+Routovací rozhodnutí dělá primárně _rout server_ → když je potřeba routovací informace, pošle se request do rout serveru. Ostatní uzly dělají pouze forwarding.
+
+výhody:
+
+- velká flexibilita
+
+nevýhody:
+
+- selže rout server → selže vše
+
 ### (B27) Distribuované izolované směrování
+
+Každý router dělá routovací rozhodnutí sám, ale uzly nespolupracují
+
+př. Metoda zpětného učení, metoda zdrojového směrování, horká brambora (hot potato)
 
 ### (B28) Metoda zpětného učení
 
+Na začátku mám prázdnou tabulku. Přijde-li paket od neznámého odesílatele, zapamatuje se směr odesílatele. Paket je odeslán buď:
+
+1. do všech směrů když neznáme směr příjemce
+2. ve směru příjemce
+
+Abychom udržovali aktuální informace, tak kombinujeme s [hop counterem](#hop-count). Paket obsahuje číslo (to s každým hopem zvyšujeme), jestliže je nová cesta kratší, aktualizujeme ji v seznamu.
+
 ### (B29) Metoda zdrojového směrování
+
+Odesílatel najde kompletní cestu k příjemci, po které se pošlou data.
+
+Hledání: pošle se speciální paket [záplavovou metodou](#b24-záplavové-směrování) → po cestě se tvoří seznam IP adres, kudy jel → když dorazí do cíle, je do startu odeslán seznam, kudy posílat pakety → seznam se vloží do každého odeslaného paketu.
+
+výhody:
+
+- vždy se najde nejkratší cesta
+
+Nevýhody:
+
+- nevýhody záplovavého směrování
 
 ### (B30) Distribuované neizolované směrování
 
+Každý router dělá routovací rozhodnutí sám, ale uzly spolupracují
+
+př. Distance-vector směrování, link-state směrování, path-vector
+
 ### (B31) Směrování distance-vector
+
+Každý uzel má vlastní routovací tabulku s nejkratší spočítanou cestou do objevených sítí. Aplikace Bellman-Fordova algoritmu.
+
+distance-vector = routovací tabulka s těmito záznamy:
+
+- cíl - adresa cílové sítě
+- směr -
+- gateway - sousední router
+- metrika - celková cena pro dosažení cílové sítě
+
+Sousední uzly si cca. co 30s předávají aktuální informace
+
+![dvr1](./images/dvr1.png)
+
+na začátku inicializujeme tabulku pro každý router. Při inicializaci jsou v tabulce obsaženy pouze přímo sousedící sítě, do kterých se z routeru lze dostat.
+
+![dvr2](./images/dvr2.png)
+
+Poté postupně předávám informace mezi sousedními routery → přidávájí se nové záznamy, aktualizují se ty staré. Můžeme např. zpropagovat informace z $R$ do sousedních vrcholů ($V$, $T$, $U$). Do $V$ přidáme informaci, že do sítě $C$ se lze dostat přes vrchol $R$ (vzdálenost je 3, protože $V→R = 2$ a $R→C=1$). Analogicky doplníme do $C$, jak se dostat do $A$, a do tabulky vrcholu $T$ doplníme info jak se dostat do vrcholu $A$:
+
+![dvr3](./images/dvr3.png)
+
+Stejně bychom mohli rozšířit informace z vrcholu $S$ do vrcholů $T$ a $V$
+
+Pravidla pro aktualizaci záznamů v tabulce:
+
+1. Pokud mohu doplnit novou cílovou síť, která zatím není v tabulce, doplním ji
+2. Pokud je síť v tabulce, a je dosažitelná přes stejný uzel, je záznam ponechán a pouze se přepočítá nová vzdálenost
+3. Pokud je síť v tabulce dosažitelná skrz nový uzel, přepočítá se, jestli je cesta přes nový uzel kratší, když ano, je starý záznam celý smazán a nahrazen novým záznamem
+
+Kompletní tabulky by vypadaly takto:
+
+![dvr4](./images/dvr4.png)
 
 ### (B32) Problém count to infinity
 
+Jedná se o problém, který vznikne při Distance-vector routingu. Mějme tři uzly, kterým jsme spočítali routovací tabulky podle distance-vector routingu:
+
+![countotinf1](./images/counttoinf1.png)
+
+Najednou se ale stane, že zmizí spojení mezi B a C. Aktualizujeme tedy tabulky:
+
+![countotinf2](./images/counttoinf2.png)
+
+Nyní ale kombinací tabulek A a B dostaneme, že: z B se lze dostat do A a z A se lze dostat do C. Celkem to zabere délku 3. Proto aktualizujeme záznam v B.
+
+![countotinf3](./images/counttoinf3.png)
+
+Nyní je ale potřeba aktualizovat záznam v tabulce A. A totiž jde do C přes B. Jenmožne z A do B je to 1. Pak se ale v B dočteme, že do C je to 4, tedy 1+4=5 → z A do C je to 5.
+
+![countotinf4](./images/counttoinf4.png)
+
+Takto by to pokračovalo až do nekonečna.
+
+Řešení:
+
+1. Malé nekončeno - nastavíme maximální hodnotu pro vzdálenost. Musí být dostatečně velká, aby byly všechny vrcholy dosažitelné.
+2. Split horizon - jestliže uzel A získal informace z uzlu B, pak uzel A nebude předávat nové informace uzlu B.
+3. Poisoned reverse - jestliže je cesta zrušena, je vzdálenost nastavena na nekonečno.
+
 ### (B33) Vlastnosti protokolu RIP
 
+- vzdálenost se počítá podle počtu skoků (nekonečno je 16)
+- routovací tabulky mají max 25 záznamů
+- aktualizace se dělá každých 30s
+- nepoužitelný ve větších sítích
+
 ### (B34) Směrování link-state
+
+Každý uzel má informace o celé síti, tedy každý uzel může dělat výpočty sám za sebe. Neustále se kontroluje dostupnost sousedních vrcholů, v případě nedosažitelnsoti je informace předána všem uzlům.
+
+Př. OSPF (Open Shrotest Path First)
 
 ### (B35) Srovnání principů RIP a OSPF
 
@@ -1071,9 +1278,24 @@ Zpět na [Přehled](#přehled).
 
 ### (B39) End-to-end komunikace
 
+komunikace mezi odesílatelem a příjemcem
+
+vrstvy L1-L3 pracují na atomické úrovni
+
+L4 a vyšší vrstvy jsou implementovány pouze v koncových uzlech (ne v routerech).
+
 ### (B40) Transportní spojení
 
+Identifikace
+Aplikace (odesílatel) komunkuje s několik příjemci → ptořebujeme rozlišovat: H_2O (IP_1, port_1, protocol, IP_2, port_2)
+
 ### (B41) Srovnání protokolů TCP a UDP
+
+| TCP                                | UDP                                |
+| ---------------------------------- | ---------------------------------- |
+| komplexní                          | primitivní                         |
+| byte stream, spojovaný, spolehlivý | blokový, nespojovaný, nespolehlivý |
+| kontrola přetížení                 | žádná kontrola přetížení           |
 
 ### (B42) Bytový stream TCP
 
