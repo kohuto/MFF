@@ -1471,7 +1471,10 @@ Forward techniky:
 
 Zpět na [Přehled](#přehled).
 
-**Internetworking** = vzájemné propojování celých sítí (nebo v širší definici i jejich dílčích částí).
+Dva významy internetworkingu:
+
+1. Mám několik sítí (soustav) a řeším, jak je propojit
+2. Mám jednu síť (soustavu) a řeším, jak ji rozdělit na menší části a jak tyto části následně zase propojit
 
 ### (C01) Cíle internetworkingu
 
@@ -1481,25 +1484,29 @@ Konkrétní problémy:
 
 - Řešení omezení přenosových médií
 - Optimalizace datových toků a vyvažování zátěže
-- přístupová oprávnění
+- přístupová (a další) práva
 - bezpečnost a ochrana před útoky
 - snaha o větší využívání sítě dalšími uživateli
 
 ### (C02) Aktivní a pasivní síťové prvky
 
+to, co potřebujeme propojit, propojíme pomocí vhodné „krabičky“, vše je pak o tom, jak „krabička“ funguje
+
 #### Pasivní
 
+nijak (aktivně) nepracují s tím, co přenáší
+
 - Kabely, konektory rozbočovače, zásuvky
-- skříně, patch panely (pro lepší organizaci kabelů),...
+- propojovací pole (tzv. patch panely), skříně (rack-y), obecně to,co pomáhá strukturovat kabeláž
 
 #### Aktivní
 
 Zařízení ("v zásuvce"), která se aktivně podílejí na posílání dat
 
-- L1 - repeater - zesiluje a tvaruje signál
+- L1 - repeater (opakovač) - zesiluje a tvaruje signál
 - L2 - bridge a switch - Filtrování a přeposílání rámců v rámci lokální sítě
 - L3 - router - routing a forwarding paketů mezi sítěmi
-- L7 - gateway - pokročilé funkcionality jako firewall, NAT apod.
+- L7 - gateway (brána) - pokročilé funkcionality jako firewall, NAT apod.
 
 ### (C03) Propojování napříč vrstvami
 
@@ -1509,17 +1516,64 @@ Zařízení ("v zásuvce"), která se aktivně podílejí na posílání dat
 
 ### (C04) Principy propojování na L1
 
+propojovací zařízení pracuje s jednotlivé bity, nerozumí jejich významu
+
 ### (C05) Funkce opakovačů
+
+zesiluje a znovu tvaruje přenášený signál (kompenzuje zkreslení, útlum a další vlivy okolí) → obnovený signál okamžitě přepošle dál (nejsou zde žádné buffery)
+
+![repeater](./images/repeater.png)
 
 ### (C06) Vlastnosti opakovačů
 
+opakovač je průchozí (neukládá data do bufferu) → co přijde, hned odejde
+
+data prochází opakovačem z **konstantním** miniaturním zpožděním → opakovače mohou propojovat pouze segmenty se stejnou přenosovou rychlostí (nedokázaly by vyrovnávat rozdíly v rychlostech)
+
+opakovač nerozumí datům (bitům) → ke všem bitům se chová stejně (tzn.vše, co přijde, předá do všech odchozích směrů → na L1 totiž nemáme ani adresy). Propouští i kolize (viz dále)
+
+opakovače jsou závislé na technologii, použité na L2 (konkrétní technologie na L2 používají různé kódování, které opakovače musí respektovat, používají různou přenosovou rychlost atd.) → neexistuje obecně použitelný opakovač
+
+Co je propojeno pomocí opakovačů se chová jako jeden souvislý kabelový segment
+
+![repeater segment](./images/repeatersegment.png)
+
 ### (C07) Přístupová metoda CSMA/CD
 
+= Carrier Sense Multiple Access with Collision Detection
+
+Chceme-li začít přenášet, musíme se ujistit, že nikdo jiný (CS) nepřenáší přes sdílené médium (MA)(viz dále). Pokud přenáší, tak počkáme. V průběhu přenosu kontrolujeme případné kolize (CD). I přes CS krok, může jiný uzel začít přenášet. V takovém případě přerušíme přenos a začneme přenášet speciální **jam signal**.
+
+To, co je (v Ethernetu) propojeno pomocí opakovačů, tvoří _kolizní doménu_ (kolizní doména = segment). Aby se kolize v rámci kolizní domény stihla rozšířit, je délka segmentu omezena. Př v 10 Mb/s Ethernetu:
+
+![limitation segment](./images/limitationsegment.png)
+
+Tato technologie se již dnes nepoužívá
+
 ### (C08) Přenosová kapacita segmentu
+
+to co je propojeno pomocí opakovače se chová jako jeden segment. Sdílení
+
+pokud A posílá rámec B, tento rámec je šířen přes opakovač do dalších segmentů, kde obsazuje zdejší přenosovou kapacitu (tzn. např. D nemůže přenášet rámec k C)
+
+![shared capacity](./images/sharedcapacity.png)
 
 ### (C09) Principy propojování na L2
 
 ### (C10) Filtrování a cílený forwarding
+
+#### Filtrování
+
+data, která začínají i končí v jednom segmentu nejsou šířená dál do dalších segmentů.
+
+![filtering](./images/filtering.png)
+
+#### Forwarding
+
+Provoz, který začíná v jednom segmentu a končí v jiném segmentu, není šířen do dalších segmentů.
+![forwarding](./images/forwarding.png)
+
+Propojovací uzel u Filtrování a cíleného forwardingu již nesmí fungovat jako repeater, ale musí fungovat minimálně na L2 (aby rozuměl struktuře přenášených rámců)
 
 ### (C11) Činnost linkového rozhraní
 
