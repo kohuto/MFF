@@ -1558,7 +1558,15 @@ pokud A posílá rámec B, tento rámec je šířen přes opakovač do dalších
 
 ![shared capacity](./images/sharedcapacity.png)
 
+Řešení pomocí filtrování a cíleného forwardingu
+
 ### (C09) Principy propojování na L2
+
+Na L1 vrstvě jsme spojováním dostali segmenty. Nyní na L2 dostaneme propojením segmentů sítě. Propojení se realizuje pomocí mostů a switchů.
+
+![connection on l2](./images/principconnectionl2.png)
+
+Hlavním cílem je filtrování a cílený forwarding
 
 ### (C10) Filtrování a cílený forwarding
 
@@ -1575,27 +1583,104 @@ Provoz, který začíná v jednom segmentu a končí v jiném segmentu, není š
 
 Propojovací uzel u Filtrování a cíleného forwardingu již nesmí fungovat jako repeater, ale musí fungovat minimálně na L2 (aby rozuměl struktuře přenášených rámců)
 
+Důsledkem toho je efektivnější využití přenosové kapacity. Je ale potřeba znát částečně topologii sítě.
+
 ### (C11) Činnost linkového rozhraní
+
+mosty a přepínače musí uložit do bufferu alespoň tolik dat (linkového rámce), aby dokázaly zjistit adresu odesílatele a příjemce → technika store&forward a cut-through
 
 ### (C12) Mechanismus Store&Forward
 
+čeká se na načtení celého linkového rámce a teprve pak s ním pracuje
+
+výhody:
+
+- segmenty propojené mostem/přepínačem mohou pracovat s různou přenosovou rychlostí
+- poškozené rámce se nešíří dále
+
+nevýhody:
+
+- vyšší latence
+
 ### (C13) Mechanismus Cut-Through
+
+nečeká se na načtení celého rámce, ale začíná se s ním pracovat již po načtení jeho hlavičky (než se načte zbytek rámce, tak je úvodní část už přeposlaná dále)
+
+výhody:
+
+- nižší latence
+
+nevýhody:
+
+- segmenty propojené mostem/přepínačem nemohou pracovat s různou přenosovou rychlostí
+- poškozené rámce se šíří dále
 
 ### (C14) Segmentace sítě
 
+Síť se rozdělí na segmenty, propojené na L2 (ideálně lze při rozdělení na N segmentů využít Nx přenosovou kapacitu). Přenosová kapacita v rámci jednoho segmentu je sdílená (čím více uzlů v segmentu, tím vyšší šance na kolizi). Př. rozdělím na dva segmenty, pak je původní přenosová kapacita rozdělena na dvě sdílené přenosové kapacity, které mohou být ideálně využívány nezávisle na sobě
+
+![segmentation](./images/segmentation.png)
+
+Velké segmenty tedy chceme ideálně rozdělit na větší počet menších segmentů a ty propojit dostatečně výkonnými přepínači. Ideální stav je mikrosgementace → segment = 1 uzel:
+
+![microsegmentation](./images/mikrosegmentace.png)
+
 ### (C15) Vyhrazená přenosová kapacita
+
+Vyhrazená přenosová kapacita nastává ve chvíli, kdy došlo k mikrosegmentaci (segment = 1 uzel), tzn. každý uzel má celou přenosovou kapacitu svého segmentu pro sebe.
+
+Podmínkou využití vyhrazené kapacity je dostatečná rychlost přepínače (musí stíhat přepínat/přenášet všechny souběžné přenosy → tzn. souběžné přenosy se nesmí navzájem zpomalovat). Vnitřní výpočetní kapacita přepínače musí odpovídat součtu přenosových kapacit všech segmentů.
 
 ### (C16) Propojovací zařízení na L2
 
+#### Mosty
+
+Pouze brání tomu, aby se provoz z jednoho segmentu zbytečně šířil do dalších segmentů → optimalizované na filtrování. Má většinou jen dva porty (propojí pouze dva segmenty), tudíž u něj nehraje moc roli forwarding.
+
+![bridge](./images/bridge.png)
+
+Dnes se skoro nepoužívají
+
+#### Switche
+
+má za úkol podporovat/vytvářet vyhrazenou přenosovou kapacitu → propojuje více segmentů s menším počtem uzlů. Většinou více než 50 portů → je optimalizován na forwarding (filtrování skoro nemusí nastat)
+
+![switch](./images/switches.png)
+
 ### (C17) Vlastnosti zařízení na L2
+
+![viditelnost](./images/viditelnostl2.png)
 
 ### (C18) Principy propojování na L3
 
+Propojují se jednotlivé sítě pomocí routerů (směrovačů) → výsledkem propojení je soustava propojených sítít = internetwork = internet
+
+![internetwork](./images/internetwork.png)
+
 ### (C19) Činnost síťového rozhraní
+
+Směrovače jsou viditelné pro koncové uzly. Koncové uzly musí dokázat rozlišit mezi uzlem ve vlastní síti a uzlem v jiné síti. Posílá-li uzlu ve stejné síti, pak mu odesílá přímo (fakticky na L2). Pokud se nechází v jiné síti, pak svá data pošle (na L2) směrovači.
 
 ### (C20) Pravidla 80:20 a 20:80
 
+#### 80:20
+
+Pravidlo před nástupem internetu (dnes již neplatí).
+
+- 80% provozu je v rámci lokální sítě
+- 20% provozu opouští lokální síť
+
+#### 20:80
+
+S nástupem Internetu a cloud computingu se to obrátilo. Většina provozu směřuje „ven ze sítě“ (80%), a jen malá část zůstává „uvnitř sítě“ (20%).
+
+V důsledku pravidla 20:80 významně rostou požadavky na celkovou propustnost směrovačů. Možná řešení je použití L3 přepínače (L3 switch) či nasazení VLAN
+
 ### (C21) Místní L2 broadcast
+
+Připomenutí: Boradcast - příjemce jsou všechny uzly v rámci dané oblasti (broadcast domény - v rpaxi je to konkrétní síť)
+
+![boradcast](./images/broadcast.png)
 
 ### (C22) Místní L3 broadcast
 
@@ -1604,6 +1689,8 @@ Propojovací uzel u Filtrování a cíleného forwardingu již nesmí fungovat j
 ### (C24) Funkce směrovače
 
 ### (C25) Funkce L3 přepínače
+
+L3 znamená, že funguje na síťové vrstvě (manipuluje s pakety, rozhoduje se podle síťových adres)
 
 ### (C26) Rozdíly směrovačů a L3 přepínačů
 
