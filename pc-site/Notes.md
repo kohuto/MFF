@@ -1278,16 +1278,24 @@ Zpět na [Přehled](#přehled).
 
 ### (B39) End-to-end komunikace
 
+TODO
+
 komunikace mezi odesílatelem a příjemcem
 
 vrstvy L1-L3 pracují na atomické úrovni
 
 L4 a vyšší vrstvy jsou implementovány pouze v koncových uzlech (ne v routerech).
 
+_Multiplexing_ - z pohledu odesílatele → spojení několika nezávislých přenosů do jednoho (na L3 máme pouze jednu přenosovou cestu)
+_Demultiplexing_ - z pohledu příjemce → rozdělení přijatých datagramů
+
 ### (B40) Transportní spojení
 
-Identifikace
-Aplikace (odesílatel) komunkuje s několik příjemci → ptořebujeme rozlišovat: H_2O (IP_1, port_1, protocol, IP_2, port_2)
+Aplikace (odesílatel) komunkuje s několik příjemci, je třeba je rozlišit:
+
+- identifikátor spojení je pětice (IP1, port1, protocol, IP2, port2)
+- indentifikátor odesílatele (IP2, port2, protocol)
+- identifikátor přijemce (IP2, port2, protocol)
 
 ### (B41) Srovnání protokolů TCP a UDP
 
@@ -1295,37 +1303,159 @@ Aplikace (odesílatel) komunkuje s několik příjemci → ptořebujeme rozlišo
 | ---------------------------------- | ---------------------------------- |
 | komplexní                          | primitivní                         |
 | byte stream, spojovaný, spolehlivý | blokový, nespojovaný, nespolehlivý |
-| kontrola přetížení                 | žádná kontrola přetížení           |
+| ochrana proti přetížení sítě       | žádná ochrana proti přetížení sítě |
+| flow control                       | chybí flow control                 |
+
+_Flow control_ - Obrana před tím, aby rychlejší odesílatelé přehltili pomalejší příjemce
 
 ### (B42) Bytový stream TCP
 
+Aplikace generuje proud bytů → ukládají se do bufferu → je-li buffer zaplněn (nebo je obdržen request), vytvoří se TCP segmenty, které se odešlou
+
+Segmenty jsou očíslovány (kvůli zpětnému sestavení)
+
 ### (B43) Navazování spojení
+
+(spojované přenosy).
+
+Navázání spojení:
+3-way handshake: uzel A odešle žádost o spojení → uzel B pošle zpět potvrzení → uzel A odešle závěrečné potvrzení → až teď je spojení navázáno.
 
 ### (B44) Zajištění spolehlivosti
 
+Cheme zajistit, aby data dorazila nezměněná.
+
+| Spolehlivý přenos       | Nespolehlivý přenos         |
+| ----------------------- | --------------------------- |
+| kontroluje a řeší chyby | nekontroluje a neřeší chyby |
+| většinou vhodné         | vhodné v multimédiích       |
+
+Problémy:
+
+- Ztráta bloků - celý blok není doručen. Děje se hlavně na L3 (špatně spočítaná routing path, vypršel time to live, přetížení sítě...)
+- Poškození bloků - jsou změněny bity v bloku. Poškození se děje hlavně na L1 (rušení, útlum...)
+
 ### (B45) Detekce poškozených bloků
+
+#### Ztráta
+
+Detekce: číslování (blokům přířadím pořadové číslo, či označím pozice v proudu dat)
+
+Obnova: příjemce pošle request odesílateli o znovuposlání
+
+#### Poškození
+
+Princip detekce: odesílatel spočítá z dat v odesílaném bloku kontrolní hodnotu a přiloží ji k bloku. Příjemce z doručených dat spočítá kontrolní hodnotu, když hodnota sedí s přiloženou hodnotu, blok (pravděpodobně) nebyl poškozen.
+
+Mechanismy pro výpočet: Kontrola parity, kontrolní součty, CRC (Cyklické redundantní součty)
+
+Lze provést samoopravu (Hammingovy kody, vícedimenzionální kontrola parity), moc se ale nepoužívá (neefektivní). Využívá se spíše znovuposílání bloků (je nám jedno, co za chybu nastalo, kde se v bloku vyskytla apod., protože stejně pošleme celý blok znovu)
 
 ### (B46) Kontrola parity
 
+Za skupinu bitů přidáme 1 bit:
+
+- Lichá parita
+  - celkový počet 1 (včetně přidaného bitu) ve skupině bitů je lichý
+  - posílám-li skupinu 1000 → přidám 0 → pošlu 10000
+  - posílám-li skupinu 1100 → přidám 1 → pošlu 11001
+- Sudá parita
+  - celkový počet 1 (včetně přidaného bitu) ve skupině bitů je sudý
+  - posílám-li skupinu 1000 → přidám 1 → pošlu 10001
+  - posílám-li skupinu 1100 → přidám 0 → pošlu 11000
+
+Podle veliksoti skupiny rozlišujeme:
+
+- transverse parity - skupina je byte (slovo)
+- longitudinal parity - zvolím nějaký počet bitů (N), za každých N bitů umístíme kontrolní paritu
+
 ### (B47) Kontrolní součty
+
+Provede se součet jednotlivých bytů (slov) → výsledek je použít jako kontrolní hodnota. Příjemce rovněž provede součet → výsledky musí bát stejné.
+
+Občas se používá se dvojkový doplněk:
+
+1. Odesílatel provede součet bytu (slova)
+2. součet přiloží k bytu a pošle
+3. Příjemce provede součet → udělá z výsledku dvojkový doplněk, sečte s přiloženým součtem, výsledek musí dát nulu
+
+_Přišel (spolu s bytem) součet 1011 → když bych dělal jedničkový doplněk tak by to vypadalo takto: ~1011+1011=1111 (součet čísla s jeho negací jsou samé jedničky). Když ale dělám dvojkový doplněk tak přičtu ještě jedničku, tudíž se zvětší počet bitů o jedna a dostanu 10000 (jedničku a samé nuly). Jednička se uřízne (je mimo rozsah), tudíž vyjdou samé nuly. Závěr: když je kontrolní součet stejný, tak součet s dvojkovým doplňkem je 0._
+
+Lepší než kontroloní parita, stále tento způsob ale není dostatečně efektivní.
 
 ### (B48) Cyklické redundantní součty
 
+Princip:
+
+Chceme spočítat kontrolní hodnotu. Ta je určena vstupním textem (to co chci poslat př. 01101001) a klíčem (je určen podle toho, jakou CRC metodu používám, př. 00110101).
+Klíč a text převedu na polynomy (koeficient odpovídá hodnotě bitu):
+
+- $01101001 \rightarrow x^6+x^5+x^3+x^0 $
+- $00110101 \rightarrow x^5+x^4+x^2+1 $
+
+Vydělím text klíčem, dostanu nový polynom (veškeré operace jsou $\bmod 2 $). Z koeficientů nového polynomu poskládám binární číslo a toto binární číslo je kontrolní hodnota. Pošlu text + kontrolní hodnotu. Příjemce pak provede CRC a musí mu vyjít nula (protože jsme přičetli zbytek).
+
+Používá se značení CRC-X (př. CRC-8, CRC-32), kde X označuje stupeň polynomu klíče (př. pro CRC-32 může být klíč $x^{32}+x^{25}+x^4$).
+
+Hardwarová implementace je velice snadná, používá se XOR/ AND gateways a shift registry. Navíc je CRC velice spolehlivé (CRC-32 odhalí chybu na 99.99999998%). CRC odhalí pouze chyby způsobené hardwarem, pro odhalení chyb hacknutím je to slabé.
+
 ### (B49) Potvrzovací strategie
+
+Pokažené/ztracené bloky se dají obnovit znovuposláním. Abychom věděli, kdy znovuposlat, potřebujeme potvrzovací strategii (Automatic Repeat Request (ARQ)).
+
+ARQ je skupina strategií pro znovuposílání založená na pozitivních/negativních ACK (acknowledgments) a časových intervalech.
 
 ### (B50) Jednotlivé potvrzování
 
+Odesílatel:
+
+- pošle **jeden** blok, čeká na ACK
+- obdrží ACK → když je negatviní, pošle blok znovu, když je pozitivní, pošle další
+- nedorazí-li žádný ACK v časovém intervalu, je blok poslán znovu
+
+Příjemce:
+
+- obdrží blok → spočítá kontrolní hodnotu → sedí-li pošle pozitivní ACK, nesedí-li, pošle negativní ACK
+- obdrží-li opravený blok (tzn. znovuposlaný), opět ho musí potvrdit
+
+Použitelné pouze v lokálních sítích, ne ve velkých (velký delay)
+
 ### (B51) Kontinuální potvrzování
+
+Byty jsou posílány kontinuálně, nečekáme na ACK.
+
+Jak naložit s pokaženými bloky? V momentě, kdy objevím pokažený blok, mohlo přijít několik dalších. Dvě strategie: Potvrzování s návratem a Selektivní opakování
 
 ### (B52) Potvrzování s návratem
 
+Celý přenos začne znovu od místa, kde došlo k selhání. Bloky, které následovaly po vadném bloku jsou rovněž smazány (i když byly doručeny v pořádku). Snadné na implementaci, ale plýtváme.
+
 ### (B53) Selektivní opakování
+
+Pouze poškozený blok je poslán znovu. Neplýtváme, ale náročné na implementaci (úspěšně poslané bloky po tom vadném musí být uloženy v bufferu a nemohou být dále zpracovány, musí čekat na znovuposlání vadného).
 
 ### (B54) Metoda posuvného okénka
 
 ### (B55) Problém řízení toku
 
+Ujištění, že pomalí příjemci nebudou zahlcení rychlými odesílateli. Řešení: odesílatel bere v potaz kapacitní možnosti příjemce.
+
+TODO posuvné okénko
+
 ### (B56) Předcházení zahlcení sítě
+
+Chceme předejít tomu, aby odesílatelé přetížili celou síť (tzn. uvažujeme omezenou kapacitu cest a výpočetní kapacitu uzlů).
+
+Feedback techniky:
+
+- Snažíme se reagovat na různé příznaky přetížení
+- TCP na L4 - používá metodu posuvného okénka (není-li doručen ACK, považuje se to za známku přetížení). Slow start = Odesílatel začne s šířkou okénka 1 a postupně šířku zvětšuje
+
+Forward techniky:
+
+- aktivně ovlivňujem, co posíláme do sítě
+- _Traffic shaping_ - excessive traffic is delayed
+- _Traffic policing_ - excessive traffic is discarded
 
 ### (B57) Spolehlivost v TCP
 
@@ -1341,11 +1471,41 @@ Aplikace (odesílatel) komunkuje s několik příjemci → ptořebujeme rozlišo
 
 Zpět na [Přehled](#přehled).
 
+**Internetworking** = vzájemné propojování celých sítí (nebo v širší definici i jejich dílčích částí).
+
 ### (C01) Cíle internetworkingu
+
+obecný cíl: Propojit skupiny uzlů pomocí aktivních a pasivních prvků tak, aby byla umožněna jejich vzájemná komunikace.
+
+Konkrétní problémy:
+
+- Řešení omezení přenosových médií
+- Optimalizace datových toků a vyvažování zátěže
+- přístupová oprávnění
+- bezpečnost a ochrana před útoky
+- snaha o větší využívání sítě dalšími uživateli
 
 ### (C02) Aktivní a pasivní síťové prvky
 
+#### Pasivní
+
+- Kabely, konektory rozbočovače, zásuvky
+- skříně, patch panely (pro lepší organizaci kabelů),...
+
+#### Aktivní
+
+Zařízení ("v zásuvce"), která se aktivně podílejí na posílání dat
+
+- L1 - repeater - zesiluje a tvaruje signál
+- L2 - bridge a switch - Filtrování a přeposílání rámců v rámci lokální sítě
+- L3 - router - routing a forwarding paketů mezi sítěmi
+- L7 - gateway - pokročilé funkcionality jako firewall, NAT apod.
+
 ### (C03) Propojování napříč vrstvami
+
+- L1 - propojení jednotlivých (skupin) uzlů → výsledkem je _segment_
+- L2 - propojení jednotlivých segmentů → výsledek je _síť_
+- L3 - propojení jednotlivých sítí → výsledek _internetwork_
 
 ### (C04) Principy propojování na L1
 
