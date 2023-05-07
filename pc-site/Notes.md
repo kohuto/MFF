@@ -1921,41 +1921,68 @@ adresa rozdělena na dvě části: síťovou a relativní. Kde bude předěl? 3 
 
 ### (D05) Třídy a prostor IPv4 adres
 
-#### Třída A
+| Třída A               | Třída B               | Třída C               |
+| --------------------- | --------------------- | --------------------- |
+| největší sítě         | středně velké sítě    | malé sítě             |
+| relativní část 3 byty | relativní část 2 byty | relativní část 1 byte |
+| nejvyšší bit 0        | nejvyšší bity 10      | nejvyšší bity 110     |
+| síťová část 7 bitů    | síťová část 14 bitů   | síťová část 21 bitů   |
+| 128 sítí              | $2^{14}$ sítí         | $2^{21}$ sítí         |
+| 1/2 adres             | 1/4 adres             | 1/8 adres             |
 
-pro největší sítě → relativní část má 3 byty
+![IPv4 classes](./images/ipclasses.png)
 
-nejvyšší bit je 0 → pro síťovou část adresy zbývá 7 bitů → 128 sítí
+Třídy D a E:
 
-tedy 1/2 adres
+- zbývající 1/8 adres
+- třída D - [multicastové adresy](#d07-ipv4-multicastové-adresy). Nejvyšší bity 1110 → 1/16 adres
+- třída E - pro budoucí rozšíření. Nejvyšší bity 1111 → 1/16 adres
 
-![IPv4 A](./images/ipv4a.png)
-
-#### Třída B
-
-pro středně velké sítě → relativní část má 2 byty
-
-nejvyšší bity jsou 1 a 0 → $2^{14}$ = 16 384 sítí
-
-tedy 1/4 adres
-
-![IPv4 B](./images/ipv4b.png)
-
-#### Třída C
-
-pro malé sítě → relativní část má 1 byty
-
-nejvyšší bity jsou 1, 1 a 0 → $2^{21}$ = 2 097 152 sítí
-
-tedy 1/8 adres
-
-![IPv4 C](./images/ipv4c.png)
+![IPv4 classes D and E](./images/classde.png)
 
 ### (D06) Speciální IPv4 adresy
 
-zbývající 1/8 adres
+Některé IPv4 adresy mají speciální význam.
+Základní princip:
+
+- samé 0 = "this" (tento/default)
+- samé 1 = "all" (všechno)
+
+tento uzel
+
+![this node](./images/thisnode.png)
+
+konkrétní uzel v "této" síti (pro verzi A, B, C)
+
+![special ip](./images/specialip1.png)
+
+tato síť - tedy síť s adresou X.Y.Z.0 (pro verzi C). Tzn. síťová adresa je nastavená, ale relativní adresa ne. (je to první adresa v síti z celého bloku pro síť X.Y.Z.0)
+
+![special ip](./images/specialip2.png)
+
+omezený broadcast (broadcast v této síti, není propuštěn směrovači dál
+)
+
+![limited broadcast](./images/limitedbroadcast.png)
+
+broadcast v konkrétní síti
+
+![targeted broadcast](./images/targetedbroadcast.png)
+
+loopback - většinou se používá 127.0.0.1, ale zabraná je pro to celá skupina 127.X.Y.Z
+
+![loopback](./images/loopback.png)
 
 ### (D07) IPv4 multicastové adresy
+
+multicast = přenos od 1 zdroje k více příjemcům současně (unicast: od 1 k 1, broadcast: od 1 ke všem)
+
+multicastová skupina jsou uzly, které přijímají vysílání příslušného zdroje. Může být vymezena:
+
+- staticky - je dopředu a pevně definováno, které uzly jsou ve skupině
+- dynamicky - uzly se zařazují / vyjímají ze skupiny dle potřeby
+
+multicastová skupina je adresovaná (jednou) multicastovou IP adresou (IPv4 třídy D). Ta není rozdělena na síťovou a relativní část.
 
 ### (D08) Realizace multicastu na L2
 
@@ -1972,21 +1999,96 @@ proto musíme IP adresy přidělovat po celých blocích (všechny adresy se ste
 
 poznámka: kdyby měly různé sítě stejnou síťovou část, mátlo by to směrovací algoritmy, které by pak nevěděly kam poslat pakety. Tzn. nepoužíté adresy nemohou být použity nikým jiným.
 
+Přidělovací strategie:
+
+- kdysi - zájemce s potřebou X adres dostal „nejbližší vyšší blok“
+- později - princip „více nejbližších menších bloků“
+
 ### (D10) Řešení nedostatku IPv4 adres
+
+„nejbližší vyšší blok“ a „více nejbližších menších bloků“ se již nepoužívá → adresy docházely příliš rychle. Dnes dvě řešení
+
+- Dočasná řešení - zpomalení úbytku → subneting, CIDR, privátní IPv4 (+NAT)
+- Trvalá řešení - zvětšení adresového prostoru → IPv6
 
 ### (D11) Mechanismus subnettingu
 
+Motivace: rozdělím blok IP adres na menší bloky. Menší bloky přidělím různým (pod)sítím (tzv. subnets). Rozdělení nesmí být viditelné zvenku, soustava (pod)sítí musí mít pouze jeden vstupní bod.
+
+![block of ip adresses](./images/subnets.png)
+
+podstata subnettingu - předěl mezi síťovou a relativní částí IPv4 adresy se posouvá doprava (zvětšuje se síťová část adresy) → předěl není pevně dán. Jak tedy poznat předěl? použijeme síťovou masku.
+
+Síťová maska má v první části 1 (1 = síťová část) a v druhé části 0 (0 = relativní část)
+
+![net mask](./images/netmask.png)
+
+![subneting example](./images/subnetingexample.png)
+
 ### (D12) Mechanismus supernettingu
+
+z několika menších bloků IP adres uděláme jeden větší blok. Jde o posun předělu směrem doleva, k vyšším bitům.
+
+Lze např. použít při přidělování "nejbližší nižší", kdy mi bylo přiděleno několik samostatných bloků.
+
+podmínka - musí být vyčerpány všechny možné kombinace v těch bitech, přes které se předěl posouvá
 
 ### (D13) Mechanismus CIDR
 
+motivace: dělení na třídy není transparentní - hlavně pro společnosti střední velikosti je 256 málo a 66000 adres moc. Cíl je zrušit koncept IPv4 tříd a přidělovat libovolně velké bloky.
+
+Zavedeme CIDR bloky. Předěl může být kdekoliv → CIDR prefix (číslo udávající počet bitů síťové části). Zápis CIDR bloků: X.Y.Z.W/prefix, například 192.168.0.0/16
+
+Princip umožňuje dělit CIDR bloky na menší (a analogicky lze i spojovat). Mějme např. alokovaný blok 195.113.19.0/24. Ten může být rozdělen např. na:
+
+- Network A: 195.113.19.0/25 (i.e.,195.113.19.00000000B/25)
+- Network B: 195.113.19.128/26 (i.e.,195.113.19.10000000B/26)
+- Network C: 195.113.19.192/26 (i.e.,195.113.19.11000000B/26)
+
+Poznámka: Mechanismus CIDR je (na rozdíl od subnetingu) viditelný pro celý internet. Může být rovněž zachován koncept tříd → třídy A/B/C odpovídají CIDR bolkům s prefixy 8/16/24
+
 ### (D14) Hierarchie registrátorů
+
+CIDR umožňuje vznik hierarchie přidělovatelů - vyšší dostane větší CIDR blok, který rozdělí na menší CIDR bloky a sám je přidělí
+nižším přidělovatelům (případně koncovým uživatelům).
+
+- Správcem 32-bitového prostoru IPv4 adres byla organizace IANA
+- Vznikly RIR (Regional Internet Registry) - velcí regionální přidělovatelé IPv4 adres - dostávali od IANA větší počty bloků, které pak sami přidělují. Dnes jich je pět (Afrika, Evropa, Asie a Austrálie, Severní Amerika, JIžní Amerika)
+- NIR - Národní přidělovatelé (od RIR dostávají větší CIDR bloky) → ne vždy tato vrstva v hierarchii je
+- LIR - typicky ISP (poskytovatelé internetu) - dostávají od RIR popř. NIR větší CIDR bloky a přidělují je koncovým zákazníkům (většinou jednotlivé IP adresy)
+
+![hierarchy registerer](./images/hierarchyregister.png)
 
 ### (D15) Závislost IP adres na ISP
 
+Přidělování IP adres pomocí CIDR učinilo IP adresy závislé na způsobu připojení (ISP). páteřní směrovače znají pouze cesty k největším CIDR blokům → nižší směrovače již mají informace o rozdělení (některých) CIDR bloků na menší CIDR bloky.
+
 ### (D16) Koncept privátních IP adres
 
+Připomenutí: ve veřejném Internetu musí mít každý uzel (rozhraní) unikátní IP adresu (kvůli směrování)
+
+Myšlenka: stejné IP adresy lze využít opakovaně v sítích, které
+nejsou zvenku vidět (privátní sítě). Nutno zabránit šíření informací o dostupnosti privátních adres - př. firewall (L7 gateways) nebo NAT
+
+![concept of private ip](./images/privateip.png)
+
 ### (D17) Princip překladu adres
+
+NAT (překlad adres) funguje na síťové vrstvě - pracuje s IP datagramy
+
+Odchozí přenosy:
+
+1. vnitřní uzel pošle IP datagram - adresa odesílatele je privátní adresa uzlu
+2. datagram je zachycen routrem a je aplikován NAT - zdrojová adresa je nahrazena veřejnou adresou routeru
+3. upravený datagram je odeslán do veřejné sítě
+
+Příchozí přenosy:
+
+4. Odpověď od příjemce je doručena zpět na veřejnou IP adresu routeru
+5. odpověď je zachycena routerem a cílová adresa je nahrazena původní privátní adresou
+6. modifikovaná odpověď je odeslaná do privátní sítě
+
+![NAT translate](./images/nattranslate.png)
 
 ### (D18) Způsob fungování NAT
 
@@ -2000,17 +2102,64 @@ poznámka: kdyby měly různé sítě stejnou síťovou část, mátlo by to sm�
 
 ### (D23) Problémy NAT/PAT
 
+/
+
 ### (D24) Cíle návrhu IPv6 adres
+
+hrozba vyčerpání adresového prostoru IPv4 adres (poprvé v roce 1990). IPv4 jsou v protokolu IP příliš hluboce zakořeněny na to, aby se daly změnit. Proto bylo nutné vyvinout nový protokol IP (IPv6) a s ním změnit některé věci z původního protokolu IPv4.
+
+Cíle:
+
+- primární cíl je zvětšit adresový prostor
+- více úrovní hierarchie adres
+- snazší přidělování IPv6 adres
+- anycastové adresy
+- odstranění broadcast adres
 
 ### (D25) Vztah IPv4 a IPv6 adres
 
+neexistuje kompatibilita mezi IPv4 a IPv6 - tzn. zařízení IPv4 a IPv6 nejsou schopna vzájemně komunikovat přímo.
+
+interoperabilita mezi IPv4 a IPv6 je možná (ale složitá). Možnosti:
+
+- dual stack - každý uzel podporuje IPv4 i IPv6
+- překlad - mezi IPv4 datagramy a IPv6 pakety
+- tunelování - pakety IPv6 jsou vkládány do IPv4 datagramů a přenášeny přes IPv4 síť
+
 ### (D26) Tvar a zápis IPv6 adres
+
+IPv6 adresy se zapisují po 16-bitových slovech, každé je vyjádřeno hexadecimálně. Př. 805b:2d9d:dc28:0000:0000:fc57:d4c8:1fff (8x 16 bitů)
+
+Zkracování zápisu:
+
+- nulová slova se zkrátí na jedinou číslici: 805b:2d9d:dc28:0:0:fc57:d4c8:1fff
+- nulová slova se vynechají: 805b:2d9d:dc28::fc57:d4c8:1fff
+- pro „vkládání“ IPv4 adres do IPv6 → posledních 32 bitů se zapíše jako u IPv4: ::212.200.31.255
 
 ### (D27) Základní druhy IPv6 adres
 
+Existují tři základní druhy:
+
+1. unicast (individuální) adresy - identifikují vždy jedno síťové rozhraní, komunikace probíhá s tímto rozhraním
+2. Multicast (skupinové) adresy - identifikují (multicastovou) skupinu uzlů, komunikace probíhá se všemi uzly ve skupině
+3. anycast (výběrové) adresy - identifikují skupinu uzlů, komunikace probíhá jen s jedním uzlem ve skupině
+
 ### (D28) Dělení IPv6 unicast adres
 
+1. global unicast - veřejné IPv6 adresy, musí být unikátní v celém Internetu
+2. local unicast - individuální privátní adresy, platné i pro více (pod)sítí
+3. link local - individuální „privátní“ adresy, platné jen pro danou (pod) síť
+4. site local - lokální místní adresy (nemají se již používat)
+
 ### (D29) Globální IPv6 unicast adresy
+
+Adresa má 3 části:
+
+1. (globální směrovací) prefix
+2. identifikátor podsítě (subnet ID)
+3. identifikátor rozhraní (interface ID)
+
+„koncovým bodem“ pro (globální) směrování jsou jednotlivá **místa** (skupina (pod)sítí pod jednou společnou správou). Směrovací algoritmy ve veřejném Internetu hledají cesty jen k jednotlivým místům v rámci veřejné topologie. Poté, co najdou místo, tak si další doručení řeší správce místa sám v rámci místní topologie
 
 ### (D30) Principy adresování na L4
 
