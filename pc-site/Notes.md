@@ -1653,7 +1653,7 @@ má za úkol podporovat/vytvářet vyhrazenou přenosovou kapacitu → propojuje
 
 ### (C18) Principy propojování na L3
 
-Propojují se jednotlivé sítě pomocí routerů (směrovačů) → výsledkem propojení je soustava propojených sítít = internetwork = internet
+Propojují se jednotlivé sítě pomocí routerů (směrovačů) → výsledkem propojení je soustava propojených sítí = internetwork = internet
 
 ![internetwork](./images/internetwork.png)
 
@@ -1665,56 +1665,205 @@ Směrovače jsou viditelné pro koncové uzly. Koncové uzly musí dokázat rozl
 
 #### 80:20
 
-Pravidlo před nástupem internetu (dnes již neplatí).
+Pravidlo před nástupem internetu (dnes již neplatí) - uživatelé pracovali především s místními zdroji (se servery umístěnými v lokální místní síti).
 
 - 80% provozu je v rámci lokální sítě
 - 20% provozu opouští lokální síť
 
 #### 20:80
 
-S nástupem Internetu a cloud computingu se to obrátilo. Většina provozu směřuje „ven ze sítě“ (80%), a jen malá část zůstává „uvnitř sítě“ (20%).
+S nástupem Internetu a cloud computingu se to obrátilo.
+
+- 80% provozu opouští místní síť
+- 20% provozu je v rámci místní sítě
 
 V důsledku pravidla 20:80 významně rostou požadavky na celkovou propustnost směrovačů. Možná řešení je použití L3 přepínače (L3 switch) či nasazení VLAN
 
 ### (C21) Místní L2 broadcast
 
-Připomenutí: Boradcast - příjemce jsou všechny uzly v rámci dané oblasti (broadcast domény - v rpaxi je to konkrétní síť)
+Připomenutí: Broadcast - příjemce jsou všechny uzly v rámci dané oblasti (broadcast domény - v praxi je to konkrétní síť).
 
-![boradcast](./images/broadcast.png)
+![broadcast](./images/broadcast.png)
+
+Rozlišujeme několik druhů broadcastů → začneme L2 broadcastem
+
+L2 broadcast se týká šíření rámců. Broadcast doménou je daná síť, tedy síť, ve které se nachází odesílatel. Tzn. mosty a přepínače propouští broadcast ale směrovače L2 boradcast zastavují.
+
+![broadcast](./images/l2broadcast.png)
 
 ### (C22) Místní L3 broadcast
 
+praktický efekt je stejný jako u L2 broadcastu. Týká se šíření paketů, zatímco L2 broadcast se týká šíření rámců → paket, odeslaný jako L3 broadcast, by měl být doručen všem uzlům v dané síti. V praxi se udělá to, že se paket vloží do linkového rámce a pošle se L2 broadcastem.
+
+![broadcast](./images/l2broadcast.png)
+
 ### (C23) Cílený L3 broadcast
+
+Šíří se v zadané cílové síti, která je jiná, než je síť, ve které se nachází zdroj (odesílatel). V praxi je paket poslán jako unicast, je doručen až do cílové sítě. V cílové síti se z něj stává broadcastový paket a je doručen všem uzlům v cílové síti (zabalí se do linkového rámce a je droučen pomocí L2 broadcastu).
 
 ### (C24) Funkce směrovače
 
+manipuluje pouze s linkovými rámci, které jsou adresovány pro něj. Př.:
+
+1. A (v síti X → X.A) posílá něco B (v sítí Y → Y.B)
+2. Vytvoří paket: odesílatel je X.A, příjemce je Y.B
+3. Paket zabalí do rámce, příjemce je v jiné síti, proto pošle rámec směrovači, v rámci tedy nastaví příjemce na směrovač v dané síti (odesílatel A, příjemce C, označení sítě není potřeba, posílám to v rámci jedné sítě X)
+4. Směrovač obdrží rámec, ten je adresován mu, proto ho rozbalí. Přečte síťovou adresu (Y → posíláme do sítě Y). Y je sousední síť, kterou směrovač propojuje s X
+5. Paket opět vloží do linkového rámce. Linková adresa (nyní již v síti Y) příjemce je nastavená na B
+6. V Y je rámec doručen k uzlu B
+
+Tradiční komplexní zařízení umožňující směrování a přeposílání
+Vhodné pro přechod mezi heterogenními prostředími
+
+– je optimalizován na logické funkce
+• směrování, aplikace přístupových práv, …..
+
+jeho logické funkce jsou realizovány v SW
+
+![smerovac](./images/router.png)
+
 ### (C25) Funkce L3 přepínače
 
-L3 znamená, že funguje na síťové vrstvě (manipuluje s pakety, rozhoduje se podle síťových adres)
+Manipuluje s linkovými rámci, i když mu nejsou určeny.
+
+1. A (v síti X → X.A) posílá něco B (v sítí Y → Y.B)
+2. zachytí rámec
+3. přečte linkovou adresu (nezkoumá další obsah)
+4. odešle v daném směru nezměněný linkový rámec s původními linkovými adresami
+
+![prepinac](./images/l3prepinac.png)
+
+zjednodušená představa: je to běžný (L2) přepínač, doplněný o schopnost práce na L3
 
 ### (C26) Rozdíly směrovačů a L3 přepínačů
 
+#### Směrovač
+
+Funguje na principu _forward if not local_, tzn. Pokud nemá linkový rámec vyfiltrovat, pak ho pošle dál (forwarduje). Jestliže neví, kde se nachází příjemce, předá jej do všech odchozích segmentů.
+
+- Vhodné pro přechod mezi heterogeními prostředími (napojení sítí LAN či MAN na WAN)
+- má větší směrovací tabulky
+- je optimalizován na logické funkce (směrování, aplikace přístupových práv...)
+- není (tolik) optimalizován na rychlost a propustnost
+- má (obvykle) větší buffery pro data
+- může mít síťová rozhraní různých typů
+
+#### L3 přepínač
+
+funguje na principu _forward if proven distant_, tzn. síťový paket předává dál (forwarduje), pokud je určen vzdálenému uzlu a zároveň ví, kam jej poslat. Když ne, tak paket zahodí.
+
+- Vhodné pro propojení mezi homogenního prostředími (propojení jednotlivých (L3) sítí v rámci LAN či MAN)
+- má menší směrovací tabulky a buffery
+- je optimalizován na rychlost a propustnost
+  má obvykle jen ethernetová rozhraní
+
+![prepinac a smerovac](./images/prepinacsmerovac.png)
+
+L3 přepínač
+manipuluje se síťovými pakety, řídí se síťovými (L3) adresami (IP1 a IP2)
+![l3 prepinac](./images/l3switch.png)
+
 ### (C27) Využití L4 a L7 přepínačů
+
+L4 přepínače fungují na L3, manipulují se síťovými pakety, rozhodují se podle síťových (L3) adres i podle transportních (L4) adres (v TCP/IP: dle IP adres i dle čísel portů)
+
+![l4 prepinac](./images/l4switch.png)
+
+L7 přepínače fungují na L3, manipulují se síťovými pakety, rozhodují se podle síťových (L3) adres, podle transportních (L4) adres a také
+podle aplikačních (L7) dat
+
+![l7 prepinac](./images/l7switch.png)
+
+L4 a L7 přepínače se hodí pro 2 různé skupiny účelů:
+
+Řízení datového provozu = různé zacházení s různými druhy
+provozu (typicky podle cílového portu → př. multimedia mají přednost)
+
+Rozdílné směrování - př. rozdělování požadavků na různé služby mezi servery, poskytující různé služby
 
 ### (C28) Principy a účel sítí VLAN
 
+Situace bez VLAN: uzly musí být zařazovány do sítí podle toho, kde jsou fyzicky umístěny (Uzly, které tvoří L3 síť jsou navzájem viditelné a dosažitelné). Fyzické umístění nemusí korespondovat s logickými kritérii
+
+Princip virtuální sítě (VLAN) - již neplatí, že to, co je propojeno na linkové vrstvě (L2), je jednou sítí (přepínač podporující VLAN může propojovat uzly, patřící do různých sítí)
+
+<img src="./images/vlan1.png" alt="Image" width="250" >
+<img src="./images/vlan2.png" alt="Image" width="250" >
+
 ### (C29) Koncepty VLAN sítí
+
+liší hlavně svým účelem a cílem
+
+#### Lokální VLAN
+
+- spojuje (řadí do jedné sítě) geograficky blízké uzly
+- uzly v lokální VLAN síti nemusí mít společné zájmy
+
+#### End-to-end VLAN
+
+- spojuje (řadí do jedné sítě) geograficky rozptýlené uzly
+- sdružuje uživatele se stejnými právy/zájmy/chováním/zařazením
+- dělá se hlavně kvůli snadné správě uživatelů a nastavení přístupových práv
 
 ### (C30) Logický model VLAN sítě
 
+- každá VLAN má přiřazené unikátní číslo - VLAN Identifier (VID) a také volitelné jméno
+
+Typy segmentů zahrnuté do infrasttruktury:
+
+- VLAN-unaware segmenty - uzly zprávě jedné VLAN
+- VLAN-aware segmenty - uzly zprávě jedné VLAN
+
 ### (C31) Přístupové VLAN porty
 
+propojuje VLAN-unaware segmenty
+
+- označen přesně jedním VID
+- rámce které:
+  - přicházejí jsou označeny daným VID, jestliže už označené jsou, tak jsou propuštěny pouze pokud sedí VID
+  - odcházejí, tak jim je odebráno označení
+
 ### (C32) Trunkovací VLAN porty
+
+propojuje VLAN-aware segmenty
+
+- označen jedním nebo více VID
 
 ### (C33) Konfigurace VLAN sítí
 
 ### (C34) Tagování 802.1q Dot1q
 
+VLAN tag je přidán do původního ethernetového rámce mezi Source MAC a Type.
+
+- TPID = Tag prodotocol identifier
+- TCI = Tag control information - obsahuje VID
+
+![802.1q](./images/tag8021qdot1q.png)
+
 ### (C35) Směrování mezi VLAN sítěmi
 
 ### (C36) Princip a typy firewallů
 
+Úkolem internetworkingu je rovněž řízení přístupu (= aby se uživatel dostal pouze tam, kam má právo se dostat). Obecným řešením je firewall.
+
+Firewall je tedy obecně řešení, které implementuje požadovaná pravidla přístupu (ale i odesílaných věcí). Může být realizován jako kombinace hardwaru/softwaru.
+
+Může být buď spoečný (chrání celé sítě), nebo individuální (chrání jednoho uživatele).
+
+Dva přístupy:
+
+1. vše je blokováno, ale něco je povoleno - tzn. nejprve se vše zablokuje, a pak se povolí konkrétní "pozitivní" výjimky
+2. vše je povoleno, ale něco je blokováno - tzn. nechá se vše povolené a následně se zakážou konkrétní "negativní" výjimky
+
 ### (C37) Demilitarizovaná zóna
+
+obvyklé řešení pro firewally, fungující na principu „vše je zakázáno, něco je povoleno“. Mezi vnější sítí a vnitřní sítí se vytvoří ztv. demilitarizovaná zóna (DMZ). Ta není průchozí (je povolen pouze provoz, který začíná nebo končí uvnitř DMZ → tzn. vše jsme zakázali) → realizace pomocí konfigurace směrovacích tabulek v obou směrovačích oddělujících zóny.
+
+![dmz](./images/dmz.png)
+
+Aby byla umožněna komunikace s vnějším světem, umístí se do DMZ brány, které předávají povolený provoz.
+
+![dmz](./images/dmz.png)
 
 ### (C38) Aplikační brány
 
@@ -1728,21 +1877,100 @@ Zpět na [Přehled](#přehled).
 
 ### (D01) Principy adresování na L2
 
+Ethernetové (MAC) adresy. Používá se na L2 respektive na MAC sublayer.
+nastaveny výrobcem
+nedají se změnit
+musí být unikátní v rámci jedné sítě.
+
 ### (D02) Adresy EUI-48 a EUI-64
+
+= Extended Unique Identifier
+
+EUI‐48 (48 bits)
+Dříve označovaný jako MAC-48
+6 hex čísel oddělených pomlčkou nebo dvojtečkou
+př.: FC-77-74-19-41-1E nebo FC:77:74:19:41:1E
+jsou dvousložkové - vyšší 3 byty představují identifikaci výrobce (OUI - každý výrobce má svou přidělenou organizací IEEE), nižší tři byty předatvují číslo síťového rozhraní (výrobní číslo)
+
+EUI‐64 (64 bits)
+novější verze
+3 byty na OUI, 5 bytů na sériové číslo (40 bitů)
+lze na ně převést EUI-48 přidáním FF-EE za OUI př.: FC-77-74-FF-FE-19-41-1E
 
 ### (D03) Principy adresování na L3
 
+adresují se celé uzly (uzly jako celky)
+síťová adresa musí vyjadřovat:
+
+1. příslušnost ke konkrétní síti
+2. relativní adresu uzlu v rámci dané sítě
+
+síťové adresy (IP adresy) jsou proto 2-složkové
+
+přesněji se IP adresy přidělují síťovým rozhraním uzlu. Koncové uzly (hosts) mají 1 rozhraní (1 IP adresu), směrovače mají více síťových rozhraní (a na každém 1 IP adresu)
+
+![ip adresses at interfaces](./images/ipadressestointerfaces.png)
+
 ### (D04) Tvar a zápis IPv4 adres
+
+4 byty (32 bitů).
+zápis: 4 desítková čísla 0-255 (jedno pro každý byte) oddělená tečkou.
+adresa rozdělena na dvě části: síťovou a relativní. Kde bude předěl? 3 možnosti → podle toho 3 třídy IPv4 adres:
+
+![predel v IPv4](./images/predelipv4.png)
 
 ### (D05) Třídy a prostor IPv4 adres
 
+#### Třída A
+
+pro největší sítě → relativní část má 3 byty
+
+nejvyšší bit je 0 → pro síťovou část adresy zbývá 7 bitů → 128 sítí
+
+tedy 1/2 adres
+
+![IPv4 A](./images/ipv4a.png)
+
+#### Třída B
+
+pro středně velké sítě → relativní část má 2 byty
+
+nejvyšší bity jsou 1 a 0 → $2^{14}$ = 16 384 sítí
+
+tedy 1/4 adres
+
+![IPv4 B](./images/ipv4b.png)
+
+#### Třída C
+
+pro malé sítě → relativní část má 1 byty
+
+nejvyšší bity jsou 1, 1 a 0 → $2^{21}$ = 2 097 152 sítí
+
+tedy 1/8 adres
+
+![IPv4 C](./images/ipv4c.png)
+
 ### (D06) Speciální IPv4 adresy
+
+zbývající 1/8 adres
 
 ### (D07) IPv4 multicastové adresy
 
 ### (D08) Realizace multicastu na L2
 
 ### (D09) Přidělování IPv4 adres sítím
+
+při přidělení IP adresy síťovému rozhraní musí být dodržen význam obou složek:
+
+- pokud jsou dvě rozhraní ve stejné síti, musí mít IP adresy shodnou síťovou část a rozdílné relativní části
+- pokud jsou dvě rozhraní v ruůzné síti, musí mít rozdílnou síťovou část, ale mohou mít klidně stejnou relativní část (ale nemusí)
+
+proto musíme IP adresy přidělovat po celých blocích (všechny adresy se stejnou síťovou částí)
+
+![block of ip adresses](./images/blockofips.png)
+
+poznámka: kdyby měly různé sítě stejnou síťovou část, mátlo by to směrovací algoritmy, které by pak nevěděly kam poslat pakety. Tzn. nepoužíté adresy nemohou být použity nikým jiným.
 
 ### (D10) Řešení nedostatku IPv4 adres
 
@@ -1785,6 +2013,10 @@ Zpět na [Přehled](#přehled).
 ### (D29) Globální IPv6 unicast adresy
 
 ### (D30) Principy adresování na L4
+
+připomenutí: na L3 (i na vrstvě síťového rozhraní) se adresují uzly jako celky (nedokážeme rozlišit různé entity v rámci téhož uzlu)
+
+Adresování na L4 potřebuje rozlišit různé entity v rámci daného uzlu, ale nepotřebuje identifikovat uzel jako celek. Proto použijeme pouze porty (abstraktní adresy).
 
 ### (D31) Porty a jejich číslování
 
