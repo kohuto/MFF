@@ -2159,7 +2159,7 @@ Adresa má 3 části:
 2. identifikátor podsítě (subnet ID)
 3. identifikátor rozhraní (interface ID)
 
-„koncovým bodem“ pro (globální) směrování jsou jednotlivá **místa** (skupina (pod)sítí pod jednou společnou správou). Směrovací algoritmy ve veřejném Internetu hledají cesty jen k jednotlivým místům v rámci veřejné topologie. Poté, co najdou místo, tak si další doručení řeší správce místa sám v rámci místní topologie
+„koncovým bodem“ pro (globální) směrování jsou jednotlivá **místa** (skupina (pod)sítí pod jednou společnou správou). Směrovací algoritmy ve veřejném Internetu hledají cesty jen k jednotlivým místům (určené prefixem) v rámci veřejné topologie. Poté, co najdou místo, tak si další doručení v rámci skupiny podsítí řeší správce místa sám (pomocí indetifikátoru podsítě) v rámci místní topologie. A nakonec v podsíti je pomocí identifikátoru rozhraní doručen obsah ke konkrétnímu interfacu
 
 ### (D30) Principy adresování na L4
 
@@ -2169,9 +2169,52 @@ Adresování na L4 potřebuje rozlišit různé entity v rámci daného uzlu, al
 
 ### (D31) Porty a jejich číslování
 
+port je 16-biotvé číslo. Systém registrovaných portů spravuje IANA
+
+typy portů:
+
+- systémové porty (Well Known Ports) (0 – 1023) - porty 0 až 1023, s pevně daným významem, př. HTTP (80), HTTPS (443), ...
+- uživatelské porty (Registered Ports) (1024 – 49151) - opět určeny pro speciální účel, ale mohou být použity i pro něco jiného
+- Dynamic Ports (Private Ports) (49152 – 65535) - neoznačené, dostupné pro nespecifikované účely
+
 ### (D32) Principy adresování na L7
 
+je třeba identifikovat různé typy objektů (texty, obrázky, videa, ...
+)
+
+možnosti adresování:
+
+- nezávisle na umístění objektu - identifikuje se objekt jako takový, nezávisle na jeho umístění. V TCP/IP URN
+- v závislosti na umístění objektu - součástí identifikace (adresy) je i umístění objektu. V TCP/IP - URL (Uniform Resource Locator)
+
 ### (D33) Obecná struktura URI
+
+= Uniform Resource Identifier - obecný systém pojmenovávání.
+
+![URI scheme](./images/urischeme.png)
+
+obecný tvar:
+
+- schéma
+- autorita
+  - uživatelské info (jméno, heslo → dnes již deprecated)
+  - host - doménové jméno, IP adresa
+  - port - port na L4
+- cesta (path)
+- query - často parametry formuláře
+- fragment - např. id na HTML stránce
+
+příklady:
+
+- HTTP schéma
+  - př. http://www.earchiv.cz
+  - adresy webových stránek nebo jiných zdrojů
+- FTP schéma
+  - ftp://sunsite.mff.cuni.cz/Network/RFCs/rfc-index-latest.txt
+  - cesty k souborům nebo adresářům pomocí FTP protokolu
+- mailto schéma
+  - mailto:jiri@peterka.cz
+  - emailové adresy zahrnující další parametry
 
 ## Protokoly IPv4 a IPv6
 
