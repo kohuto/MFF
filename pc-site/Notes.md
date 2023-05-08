@@ -2340,7 +2340,7 @@ Jak předejít fragmentaci MTU?
 Path MTU („MTU po celé cestě“) = minimum přes všechna MTU
 od zdrojového uzlu až po cílový. Path MTU se dá zjistit pomocí Path MTU discovery.
 
-Datagramy jsou opakovaně posílány s nastaveným dont fragment flagem (viz dále) na true. Vždy, když by měl být datagram fragmentován, zahodí se, odesílatel obdrží zprávu a pošle datagram znovu s menší velikostí → problém je, že sice víme, že MTU byla menší, ale nevíme, jak moc menší byla, proto musíme tipnout, jak moc je potřeba zmenšit nový datagram. Tento proces opakujeme, dokud datagram nedorazí do cíle.
+Datagramy jsou opakovaně posílány s nastaveným dont fragment flagem (viz dále) na true. Vždy, když by měl být datagram fragmentován, zahodí se, odesílatel obdrží ICMP zprávu a pošle datagram znovu s menší velikostí MTU → problém je, že sice víme, že MTU měla být menší, ale nevíme, jak moc menší měla být, proto musíme tipnout, jak moc je potřeba zmenšit nový datagram. Tento proces opakujeme, dokud datagram nedorazí do cíle.
 
 ### (D44) Proces IPv4 fragmentace
 
@@ -2386,19 +2386,91 @@ Jednotlivé fragmenty skládá zpět (do původního datagramu) koncový příje
 
 ### (D48) Principy protokolu ICMPv4
 
+protokol (součást L3), který umožňuje řešit chyby a nestandardní situace (IP to nezvládá) pomocí posílání zpráv.
+
+Dva typy zpráv:
+
+1. Chybové zprávy (Error message)
+2. Informáční zprávy (informational message)
+
+ICMP zprávy jsou určené i pro příjemce v jiných sítích, proto je nutné umět zprávy směrovat → ICMP zpráva se vloží do IP datagramů.
+
 ### (D49) Struktura ICMPv4 zprávy
+
+![icmp message structure](./images/icmpmessage.png)
+
+- Hlavička - fixní délky 64 bitů
+  - type - typ ICMP zprávy
+  - code - podtyp, upřesňuje druh zprávy
+  - checksum - kontrolní součet celé zprávy (i těla, stejný výpočetní mechanismus jako pro IP)
+  - doplňkové pole hlavičky - většinou chybí, pouze pro určitý typ zprávy
+- Tělo - může klidně chybět. Př. u chybových zpráv obsahuje hlavičku datagramu, kterého se zpráva týká a prvních 8 bytů jeho těla (datové části)
 
 ### (D50) Příklady ICMPv4 zprávy
 
+příklady ICMP zpráv:
+
+- Time Exceeded - vypršený čas
+- Destination Unreachable - nedosažitelný cíl
+- Source Quench - hrozí zahlcení
+- Redirect - přesměrování
+- Echo Request/Reply - testování dostupnosti
+
 ### (D51) Principy protokolu ARP
+
+slouží potřebám převodu IP adres na HW (linkové) adresy. Fungují jen v dané síti (nepřekračují hranice).
+
+- uzel A zná IP adresu uzlu B, a potřebuje znát jeho HW adresu
+- sestaví ARP zprávu (L3), ve které uvede IP adresu uzlu B (+ svou IP a HW adresu)
+- zprávu vloží do linkového rámce (L2) a pomocí (linkového) broadcastu
+  rozešle jako dotaz po celé síti, ve které se nachází
+- uzel B rozpozná svou IP adresu a odpoví
+- sestaví ARP zprávu obsahující jeho HW adresu a pošle ji unicastem uzlu A
+
+![principle of ARP](./images/arpprincip.png)
 
 ### (D52) Struktura ARP zprávy
 
+![principle of ARP](./images/arpmessage.png)
+
+- Hardware Address Type a Length - typ a délka L2 adresy (popisuje L2 technologii), př. ethernet → typ 1, délka 6 B, ...
+- Protocol Address Type a Length - typ a délka L3 adres (definuje L3 protokol), př. IPv4 → typ 0x0800, délka 4 B
+- Operation - Umožňuje rozlišit jednotlivé operace ARP (Request = 1, Reply = 2, ...)
+- Sender Hardware Address a Sender Protocol Address - L2 HW adresa a L3 IP adresa odesílatele, kterou vyplní odesílatel při dotazu
+- Target Hardware Address a Target Protocol Address - L2 (vyplní uzel, který odpovídá na dotaz) a L3 IP adresa příjemce (na kterou se odesílatel ptá → vyplní odesílatel při dotazu)
+
+Odpověď:
+
+1. změní se operation code z request na reply
+2. prohodí se source a target adresy
+3. doplní se zdrojová HW adresa
+
 ### (D53) Princip ARP cachování
+
+Vyrovnávací paměť, ve které si ARP pamatuje výsledky převodů IP → HW (tzv. resolution). jde o tabulku, kde jsou informace o vazbách mezi IP a HW adresami (tzv. bindings)
+
+Vazby mohou být:
+
+- statické
+- dynamické - musí být pravidelně zapomínány (aby reflektovaly změny v síti) a obnovovány (aby se omezovaly nové dotazy)
 
 ### (D54) Zpracování ARP dotazu
 
+situace: uzel A zná IP adresu uzlu B, a potřebuje znát jeho HW adresu
+
+![process of arp](./images/processarp.png)
+
+1. uzel A se podívá do své ARP cache - pokud zde najde HW adresu k IP adrese uzlu B, končí
+2. uzel A sestaví a rozešle (linkovým broadcastem) ARP zprávu s dotazem
+3. každý uzel v síti zachytí ARP zprávu (vysílanou broadcastem).Zaprvé vyjme ze zprávy vazbu mezi IP a HW adresu uzlu A a uloží si ji do cache (případně, pokud už ji v cachi má, tak ji prodlouží). Zadruhé zjistí, zda je uzlem B → pokud ne, ARP zprávu zahodí a končí. Pokud ano, sestaví sestavá ARP zprávu s odpovědí.
+
 ### (D55) Reverzní ARP protokol
+
+Lze prohodit fungování a provádět převod HW adresa → IP adresa. Tedy uzel zná svou HW adresu a chtěl by znát svou IP adresu.
+
+1. uzel A nezná svou IP adresu, sestaví RARP zprávu (stejnný formát jako ARP s drobnými změnami)
+2. uezl A uloží RARP zprávu do linkového rámce a rozešle broadcastem po místní síti
+3. uzel D, který funguje jako RARP server odpoví pomocí unicastu (pkud je RARP serverů více, odpoví kterýkoliv z nich)
 
 ### (D56) Nevýhody RARP protokolu
 
