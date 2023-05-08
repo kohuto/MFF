@@ -2277,7 +2277,9 @@ zajišťuje integritu hlavičky (nezahrnuje tělo datagramu). Výpočet:
 
 V případě, že nastane carry (součet bude delších než 16 bitů), zarovnáme to na 16 bitů a přičteme 1 (případně lze provést až na konci celého součtu).
 
-Př.: sčítáme pouze povinná pole (20B - jsou zvýrazněná). Pole checksum (b861) se nepřičítá. Mějme následující hlavičku:
+#### Konkrétní příklad
+
+sčítáme pouze povinná pole (20B - jsou zvýrazněná). Pole checksum (b861) se nepřičítá. Mějme následující hlavičku:
 
 `4500` `0073` `0000` `4000` `4011` `b861` `c0a8` `0001`
 `c0a8` `00c7` 0035 e97c 005f 279f 1e4b 8180
