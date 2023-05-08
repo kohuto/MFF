@@ -2256,6 +2256,7 @@ celkem 14 položek - 13 povinných + 1 volitelná
 - Type of Servise (TOS) - nikdo neví porč to tam je
 - Total length - celková délka (v B) datagramu (včetně hlavičky)
 - identification, flags a fragmentation offset - pouze pro potřey fragmentace (nedochází-li k ní, jsou položky zbytečné)
+- protocol - udává typ dat v těle datagramu (1=ICMP, 6=TCP, 17=UDP, ...)
 
 ### (D37) IPv4 Time to Live
 
@@ -2298,21 +2299,59 @@ provedeme jedničkový doplněk:
 
 zapíšeme výsledek kontrolního součtu `b861` do určeného pole.
 
-Ověření kontrolního součtu v cíli - provedeme stejným způsobem výpočet součtu (včetně pole pro kontrolní součet) → výsledek musí dát nula (v checksum je negace součtu → ~N+N=0)
+Ověření kontrolního součtu v cíli - provedeme stejným způsobem výpočet součtu (včetně pole pro kontrolní součet) → výsledek musí dát nula (v checksum je negace součtu → ~N+N=0). Jestliže nedá, paket je zničen, ale přijemce není informován prostřednictvím ICMP (protože mohla být poškozená adresa odesílatele).
 
 ### (D40) IPv4 doplňky hlavičky
 
+Umožňují specifikovat dodatečné informace. Dnes se moc nepoužívají. Mohou mít různou velikost
+
+- typ doplňku (Option Type), 1 byte
+- délku doplňku (Option Length), žádný nebo 1 byte
+- data doplňku (Option Data), žádný nebo více bytů
+  Struktura:
+
+Příklady doplňků:
+
+- Record Route - kudy datagram prochází (každý směrovač, přes který datagram prochází, vloží do jeho hlavičky svou IP adresu)
+- Timestamp - zaznamenává čas průchodu jednotlivými směrovači
+- Source Routing - v hlavičce IP datagramu je vložena posloupnost směrovačů, kudy datagram bude procházet
+
 ### (D41) Principy IPv4 fragmentace
+
+Technologie síťového rozhraní pracují s rámci omezené velikosti (IP datagram může být větší) → mohli bychom omezit velikost datagramů → ne vždy je to ale možné → po cestě mohou být IP datagramy vkládány do linkových rámců různé velikosti a různé technologie pracují s různě velkými rámci (ethernet II by to vložil do většího ramce, než je Ethernet 802.3 schopen pojmout)
+
+![omezena velikost ramce](./images/omezenaveliksotramce.png)
+
+MTU = maximální povolená "nákladová" část (bez hlavičky) linkového rámce.
+
+řešení: Rozdělíme příliš velký IP datagram na menší datagramy (fragmenty). Měli bychom se tomu ale vyhýbat jako čert křiži. U IPv4 může fragmentovat ktreýkoliv uzel po cestě (včetně směrovačů), u IPv6 pouze odesílající uzel.
 
 ### (D42) IPv4 varianty detekce MTU
 
+Jak předejít fragmentaci MTU?
+
+1. neomezovat velikost IP datagramů - vhodné jen jako poslední možnost, protože tento způsob většinou povede k fragmentaci
+2. garantované minimum - máme garantované, že datagram určité délky lze vždy přenést bez fragmentace (v praxi u IPv4 → 576 B)
+3. řídit se místním MTU - nemusí vždy stačit (můžeme narazit na menší MTU po cestě)
+4. řídit se Path MTU - nákladné, navíc nemusí vždy stačit (IP je nespojovaný → skutečná data mohou jít jinou cestou)
+
 ### (D43) IPv4 Path MTU Discovery
 
+Path MTU („MTU po celé cestě“) = minimum přes všechna MTU
+od zdrojového uzlu až po cílový. Path MTU se dá zjistit pomocí Path MTU discovery
+
 ### (D44) Proces IPv4 fragmentace
+
+datová část (ne hlavička) paketu je rozdělena
 
 ### (D45) IPv4 fragmentační hlavičky
 
 ### (D46) Proces IPv4 defragmentace
+
+Jednotlivé fragmenty skládá zpět (do původního datagramu) vždy až
+jejich koncový příjemce (žádný jiný uzel nemusí mít k dispozici všechny fragmenty).
+
+![defragmentace](./images/defragmentation.png)
 
 ### (D47) Problémy IPv4 de/fragmentace
 
