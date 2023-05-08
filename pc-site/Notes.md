@@ -2474,24 +2474,115 @@ Lze prohodit fungování a provádět převod HW adresa → IP adresa. Tedy uzel
 
 ### (D56) Nevýhody RARP protokolu
 
+- je starý a velmi jednoduchý
+- funguje na L3
+- dotazy se šíří pomocí linkového broadcastu (nefunguje v sítích bez broadcastu)
+- RARP server musí být v každé síti
+- obsah RARP serveru musí být nastaven manuálně
+- přiděluje se pouze IP adresa (a ne žádné další parametry)
+
 ### (D57) Koncept protokolu DHCP
+
+založen na BOOTP (bootstrap protocol).
+
+- Jeden DHCP server může obshluhovat několik sítí
+- může přidělovat IP adresy dynamicky (na omezenou dobu – s možností
+  následně přidělit stejnou IP adresu jinému uzlu) → nejčastější varianta. Dalšími variantami je ruční a trvalé přiřazení
+- funguje na L7
 
 ### (D58) DHCP alokační strategie
 
+#### Ruční (statická) přidělení
+
+správce sítě předepíše, jakou IP adresu má dostat konkrétní uzel s danou HW adresou → DHCP pak adresu v podstatě jenom předá
+
+#### trvalá (automatická) alokace
+
+IP adresu určí DHCP server sám, a přidělí ji trvale na neomezenou dobu ze seznamu dostupných adres
+
+#### Dynamická alokace
+
+IP adresu určí DHCP server sám, a přidělí ji na omezenou dobu ze seznamu dostupných adres. Omezená doba = tzv. DHCP lease (DHCP pronájem) je specifikovaná v době pronájmu (př. hodina, den, ...).
+
 ### (D59) Chování DHCP klienta
+
+- alokace: klient nemá IP adresu a žádá DHCP server o pronájem IP adresy
+- realokace: klient již má pronajatou IP adresu, ale snaží se pronájem potvrdit (př. byl vypnut, ale doba pronájmu stále trvá) → tímto krome je vlastně ochoten přijmout novou adresu
+- obnova: před koncem pronájmu se snaží o prodloužení (poprvé v polovině doby pronájmu)
+- rebinding: snaží se získat pronájem stejné IP adresy od jiného DHCP serveru pokud se nepodařila obnova (v 87.5% doby pronájmu)
+- uvolnění: klient vrací pronajatou IP adresu ještě před koncem jejího pronájmu
 
 ### (D60) Rozdíly IPv6 oproti IPv4
 
+- jednodušší formát paketu (méně polí v hlavičce)
+- rozšiřující hlavičky jsou úspornější a efektivnější
+- povinná podpora multicastu
+- fragmentovat může jen odesílající uzel
+- modernější směrování (lepší podpora hiearchického směrování)
+- zabudovaná podpora bezpečnosti (IPSEC)
+- popdpora pro alokaci zdrojů a QoS
+
 ### (D61) Struktura IPv6 paketu
+
+Má více hlaviček - jednu povinnou fixní délky a další rozšiřující. Nepovinné tělo.
+
+![strucuter of IPv6 pacekt](./images/ipv6structure.png)
 
 ### (D62) Položky IPv6 hlavičky
 
+![IPv6 packets header](./images/ipv6header.png)
+
+- version - fixní hodnota
+- Traffic Class - nahrazuje byte ToS v IPv4 datagramu
+- Flow Label - umožňuje identifikovat příslušný proud (flow). Cílem je podpora QoS (př. různé nakládání s pakety podle toho, do kterého toku patří)
+- payload lenght - velikost nákladu (nezahrnuje základní hlavičku, zahrnuje rozšiřující hlavičky)
+- Next Header - nejsou-li přítomny rozšiřující hlavičky, tak udává typ nákladu (jako Protocol u IPv4), jsou-li přítomny, udává typ první z nich
+- Hop Limit - analogie k Time to Live z IPv4
+
 ### (D63) Koncept IPv6 toků
+
+tok = skupina paketů, které spolu nějak souvisí (stejný odesilatel i příjemce + stejný význam/smysl)
+
+v IPv6 je tok identifikován zdrojovou IPv6 adresou a identifikátorem toku (není potřeba analyzovat směrovačem data v těle paketu).
 
 ### (D64) IPv6 rozšiřující hlavičky
 
+![IPv6 packets header](./images/ipv6optionalheader.png)
+
+rozšiřující hlavičky jsou nepovinné, nahrazují options v IPv4. Jsou řazené v sérii za sebou. Položka Next Header udává typ další rozšiřující hlavičky (poslední hlavička udává typ nákladu v těle paketu). Typy v podstatě odpovídají typům z IPv4. První položkou rozšiřujících hlaviček je vždy next header položka.
+
+př.: Typ 44 - fragmentační hlavička.
+
 ### (D65) IPv6 fragmentační hlavička
+
+V IPv6 může fragmentovat pouze odesílající uzel. Aby se pokusil vyhnout fragmentaci může:
+
+1. posílat pakety o velikosti max 1280 B (garantované doručení)
+2. pomocí MTU path Discovery najít nejmenší MTU po cestě
+
+Pokud narazí směrovač na paket, který by měl být fragmentován, zahodí ho.
+
+Inforamce o fragmentaci jsou uložené ve speciální fragmentační hlavičce. Fragment Offset - stejně jako Fragmentation Offset u IPv4 (posunutí vůči začátku datové části původního paketu) Identification - stejné jako u IPv4
+
+![IPv6 packets fragment header](./images/ipv6fragmentheader.png)
 
 ### (D66) IPv6 Path MTU Discovery
 
+postup zjišťování (nejmenšího) MTU po cestě od daného uzlu ke zvolenému cíli
+
+1. zdrojový uzel odešle paket o velikosti místního MTU
+2. pokud paket kvůli velikosti neprojde, dostane zdroj zpět ICMPv6 zprávu Packet Too Big (obsahuje potřebnou velikost MTU)
+3. použije novou (nižší) hodnotu MTU a celý postup opakuje
+
 ### (D67) Formát ICMPv6 zprávy
+
+protokol ICMPv6 slouží ke stejnému účelu jako ICMP u IPv4 (signalizaci nestandardních situací).
+
+zprávy ICMPv6 se přenáší uvnitř IPv6 paketů (Next Header = 58)
+
+ICMPv6 zprávy mohou být:
+
+- chybové (Type = 0 až 127)
+- informační (Type = 128 až 255)
+
+![ICMPv6 message structure](./images/icmpv6.png)
