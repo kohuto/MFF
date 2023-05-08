@@ -2277,21 +2277,24 @@ zajišťuje integritu hlavičky (nezahrnuje tělo datagramu). Výpočet:
 
 V případě, že nastane carry (součet bude delších než 16 bitů), zarovnáme to na 16 bitů a přičteme 1 (případně lze provést až na konci celého součtu).
 
-Př.: pouze povinná pole (20B - zvýrazněné) se počítá do součtu. pole checksum (b861) se nezapočítává.
+Př.: sčítáme pouze povinná pole (20B - jsou zvýrazněná). Pole checksum (b861) se nepřičítá. Mějme následující hlavičku:
 
 `4500` `0073` `0000` `4000` `4011` `b861` `c0a8` `0001`
 `c0a8` `00c7` 0035 e97c 005f 279f 1e4b 8180
 
 sečteme klasickým sčítáním 16-bitová slova:
+
 `4500` + `0073` + `0000` + `4000` + `4011` + `c0a8` + `0001` + `c0a8` + `00c7` = `2479c`
 
-První cifra je carry - přidáme ho do součtu:
+První cifra je carry - odebereme a přičteme k součtu:
 
 `2` + `479c` = `479e`
 
 provedeme jedničkový doplněk:
 
 ~`479e` = `b861`
+
+zapíšeme výsledek kontrolního součtu `b861` do určeného pole.
 
 Ověření kontrolního součtu v cíli - provedeme stejným způsobem výpočet součtu (včetně pole pro kontrolní součet) → výsledek musí dát nula (v checksum je negace součtu → ~N+N=0)
 
