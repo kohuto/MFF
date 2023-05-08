@@ -2222,15 +2222,67 @@ Zpět na [Přehled](#přehled).
 
 ### (D34) Vlastnosti protokolu IPv4
 
+- univerzální
+  - snaží se fungovat „nad vším“
+  - nevyužívá specifika přenosových technologií vrstvy síťového rozhraní
+  - snaží se zakrýt odlišnosti
+- pracuje s virtuálními pakety
+  - nemají ekvivalent v HW, musí se zpracovávat v SW
+  - říká se jim IP (zatímco u IPv6 se hovoří o paketech) datagramy, protože se přenáší nespojovaně
+- je zaměřen na jednoduchost, efektivnost a rychlost
+  - je nespojovaný - nečísluje přenášené datagramy, negarantuje, pořadí doručení, negarantuje dobu doručení
+  - funguje jako nespolehlivý - negarantuje doručení, negarantuje nepoškozenost dat, nepoužívá potvrzení, nepodporuje řízení toku
+- je „síťově neutrální“ - pracuje stylem best effort, nepodporuje QoS
+
 ### (D35) Struktura IPv4 datagramu
+
+datagram má dvě hlavní části - hlavičku a tělo
+
+- hlavička má proměnnou velikost (délka musí být násobky 4B, minimum je 20B). Údaj o délce hlavičky = IHL
+- tělo (datová část) - proměnná velikost - nutný údaj o velikosti = Total length (zahrnuje těli i hlavičku). Max velikost 64kB
+
+![length of ipv6 packet](./images/lengthipv6.png)
+
+poznámka - datagram nemá patičku s kontrolním součtem, kontrolní součet se provádí pouze v hlavičce, integritu užitečných dat si musí zajistit "ten komu data patří"
 
 ### (D36) Položky IPv4 hlavičky
 
+celkem 14 položek - 13 povinných + 1 volitelná
+
+![ipv4 packet header](./images/headeripv4.png)
+
+- version - dnes 4 IPv4
+- IHL - velikost hlavičky v jednotkách 32 bitů (typicky 5 → 5x 32 bitů)
+- Type of Servise (TOS) - nikdo neví porč to tam je
+- Total length - celková délka (v B) datagramu (včetně hlavičky)
+- identification, flags a fragmentation offset - pouze pro potřey fragmentace (nedochází-li k ní, jsou položky zbytečné)
+
 ### (D37) IPv4 Time to Live
+
+Omezuje dobu, po kterou má daný datagram existovat - dnes se jedná o počet přeskoků. Doporučená počáteční hodnota → 64. Každý router po cestě sníží hodnotu o 1 (a přepočítá kontrolní součet). Když je hodnota 0, je datagram zničen (odesílatel je informován pomocí ICMP)
 
 ### (D38) Nástroj TraceRoute
 
+vynulování TTL může být provedeno záměrně → nsátroj traceroute. TTL je nastaveno na 1, další směrovač sníží na 0 a pošle ICMP. Čímž zjistíme adresu "dalšího uzlu". Poté nastavíme na 2 atd.
+
+TraceRoute je diagnostický nástroj, která hledá sekvenci routerů na cestě k zadanému cílovému uzlu.
+
 ### (D39) IPv4 kontrolní součet
+
+zajišťuje integritu hlavičky (nezahrnuje tělo datagramu). Výpočet:
+
+1. hlavička se rozdělí na posloupnost 16-bitových slov (bez položky kontrolního součtu)
+2. slova posčítáme
+3. z výsledku uděláme jedničkový doplněk → zapíšeme do pole pro kontrolní součet
+
+\*V případě, že nastane carry (součet bude delších než 16 bitů), zarovnáme to na 16 bitů a přičteme 1 (případně lze provést až na konci celého součtu).
+
+Př.: pouze povinná pole (20B) se počítá do součtu. Podtžené pole checksum se nezapočítává.
+
+`4500` `0073` `0000` `4000` `4011` <u>`b861`</u> `c0a8` `0001`
+`c0a8` `00c7` 0035 e97c 005f 279f 1e4b 8180
+
+Ověření kontrolního součtu v cíli - provedeme stejným způsobem výpočet součtu (včetně pole pro kontrolní součet) → výsledek musí dát nula (v checksum je negace součtu → ~N+N=0)
 
 ### (D40) IPv4 doplňky hlavičky
 
