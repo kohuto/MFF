@@ -2342,14 +2342,23 @@ od zdrojového uzlu až po cílový. Path MTU se dá zjistit pomocí Path MTU di
 
 ### (D44) Proces IPv4 fragmentace
 
-datová část (ne hlavička) paketu je rozdělena
+datová část (ne hlavička) paketu je rozdělena na fragmenty → z fragmentů jsou vytvořeny nové datagramy → hlavičky jsou vytvořeny jako kopie původní hlavičky (a změněny příslušná pole)
+
+![fragmentace](./images/fragmentation.png)
 
 ### (D45) IPv4 fragmentační hlavičky
+
+Identifikace:
+
+- V položce Identification mají fragmenty stejnou
+  hodnotu jako původní datagram (poznáme, že patří k sobě)
+- nebyl-li fragemntován, tak není definován
 
 ### (D46) Proces IPv4 defragmentace
 
 Jednotlivé fragmenty skládá zpět (do původního datagramu) vždy až
-jejich koncový příjemce (žádný jiný uzel nemusí mít k dispozici všechny fragmenty).
+jejich koncový příjemce (žádný jiný uzel nemusí mít k dispozici všechny fragmenty). Fragmenty mají v položce Identification stejnou
+hodnotu jako původní datagram (poznáme, že patří k sobě)
 
 ![defragmentace](./images/defragmentation.png)
 
