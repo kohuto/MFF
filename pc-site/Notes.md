@@ -2338,7 +2338,9 @@ Jak předejít fragmentaci MTU?
 ### (D43) IPv4 Path MTU Discovery
 
 Path MTU („MTU po celé cestě“) = minimum přes všechna MTU
-od zdrojového uzlu až po cílový. Path MTU se dá zjistit pomocí Path MTU discovery
+od zdrojového uzlu až po cílový. Path MTU se dá zjistit pomocí Path MTU discovery.
+
+Datagramy jsou opakovaně posílány s nastaveným dont fragment flagem (viz dále) na true. Vždy, když by měl být datagram fragmentován, zahodí se, odesílatel obdrží zprávu a pošle datagram znovu s menší velikostí → problém je, že sice víme, že MTU byla menší, ale nevíme, jak moc menší byla, proto musíme tipnout, jak moc je potřeba zmenšit nový datagram. Tento proces opakujeme, dokud datagram nedorazí do cíle.
 
 ### (D44) Proces IPv4 fragmentace
 
@@ -2354,15 +2356,33 @@ Identifikace:
   hodnotu jako původní datagram (poznáme, že patří k sobě)
 - nebyl-li fragemntován, tak není definován
 
+Fragmentation offset:
+
+- udává offset (posun) začátku datové části fragmentu oproti datové části původního datagramu v násobcích 8
+
+![defragmentace](./images/fragmentationheader.png)
+
+Příznaky fragmentace (celkem 3 bity):
+
+- první bit je fixně 0
+- dont fragment flag - požadavek na to, aby datagram nebyl
+  fragmentován, i když by to bylo zapotřebí (nelze pokračovat v přenosu → datagram je zahozen → posláno info odesílateli). Používá se při Path MTU discovery
+- more fragments - udává, zda jde o poslední fragment
+
+![příznaky fragmentace](./images/fragmentflags.png)
+
 ### (D46) Proces IPv4 defragmentace
 
-Jednotlivé fragmenty skládá zpět (do původního datagramu) vždy až
-jejich koncový příjemce (žádný jiný uzel nemusí mít k dispozici všechny fragmenty). Fragmenty mají v položce Identification stejnou
-hodnotu jako původní datagram (poznáme, že patří k sobě)
+Jednotlivé fragmenty skládá zpět (do původního datagramu) koncový příjemce (žádný jiný uzel nemusí mít k dispozici všechny fragmenty). Fragmenty do cíle nemusí dorazit ve stejném pořadí (dokonce ani ne všechny). Proto jsou příchozí fragmenty strčeny do bufferu. Jestliže do časového úseku nejsou doručeny všechny, vše je zahozeno. Odesílatel je informován prostřednictvím ICMP time exceeded message
 
-![defragmentace](./images/defragmentation.png)
+![header](./images/defragmentation.png)
 
 ### (D47) Problémy IPv4 de/fragmentace
+
+- celý koncept musí být podporován všemi uzly
+- netriviální overhead především u zpětného sestavování
+- nepřijde-li jeden fragment, celý datagram je zahozen
+- IP protokol je bezstavový (nemá časové limity, čekání apod.) - čekání na fragmenty tento princip porušuje
 
 ### (D48) Principy protokolu ICMPv4
 
