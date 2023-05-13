@@ -241,11 +241,14 @@ možné varianty:
 
 #### Pevná telefonní síť
 
-- páteřní část - hierarchie telefonních ústředen (mezinárodní, tranzitní, lokální, předsunuté Remote Subscriber Units RSU)
-- přístupová část
+- páteřní část - hierarchie telefonních ústředen (2 mezinárodní → k nim připojených 6 tranzitních → k nim 138 řídících → z nich 2374 předsunutých tzv. RSU)
+- přístupová část - pokrývá celé území ČR
   - POP - lokální ústředny/RSU s hlavním rozvaděčem
   - z POP kroucené dvoulinky dlouhé max 5 km do všech CP
   - CP - domy, kanceláře
+- dnes např. síť O2
+
+![Pevná síť](./images/pevnasit.png)
 
 #### Mobilní telefonní síť (GSM)
 
