@@ -112,8 +112,9 @@ Vlastnosti:
 - Iluze přímého spojení s protistranou
 - Nízká (konstantní) latence (hledání cesty pouze jednou na začátku)
 - zachovává pořadí
-- v okruhu máme vyhrazenu exkluzivní kapacitu - můžeme poskytovat garantované přenosy
+- v okruhu máme vyhrazenu exkluzivní kapacitu → garantované přenosy
 - podporuje proudové i blokové přenosy
+- podporuje spolehlivé i nespolehlivé přenosy
 - využití v telekomunikacích
 
 #### Přepojování paketů
@@ -124,7 +125,7 @@ Vlastnosti:
 
 - odolné vůči chybám
 - princip fungování počítačových sítí
-- přenos musí být blokový - metadata musí obsahovat adresu příjemce a odesílatele
+- přenos musí být blokový → metadata musí obsahovat adresu příjemce a odesílatele
 - Kapacita cest a přepojovacích uzlů je omezená a sdílená
   - dostupná kapacita může být nedostatečná a nadbytečné bloky mohou být zničeny!
 - vyšší latence (náročný proces v uzlech)
@@ -234,11 +235,7 @@ přenosy 1:1 (řešíme routování a přeposílání)
 možné varianty:
 
 - [přepojování okruhů](#přepojování-okruhů)
-  - vždy spojované a garantované přenosy
-  - volitelně: blokové/proudové, spolehlivé/nespolehlivé
 - [přepojování paketů](#přepojování-paketů)
-  - vždy blokový přenos
-  - volitelně: virtuální okruhy (spolehlivé/nespolehlivé, Best effort/QoS) nebo datagramová služba (spolehlivé/nespolehlivé, Best effort/relativní QoS)
 
 ### (A11) Pevná a mobilní telefonní síť
 
