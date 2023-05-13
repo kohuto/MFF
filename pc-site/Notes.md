@@ -282,13 +282,11 @@ vlastnosti:
 
 ### (A13) Překryvné přístupové sítě
 
-Využiji existující infrastrukturu, kterou modifikuji a vybuduji na ní vlastní infrastrukturu. Původní funkčnost je zachovaná.
+Využiji existující infrastrukturu, kterou modifikuji (použití jiné frekvence nebo zapouzdření dat) a vybuduji na ní vlastní infrastrukturu. Původní funkčnost je zachovaná.
 
-použijeme jiné frekvence nebo zapouzdření dat
-
-- fixní telefonní sítě (kroucené dvojlinky v lokálních smyčkách)
-- elektrické sítě (drátování silové elektřiny)
-- síť kabelové televize (koaxiální kabely)
+- [fixní telefonní sítě](#a14-technologie-xdsl)
+- [elektrické sítě](#a15-technologie-plc)
+- [síť kabelové televize](#a16-technologie-docsis)
 
 ### (A14) Technologie xDSL
 
