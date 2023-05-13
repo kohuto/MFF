@@ -49,7 +49,7 @@ Vlastnosti:
 - bloky po sobě ani nemusí bezprostředně následovat (mohou být prodlevy)
 - bloky často obsahují metadata (adresa odesílatele v případě poruchy, adresa příjemce, pořadí bloků pro zpětné sestavení, identifikace přenosu pro umožnění více přenosů zároveň)
 
-Terminologie bolků podle vrstev:
+Terminologie bloků podle vrstev:
 
 - L2: rámce (ethernet), buňky (ATM)
 - L3: datagramy (IPv4), pakety (IPv6)
