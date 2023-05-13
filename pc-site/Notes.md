@@ -233,10 +233,10 @@ technologie:
 přenosy 1:1 (řešíme routování a přeposílání)
 možné varianty:
 
-- přepojování okruhů
+- [přepojování okruhů](#přepojování-okruhů)
   - vždy spojované a garantované přenosy
   - volitelně: blokové/proudové, spolehlivé/nespolehlivé
-- přepojování paketů
+- [přepojování paketů](#přepojování-paketů)
   - vždy blokový přenos
   - volitelně: virtuální okruhy (spolehlivé/nespolehlivé, Best effort/QoS) nebo datagramová služba (spolehlivé/nespolehlivé, Best effort/relativní QoS)
 
