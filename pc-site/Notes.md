@@ -20,9 +20,11 @@ Zpět na [Přehled](#přehled).
 
 Odpověď na otázku _*V jaké formě budou data posílaná?*_
 
+![stream vs block](./images/streamvsblock.png)
+
 #### Proudové přenosy
 
-Posíláme souvislý nestrukturovaný proud (sekvenci) dat, po jednotlivých symbolech (bits, bytes, words).
+Posíláme **souvislý nestrukturovaný** proud (sekvenci) dat, po jednotlivých symbolech (bits, bytes, words).
 
 Vlastnosti:
 
@@ -36,7 +38,7 @@ Příklady:
 
 #### Blokové přenosy
 
-Data rozdělíme do menších celků (bloků)
+Data rozdělíme na vhodně velké celky (bloků)
 
 - fixní velikost bloků (nepkratické)
 - proměnná velikost bloků (typicky s horním omezením, může být i spodní)
@@ -70,7 +72,7 @@ Odpověď na otázku _*Musíme se domluvit na přenosu dopředu?*_
 
 Komunikující strany se musí dohodnout na navázání/udržení/přerušení spojení. Pořadí dat musí být zachováno.
 
-Navázání spojení zahrnuje: obě strany existují, jsou schopny se najít, souhlasí se spojení, domluví se na parametrech přenosu (alkoace zdroj, vytyčení cesty...)
+Navázání spojení zahrnuje: obě strany existují, jsou schopny se najít, souhlasí se spojení, domluví se na parametrech přenosu (alokace zdroj, vytyčení cesty...)
 
 Příklady:
 
