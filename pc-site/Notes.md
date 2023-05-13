@@ -301,11 +301,11 @@ Technické řešení:
 ![CPpartxDsl](./images/CPxDSLpart.jpg)
 
 - POP část - přijde směs dat a hlasu
-  - DSLAM (DSL Access Multiplexer) - zařízení v POP, které obdrží směs vyšších a nižších frekvencí → rozdělí je → datový přenos je rozdělen do více páteřních sítí (nižší frekvence jdou do telefonní ústředny, vyšší frekvence do routeru)
+  - DSLAM (DSL Access Multiplexer) - zařízení v POP, které obdrží směs vyšších a nižších frekvencí → rozdělí je → nižší frekvence jdou do telefonní ústředny, vyšší frekvence do routeru
 
 ![xDslschema](./images/xdslschema.gif)
 
-Čím vyšší frekvence, tím náročnější přenos - s větší frekvencí se snižuje přenosová vzdálenost -> vznik předsunutých ústředen (zkrácení vzdálenosti). Podle frekvence pak rozlišujeme použité technologie př. ADSL (Asymetric Digital Subscriber Line), VDSL2 (Very High-Speed Digital Subscriber Line)
+Čím vyšší frekvence, tím náročnější přenos - s větší frekvencí se snižuje přenosová vzdálenost → vznik předsunutých ústředen (zkrácení vzdálenosti). Podle frekvence pak rozlišujeme použité technologie př. ADSL (Asymetric Digital Subscriber Line), VDSL2 (Very High-Speed Digital Subscriber Line)
 
 ### (A15) Technologie PLC
 
@@ -320,9 +320,9 @@ problémy:
 
 Kdy tedy (ne)lze použít?
 
-- PLC lze využít na velké vzdálenosti → nízká frekvence → nízké přenosové rychlosti. Použití pro pro monitorování údržbu sítě
-- Last mile - drahé a nepoužívané - Broadband over Powerline - Střední napětí desítky kV mezi transformátory - Na nízkých 230V jiný přístup
-- Last Meter - Homeplug - vnitřní rozvody za domácím elektroměrem lze využít k částečnému vybudování domácí sítě (až 500Mb/s)
+- PLC lze využít na velké vzdálenosti → nízká frekvence → nízké přenosové rychlosti. Použití pro monitorování údržby sítě
+- Last mile - drahé a nepoužívané
+- Last Meter - vnitřní rozvody za domácím elektroměrem → lze využít pro tvorbu LAN (až 500 Mb/s)
 
 ### (A16) Technologie DOCSIS
 
