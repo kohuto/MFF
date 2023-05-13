@@ -360,10 +360,7 @@ Vlastnosti:
 
 - možné přepojování okruhů i paketů
 - používá Best Effort i QoS
-- podle vztahu vlastník+uživatel:
-  - privátní
-  - veřejná
-  - virtuální privátní
+- podle vztahu vlastník + uživatel je dělíme na [privátní](#soukromé-datové-sítě), [veřejné](#veřejné-datové-sítě) a [virtuální privátní](#virtuální-privátní-datové-sítě)
 
 #### Soukromé datové sítě
 
@@ -379,8 +376,7 @@ nevýhody:
 
 #### Veřejné datové sítě
 
-Telekomunikační operátor vybuduje veřejnou datovou síť a nabízí ji zákazníkům za poplatek (cena podle množství přenesených dat) - vlastník není zamýšleným uživatelem
-K připojení je třeba kvalitní a podrobná dokumentace jak se připojit
+Telekomunikační operátor vybuduje veřejnou datovou síť a nabízí ji zákazníkům za poplatek (cena podle množství přenesených dat) - vlastník není zamýšleným uživatelem. Je třeba kvalitní a podrobná dokumentace, jak se připojit.
 
 výhody:
 
@@ -403,18 +399,16 @@ výhody:
 
 ### (A19) Sítě PAN, LAN, MAN, WAN
 
-Hloupá síť, chytrá koncová zařízení.
-
 #### Personal Area Networks
 
-1-10m - propojení zařízení v pracovním prstoru jednoho člověka (propojení monitoru, klávesnice, počítače, sluchátek tiskárny, ...)
+1-10m - propojení zařízení v pracovním prostoru jednoho člověka (propojení monitoru, klávesnice, počítače, sluchátek, tiskárny, ...)
 
 #### Local Area Networks
 
 10m-1km - propojení zařízení v rámci domácnosti, firmy, školy
 
 - v širším pojetí - jakákoliv síť menších rozměrů (zahrnujeme i routery - tedy soustavu sítí)
-- v užším pojetí . propojení pouze zařízení na L1 a L2 - repeatery, switche, ...
+- v užším pojetí - propojení pouze zařízení na L1 a L2 - repeatery, switche, ...
 
 oproti WAN nižší latence, vyšší spolehlivost, systematická topologie (sběrnice, hvězda, ...)
 
@@ -431,7 +425,7 @@ vlastník většinou právnická osoba nebo město. Rozléhají se přes veřejn
 
 #### Wide Area Networks
 
-100km a více - propojení jednotlivých LAN a MAN, přenos dat na velké vzdálenosti. Překračují i hranice států. Vlastnící jsou většinou velké firmy, poskytlovatelé připojení nebo operátoři.
+100km a více - propojení jednotlivých LAN a MAN, přenos dat na velké vzdálenosti. Překračují i hranice států. Vlastníci jsou většinou velké firmy, poskytovatelé připojení nebo operátoři.
 př. CESNET (akademická výzkumná infrastruktura)
 
 - čím delší vzdálenost, tím vyšší latence, nižší spolehlivost, nesymetrická topologie, permanentní dostupnost
@@ -440,7 +434,7 @@ př. CESNET (akademická výzkumná infrastruktura)
 
 Dnes máme vrstevnatou architekturu (T1/2/3 poskytovatelé a access pointy)
 
-Páteř - tvořena sítěmi všech Tier 1 poskytovatelů internetu, které jsou propojené pomocí IXP (internet exchange points) př. NIX.cz
+Páteř - tvořena sítěmi všech Tier 1 poskytovatelů internetu (ISP), které jsou propojené pomocí IXP (internet exchange points) př. NIX.cz
 
 přenosy:
 
@@ -449,7 +443,7 @@ přenosy:
 
 provideři:
 
-- Tier 1 - operátor vlastnící infrastrukturu s přímým přístup do jakékoliv sítě na světě. Nikomu neplatí za tranzit/peering (př. Deutsche Telekom)
+- Tier 1 - operátor vlastnící infrastrukturu s přímým přístupem do jakékoliv sítě na světě. Nikomu neplatí za tranzit/peering (př. Deutsche Telekom)
 - Tier 2 - přístup zadarmo do některých sítí. Za tranzit/peering do nějaké částí internetu platí (státy, regiony)
 - Tier 3 - nabízí služby koncovým uživatelům, za veškerý tranzit/peering platí
 
@@ -470,7 +464,7 @@ Zpět na [Přehled](#přehled).
 sítě příliš komplexní - snaha dekompozice problému do vrstev. Základní principy:
 
 - Nižší vrstva nabízí službu té vyšší, vyšší využívají služeb nižších
-- Čím vyšší vrstva tím vyšší míra abstrakce (fyzická - přenos bitů, aplikační - řešení komplexníxh služeb)
+- Čím vyšší vrstva tím vyšší míra abstrakce (fyzická - přenos bitů, aplikační - řešení komplexních služeb)
 - definováno veřejné rozhraní
 - vnitřní detaily skryty - vrstvy jsou na sobě nezávislé, možnost alternativních řešení, flexibilita (nová implementace je bezproblémová)
 
