@@ -326,18 +326,17 @@ Kdy tedy (ne)lze použít?
 
 ### (A16) Technologie DOCSIS
 
-kabelová televize - televize připojena pomocí koaxiálního kabelu pro analogový jednosměrný přenos → chceme digitální a obousměrné
+kabelová televize - televize připojena pomocí koaxiálního kabelu pro analogový jednosměrný přenos → chceme přenášet data skrz analogové kanály (technologie DOCSIS) v obou směrech (nutno zřídit zpětný kanál). Přístupovou část tvoří kombinace koaxiálních kabelů a optiky (HFC).
 
-EuroDOCSIS (Data Over Cable Service Interface Specification)
+prvky překryvné sítě:
 
-struktura přístupové sítě - Hybrid Fiber-Coaxial systém (HFC):
-
-- kombinace optických vláken a koaxiálních kabelů
 - CMTS - analogicky jako DSLAM
-- mezi CMTS a CP leží optický uzel
+  - mezi CMTS a CP leží optický uzel
   - z optického uzlu směrem k CMTS vede optické vlákno
   - z optického uzlu směrem k CP vede koaxiální kabel
 - u CP je Cable Modem (CM), který uvede vše do provozu
+
+![DOCSIS](./images/docsis.png)
 
 ### (A17) Technologie FTTx
 
