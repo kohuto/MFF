@@ -118,7 +118,7 @@ Vlastnosti:
 
 #### Přepojování paketů
 
-Pro každý blok dat se najde cesta zvlášť. Po cestě prochází skrz přepojovací uzly (switche, routery). Uzel má buffery pro příchozí a odchozí data → přijme blok a umístí ho do příchozího bufferu → postupně zpracovává bloky z příchozího bufferu → vybere blok, vybere mu nový směr a dá ho do odpovídajícího odchozího bufferu → zpracovaný blok čeká v odchozím bufferu na odeslání
+Pro každý blok dat se najde cesta zvlášť. Po cestě prochází skrz přepojovací uzly (switche, routery). Uzel má buffery pro příchozí a odchozí data (mechanismus Store&Forward) → přijme blok a umístí ho do příchozího bufferu → CPU postupně zpracovává bloky z příchozího bufferu → vybere blok, vybere mu nový směr a dá ho do odpovídajícího odchozího bufferu → zpracovaný blok čeká v odchozím bufferu na odeslání
 
 Vlastnosti:
 
@@ -129,16 +129,17 @@ Vlastnosti:
   - dostupná kapacita může být nedostatečná a nadbytečné bloky mohou být zničeny!
 - vyšší latence (náročný proces v uzlech)
   - je proměnlivá - závisí na aktuální vytíženosti cest a uzlů
+- může fungovat jak spojovaně tak nespojovaně (virtuální okruhy vs datagramová služba)
 
 ### (A04) Virtuální okruhy a datagramová služba
 
 #### virtuální okruhy
 
-Přepojování paketů (proto virtuální) pomocí spojovaného přenosu. Virtuálně se vytyčí cesta (VCI - virtual circuit identifier), jednotlivé přepojovací prvky si pamatují cestu. Bloky v sobě nesou ID okruhu a všechny jsou směrovány po tomto jednom okruhu. Takto funguje např. ATM na L2
+Přepojování paketů pomocí spojovaného přenosu. Virtuálně (ne fyzicky jako u přepojování okruhů) se vytyčí cesta (VCI - virtual circuit identifier - identifikátor přidělený cestě), jednotlivé přepojovací prvky si pamatují cestu. Bloky v sobě nesou ID okruhu a všechny jsou směrovány po tomto jednom okruhu. př. ATM na L2
 
 #### Datagramová služba
 
-Posílání paketů nespojovaným přenosem. Takto funguje např. Ethernet na L2
+Posílání paketů nespojovaným přenosem. př. Ethernet na L2
 
 ### (A05) Spolehlivé přenosy a nespolehlivé přenosy
 
@@ -148,8 +149,8 @@ Odpověď na otázku _*Jakou úroveň spolehlivosti přenosu požadujeme?*_
 
 Přenos má povinnost zajistit spolehlivost.
 
-- Detekce chybových situací: paritní bity, kontrolní součty, CRC... (nikdy to ale není 100%)
-- řešení chybových situací: samoopravné kódy (ne příliš praktické), opakovaný přenos (pozitivní/negativní acknowledgment, negativní = pošli zprávu znovu)
+- Detekce chybových situací: [paritní bity](#b46-kontrola-parity), [kontrolní součty](#b47-kontrolní-součty), [CRC](#b48-cyklické-redundantní-součty)... (nikdy to ale není 100%)
+- řešení chybových situací: [samoopravné kódy](#b45-detekce-poškozených-bloků), [opakovaný přenos](#b49-potvrzovací-strategie)
 
 Následky:
 
@@ -265,7 +266,8 @@ možné varianty:
 
 - Páteřní část - Network switching subsystem (NSS) - provádí spojení mezi účastníky jiných sítí
 - přístupová část - základem je systém základnových stanic (BSC). Tyto stanice řídí několik BTS stanic (v řádu desítek). BTS stanice propojuje koncového uživatele (telefon) se zbytkem sítě. V případě pohybu uživatele řídí BSC předávání hovoru mezi BTS. Uzemí, které je pokryto signálem mobilní sítě je rozděleno na malé oblasti (tzv. buňky - cells), Každou buňku obsluhuje jedna BTS. BTS může mít více antén (každá s vlastní frekvencí, každá frekvence pro jeden sektor, BTS tedy může spravovat i více sektorů, aniž by se sektory vzájemně rušily)
-  ![Mobile telephone network](./images/mobile_telephone_network.png)
+
+![Mobile telephone network](./images/mobile_telephone_network.png)
 
 ### (A12) Páteřní a přístupové sítě
 
