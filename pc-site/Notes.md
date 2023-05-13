@@ -70,7 +70,7 @@ Odpověď na otázku _*Musíme se domluvit na přenosu dopředu?*_
 
 #### Spojované
 
-Komunikující strany se musí dohodnout na navázání/udržení/přerušení spojení. Pořadí dat musí být zachováno.
+Komunikující strany se musí dohodnout na navázání/udržení/přerušení spojení. Pořadí dat musí být zachováno → přenos dat probíhá po trase vytyčené při navazování spojení.
 
 Navázání spojení zahrnuje: obě strany existují, jsou schopny se najít, souhlasí se spojení, domluví se na parametrech přenosu (alokace zdroj, vytyčení cesty...)
 
@@ -83,8 +83,8 @@ Příklady:
 Přenos má stavový charakter:
 
 - komunikuji/nekomunikuji
-- je třeba se vyhnout dead lockům
-- je třeba detekovat a řešit nestandartní situace
+- je třeba se vyhnout dead lockům (=jedna strana si myslí, že stále komunikuje a druhá komunikaci již ukončila)
+- je třeba detekovat a řešit nestandartní situace (př. výpadek spojení)
 
 #### Nespojované
 
