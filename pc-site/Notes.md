@@ -296,13 +296,12 @@ Technické řešení:
 
 - CP část:
   - DSL modem - k modemu jsou připojení uživatelé (počítače) - mění digitální data na analogový signál
-  - splitter - odděluje/spojuje nižší frekvence (hlas) od vyšších (data) - místo, kde se spojí připojený telefon (stará síť) a DSL modem (s novými počítači)
+  - splitter - odděluje/spojuje nižší frekvence (hlas) od vyšších (data) - místo, kde se spojí připojený telefon (stará síť) a DSL modem (s novými počítači) → jedním kabelem vede data do přípojky a z přípojky dál do POP
 
 ![CPpartxDsl](./images/CPxDSLpart.jpg)
 
-- POP část
-  - místní smyčka (přenáší hlas i data)
-  - DSLAM (DSL Access Multiplexer) - zařízení v POP - datový přenos je rozdělen do více páteřních sítí
+- POP část - přijde směs dat a hlasu
+  - DSLAM (DSL Access Multiplexer) - zařízení v POP, které obdrží směs vyšších a nižších frekvencí → rozdělí je → datový přenos je rozdělen do více páteřních sítí (nižší frekvence jdou do telefonní ústředny, vyšší frekvence do routeru)
 
 ![xDslschema](./images/xdslschema.gif)
 
