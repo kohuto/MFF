@@ -149,7 +149,7 @@ Odpověď na otázku _*Jakou úroveň spolehlivosti přenosu požadujeme?*_
 
 Přenos má povinnost zajistit spolehlivost.
 
-- Detekce chybových situací: [paritní bity](#b46-kontrola-parity), [kontrolní součty](#b47-kontrolní-součty), [CRC](#b48-cyklické-redundantní-součty)... (nikdy to ale není 100%)
+- Detekce chybových situací: [paritní bity](#b46-kontrola-parity), [kontrolní součty](#b47-kontrolní-součty), [CRC](#b48-cyklické-redundantní-součty)
 - řešení chybových situací: [samoopravné kódy](#b45-detekce-poškozených-bloků), [opakovaný přenos](#b49-potvrzovací-strategie)
 
 Následky:
@@ -176,7 +176,7 @@ Odpověď na otázku _*Bude po celou dobu dostupný dostatek zdrojů?*_
 
 #### Garantované
 
-Garance dostatečného možství zdrojů (přenosová a výpočetní kapacita) po celou dobu přenosu. Zdroje jsou zajištěny dopředu při navazování spojení (exkluzivní kapacita) - zabere se prostor pro maximální očekávanou zátěž - často nevyužita kapacita (nemůže být využita nikým jiným), protp drahé a neefektivní. Realizace vždy pomocí přepojování okruhů.
+Garance dostatečného možství zdrojů (přenosová a výpočetní kapacita) po celou dobu přenosu. Zdroje jsou zajištěny dopředu při navazování spojení (exkluzivní kapacita) - zabere se prostor pro maximální očekávanou zátěž - často nevyužita kapacita (nemůže být využita nikým jiným) → drahé a neefektivní. Realizace vždy pomocí přepojování okruhů.
 
 #### Negarantované
 
@@ -190,33 +190,21 @@ Jaké pakety zahodit, když dojdou zdroje u negarantovaných přenosů?
   - pakety jsou doručovány tak dlouho, jak je to možné. Pokud doručení není možné, začnou se zahazovat náhodně
   - př. IP (L3), Ethernet (L2), ATM (L2)
 - Quality of Service (QoS)
+  - cokoliv, co není best effort
   - relativní QoS - princip prioritizace, jako první zahazujeme data s menší prioritou
   - absolutní QoS - musíme dopředu zarezerovat zdroje. Pokud není kapacita, musí se rezervace odmítnout a tudíž nemůže dojít k přenosu (podobné jako přepojování paketů)
 
 ### (A08) Svět telekomunikačních a počítačových sítí
 
-#### Telekomunikační sítě
-
-Vlastnosti:
-
-- pouze jeden účel - broadcast (TV, radio), přepínané (telefony)
-- Chytrá síť, hloupé koncové uzly
-  - síť je drahá, mohutná, neflexibilní
-- přepojování okruhů, spojované, spolehlivé a garantované přenosy (QoS)
-- Zdroje jsou limitované (není jich dostatek pro každého) - prodej exkluzivní rezervace zdrojů - prodej spolehlivé služby
-- Majiteli telekomunikačních sítí nejsou jejich koneční uživatelé.
-
-#### Počítačové sítě
-
-Vlastnosti:
-
-- síť hloupá, koncová zařízení chytrá (levnější)
-  - síť je levná, jednodchá, flexibilní
-- přepojování paketů, nespojované, nespolehlivé a negarantované přenosy (best effort)
-- hlavní cíl je přenos dat (bez nutnosti chápat jejich význam)
-- nedostatek zdrojů není hlavní limitující faktor, nejdůlěžitější jsou technické faktory
-- vlastník sítě je většinou uživatel
-- nutnost řešit problém s kompatibilitou a sjednocením.
+| Telekomunikační sítě                                          | Počítačové sítě                                                               |
+| ------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| chytrá síť, hloupé koncové uzly                               | hloupá síť, chytrá koncová zařízení                                           |
+| síť je drahá, mohutná, neflexibilní                           | síť je levná, jednoduchá, flexibilní                                          |
+| přepojování okruhů                                            | přepojování paketů                                                            |
+| spojované, spolehlivé, garantované přenosy                    | nespojované, nespolehlivé, negarantované přenosy                              |
+| limitované zdroje - prodej exkluzivní rezervace zdrojů        | nedostatek zdrojů není hlavní problém - nejdůležitější jsou technické faktory |
+| vlastník není koncový uživatel                                | vlastník je většinou uživatel                                                 |
+| pouze jeden účel - broadcast (tv, radio), přepínané (telefon) | nutnost řešit problém s kompatibilitou                                        |
 
 ### (A09) Hospodaření se zdroji
 
