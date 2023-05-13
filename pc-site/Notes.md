@@ -83,20 +83,20 @@ Příklady:
 Přenos má stavový charakter:
 
 - komunikuji/nekomunikuji
-- je třeba se vyhnout dead lockům (=jedna strana si myslí, že stále komunikuje a druhá komunikaci již ukončila)
+- je třeba se vyhnout dead lockům (jedna strana považuje spojení za navázané a druhá nikoli)
 - je třeba detekovat a řešit nestandartní situace (př. výpadek spojení)
 
 #### Nespojované
 
-Odesílání jednotlivých zpráv (tzv. datagramů). Pořadí dat není zachované (analogie s poštou, pošlu tři dopisy, každý může dojít jindy).
+Odesílání jednotlivých zpráv (tzv. _datagramů_). Pořadí dat není zachované (analogie s poštou, pošlu tři dopisy, každý může dojít jindy).
 
-Není navázáno spojení (příjemce ani nemusí existovat). Bezstavový charakter. Každý datagram cestuje nezávisle. Datagram musí obsahovat kompletní identifiakci přijemce.
+Není navázáno spojení (příjemce ani nemusí existovat) → Datagram musí obsahovat kompletní identifikaci přijemce. Bezstavový charakter komunikace. Každý datagram cestuje nezávisle.
 
 Příklady:
 
-- L4: UDP
-- L3: IP, ICMP
 - L2: Ethernet
+- L3: IP, ICMP
+- L4: UDP
 
 ### (A03) Přepojování okruhů a paketů
 
@@ -104,36 +104,31 @@ Odpověď na otázku _*Jak se data dostanou k příjemci*_
 
 #### Přepojování okruhů
 
-První vytvoříme okruh, přes který se posílají data. Najde se a vytyčí se cesta (fyzicky nebo virtuálně)
+První vytvoříme souvislý okruh, přes který se posílají data. Najde se a vytyčí se cesta (fyzicky nebo virtuálně)
 
 Vlastnosti:
 
 - přenos musí být spojovaný
 - Iluze přímého spojení s protistranou
-- Nízká, konstantní latence (hledání cesty pouze jednou na začátku)
+- Nízká (konstantní) latence (hledání cesty pouze jednou na začátku)
 - zachovává pořadí
 - v okruhu máme vyhrazenu exkluzivní kapacitu - můžeme poskytovat garantované přenosy
 - podporuje proudové i blokové přenosy
-- využití v telekomunikacích.
+- využití v telekomunikacích
 
 #### Přepojování paketů
 
-Pro každý blok dat se najde cesta zvlášť. Po cestě prochází skrz přepojovací uzly. Uzel má buffery pro příchozí a odchozí data → přijme blok a umístí ho do příchozího bufferu → postupně zpracovává bloky z příchozího bufferu → vybere blok, vybere mu nový směr a dá ho do odpovídajícího odchozího bufferu → zpracovaný blok čeká v odchozím bufferu na odeslání
+Pro každý blok dat se najde cesta zvlášť. Po cestě prochází skrz přepojovací uzly (switche, routery). Uzel má buffery pro příchozí a odchozí data → přijme blok a umístí ho do příchozího bufferu → postupně zpracovává bloky z příchozího bufferu → vybere blok, vybere mu nový směr a dá ho do odpovídajícího odchozího bufferu → zpracovaný blok čeká v odchozím bufferu na odeslání
 
 Vlastnosti:
 
 - odolné vůči chybám
 - princip fungování počítačových sítí
-- přenos musí být blokový - metadat musí obsahovat adresu příjemce a odesílatele
+- přenos musí být blokový - metadata musí obsahovat adresu příjemce a odesílatele
 - Kapacita cest a přepojovacích uzlů je omezená a sdílená
   - dostupná kapacita může být nedostatečná a nadbytečné bloky mohou být zničeny!
 - vyšší latence (náročný proces v uzlech)
   - je proměnlivá - závisí na aktuální vytíženosti cest a uzlů
-
-Příklady:
-
-- L2: přepínače, switche
-- L3: směrovače, routery
 
 ### (A04) Virtuální okruhy a datagramová služba
 
