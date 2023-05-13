@@ -241,8 +241,8 @@ možné varianty:
 
 #### Pevná telefonní síť
 
-- páteřní část - hierarchie telefonních ústředen (2 mezinárodní → k nim připojených 6 tranzitních → k nim 138 řídících → z nich 2374 předsunutých tzv. RSU)
-- přístupová část - pokrývá celé území ČR
+- [páteřní část](#páteřní-transportní-sítě) - hierarchie telefonních ústředen (2 mezinárodní → k nim připojených 6 tranzitních → k nim 138 řídících → z nich 2374 předsunutých tzv. RSU)
+- [přístupová část](#přístupové-sítě)
   - POP - lokální ústředny/RSU s hlavním rozvaděčem
   - z POP kroucené dvoulinky dlouhé max 5 km do všech CP
   - CP - domy, kanceláře
@@ -252,8 +252,9 @@ možné varianty:
 
 #### Mobilní telefonní síť (GSM)
 
-- Páteřní část - Network switching subsystem (NSS) - provádí spojení mezi účastníky jiných sítí
-- přístupová část - základem je systém základnových stanic (BSC). Tyto stanice řídí několik BTS stanic (v řádu desítek). BTS stanice propojuje koncového uživatele (telefon) se zbytkem sítě. V případě pohybu uživatele řídí BSC předávání hovoru mezi BTS. Uzemí, které je pokryto signálem mobilní sítě je rozděleno na malé oblasti (tzv. buňky - cells), Každou buňku obsluhuje jedna BTS. BTS může mít více antén (každá s vlastní frekvencí, každá frekvence pro jeden sektor, BTS tedy může spravovat i více sektorů, aniž by se sektory vzájemně rušily)
+- [Páteřní část](#páteřní-transportní-sítě) - Network switching subsystem (NSS) - provádí spojení mezi účastníky jiných sítí
+- [přístupová část](#přístupové-sítě) - základem je systém základnových stanic (BSC). Tyto stanice řídí několik BTS stanic (v řádu desítek). BTS stanice propojuje koncového uživatele (telefon) se zbytkem sítě. V případě pohybu uživatele řídí BSC předávání hovoru mezi BTS. Uzemí, které je pokryto signálem mobilní sítě je rozděleno na malé oblasti (tzv. buňky - cells), Každou buňku obsluhuje jedna BTS. BTS může mít více antén (každá s vlastní frekvencí, každá frekvence pro jeden sektor, BTS tedy může spravovat i více sektorů, aniž by se sektory vzájemně rušily)
+- dnes např. T-mobile
 
 ![Mobile telephone network](./images/mobile_telephone_network.png)
 
