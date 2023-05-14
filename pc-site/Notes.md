@@ -181,7 +181,7 @@ Garance dostatečného možství zdrojů (přenosová a výpočetní kapacita) p
 
 #### Negarantované
 
-Negarantované - jednodušší a efketivnější (škálováno na průměrnou zátěž). Při vyšším zatížení můžou dojít zdroje - zaplní se buffery, nebo procesor - některé pakety musí být zahozeny (jaké?)
+Negarantované - jednodušší a efektivnější (škálováno na průměrnou zátěž). Při vyšším zatížení můžou dojít zdroje - zaplní se buffery, nebo procesor - některé pakety musí být zahozeny (jaké?)
 
 ### (A07) Princip Best Effort a Quality of Service
 
@@ -478,12 +478,12 @@ pozorování:
 
 - V dané vrstvě zpravidla probíhá více komunikací najednou
 - entity dodržují pravidla definovnaná protokoly
-- Asynchronní charakter - po odeslání je třeba řekat na reakci
+- Asynchronní charakter - po odeslání je třeba čekat na reakci
 - Virtuální charakter - pouze L1 skutečně něco posílá (zbytek je vlastně vertikální komunikace)
 
-#### Veritkální komunikace
+#### Vertikální komunikace
 
-Komunikace mezi vrstvanu ve stejném uzlu nebo aktivním síťovém prvku. Při zpracování dat nelze přeskočit žádnou vrstvu. Princip z pohledu:
+Komunikace mezi vrstvami ve stejném uzlu nebo aktivním síťovém prvku. Při zpracování dat nelze přeskočit žádnou vrstvu. Princip z pohledu:
 
 1. odesílatele - připraví data k odeslání a předá je nižší vrstvě
 2. příjemce - obdrží data → data rozbalí a předá vyšší vrstvě
@@ -507,7 +507,7 @@ pozorování:
 
 Model - teoretický model popisující, jak by měla síť fungovat (počet vrstev a jejich účel, poskytované služby - (ne)spojované, (ne)spolehlivé). př. OSI model
 
-Architektura - konkrétní implemetace síťového modelu + definice protokolů. př. TCP/IP architektura
+Architektura - konkrétní implementace síťového modelu + definice protokolů. př. TCP/IP architektura
 
 ### (A26) Referenční model ISO/OSI
 
