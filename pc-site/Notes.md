@@ -536,7 +536,7 @@ Aspekty k řešení: signál je limitován (útlum, rušení...), kódování, m
 
 #### Přenos bloků dat
 
-Hlavním cílem je přenášet bloky (framing) dat mezi síťovými rozhraními a jednotlivými uzly v rámci lokální sítě.
+Hlavním úkolem je přenášet bloky (framing) dat mezi síťovými rozhraními a jednotlivými uzly v rámci lokální sítě.
 
 - odesílatel vytvoří PDU a předá je L1 (MTU závisí na konkrétní technologii)
 - příjemce obdrží na L1 proud bitů - musí rozpoznat jednotlivé rámce (frames) → mohou být např. vloženy extra bity označující začátky a konce bloků.
@@ -558,9 +558,12 @@ Tam, kde je použito sdílené přenosové médium, je potřeba řídit přístu
 
 ### (A29) Úkoly síťové vrstvy
 
-Hlavním cílem je hop-to-hop (z uzlu na uzel) přenos a směrování paketů přes systém navzájem propojených sítí k příjemci (vědomí více sítí a jejich propojení - chybí iluze přímého propojení). Pakety posíláme (směrujeme) přes routery.
+Hlavním úkolem doprava bloků dat (paketů) přes systém navzájem propojených sítí k příjemci → chybí iluze přímého propojení. Zahrnuje:
 
-Adresování - uzly musí mít globálně jednoznačnou adresu (IPv4, IPv6). Adresy v rámci jedné sítě mají stejný prefix. Adresy přiřazujeme také sítím jako celku (potřeba poznat, do jaké sítě adresa patří). Nedostatek IPv4 se řeší pomocí např. subnetting, supernettingg, CIDR, privatná adresy a NAT, IPv6.
+- Routing (směrování) - hledání optimální cesty skrz routery
+- Forwarding (předávání) - posílání paketů po spočítané trase
+
+[Adresování](#c09-principy-propojování-na-l2) - identifikace příjemce pomocí IP adres.
 
 Posílání paketů:
 
@@ -568,35 +571,18 @@ Posílání paketů:
 - nepřímé odesílání - příjemce je v jiné síti → předám L2 a doručím routeru, který zařídí další směrování
 - lokální doručování (princip stejný u přímého/nepřímého) - paket zapouzdříme → předám L2, kde se vytvoří rámec → rámec se odešle (potřeba udělat překlad IP → MAC)
 
-Routing - hledání optimální cesty skrz routery (_hledání nejkratší cesty v ohodnoceném multigrafu_). K výpočtu je potřeba znát trochu topologii sítě (uloženo v routovacích tabulkách - nelze mít jednu tabulku v případě velkých sítí → dekompozice na části př. Autonomous system). Používají se různé strategie výpočtu (dynamické/statické, izolované/centralizované...)
-
-Forwarding - posílání paketů po spočítané trase (pomocí forwarding tables)
-
-Fragmentace - IP pakety mohou být větší než MTU využívané konrétní L2 → je třeba je fragmentovat
+[Fragmentace](#d41-principy-ipv4-fragmentace) - rozdělení IP paketů
 
 ### (A30) Úkoly transportní vrstvy
 
-Hlavním cílem je End-to-End komunikace mezi koncovými zařízeními (mezi běžícími procesy uvnitř).
+Hlavním cílem je vzájemná komunikace koncových uzlů resp. mezi běžícími procesy uvnitř. Vrstva přizpůsobuje představy vyšších vrstev možnostem nižších vrstev (nižší vrstvy nepodporují např.: proudové, (ne)spojované, či (ne)spolehlivé přenosy, QoS)
 
-Adresování
+#### Komunikace entit
 
-, přizpůsobovací mezivrstva, komunikace konkrétních entit (běžících procesů uvnitř entit), vypořádává se s tm co nabízejí nižší vrstvy a zajišťuje to co vyžadují vyšší
+Nižší vrstvy chápou uzly jako celek, u koncových uzlů potřebujeme identifikovat jednotlivé etity uvnitř uzlu (proto je L4 implementovaná pouze v nich) → používáme porty. Může komunikovat více entit v jednom uzlu najednou (proto je potřeba je rozlišit):
 
-Komunikace konkrétních entit uvnitř uzlů
-Tato vrstva je implementována výhradně uvnitř (koncových zařízení)
-Jednotlivé entity je třeba rozlišit : porty (25 pro poštu)
-Adresy portů: - jedinečné - statické - fixní a víme je dopředu - abstraktní - platformově nezávislé - implicitní - nezávislé na aktuální situaci
-
-Transportních spojení pravděpodobně probíhá v každou chvíli více (multiplexing)
-multiplexing -> je třeba měnit více komunikací na jednu L3
-demultiplexing -> rozebrat a rozdat konkrétním entitám
-
-Rozhraní mezí 3 a 4 vrstvou je soket posílá a přijímá konkrétní data - dynamicky svazováno s konkrétními porty (port je adresa)
-
-Přizpůsobovací : Navrhuje vyšším vrstvám varianty připojení které nižší vrstvy nepodporují - proudové přenosy, spojované přenosy, spolehlivé přenosy, QoS
-
-FlowControl - řízení toku - je třeba předejít zahlcení příjemce
-Congestion control - kontrola zahlcení sítě
+- multiplexing - je třeba měnit více komunikací na jednu L3
+- demultiplexing - rozebrat a rozdat konkrétním entitám
 
 ### (A31) Úkoly relační vrstvy
 
@@ -1032,7 +1018,7 @@ Routovací tabulky:
 
 Forwardowací tabulky
 
-- Předpočítané tras
+- Předpočítané trasy
 
 ### (B20) Obvyklé přístupy směrování
 
