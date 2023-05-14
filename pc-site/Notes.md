@@ -541,18 +541,11 @@ Hlavním cílem je přenášet bloky (framing) dat mezi síťovými rozhraními 
 
 Data posíláme (směrujeme) pomocí aktivních síťových prvků (bridges, switches) a interních mechanismů (Store&Forward, Cut-Through). Vytváříme iluzi přímé cesty (každý vrchol sítě je viditelný a dosažitelný). Vnitřní struktura sítě udává, jak data proudí (nemusí odpovídat topologii L1) - př. sběrnice, hvězda, kruh, mřížka, hyperkrychle.
 
-Adresování - používáme fyzické adresy (MAC). Musí být unikátní v rámci sítě (globálně nemusí). Slouží k identifikiaci příjemce (aby byl nalezen a aby poznal svá data - typicky totiž přijímáme i rámce, které nám nepatří). Nutno zajistit přidělování adres (nemusí být celosvětově unikátní) - EUI-48 (MAC-48) nebo EUI-64
+[Adresování](#d01-principy-adresování-na-l2) - identifikace příjemce pomocí MAC adres
 
-filtrování a forwarding - mechanismus v bridges a switches k nalezení příjemce. Kdyby nebyl, museli bychom data posílat všemi směry.
+[filtrování a forwarding](#c10-filtrování-a-cílený-forwarding) - snaha o zefektivnění nalezení příjemce
 
-- filtrování - zamezení zbytečného předávání
-- forwarding - předávání pouze směrem, kde je příjemce
-
-Transparentnost - musíme umět předávat data a zároveň kontrolní signály a metadata a umět je od sebe rozeznávat. Techniky:
-
-- escaping - přepínání režimu
-- framing - hlavičkování
-- stuffing - umělé vkládání dalších bytů
+Transparentnost - jak předávat/rozlišit data, metadata a kontrolní signály ([escaping](#b12-zajištění-transparence), [framing](#b13-techniky-framingu-a-zapouzdření), [stuffing](#b14-techniky-stuffingu))
 
 Původní představa - přenosová média budou exkluzivní. Realita - více uzlů sdílí jedno přenosové médium. V jednu chvíli může vysílat pouze jeden (OSI s tím nepočítal) → rozdělení na dvě vrstvy
 
@@ -1557,6 +1550,7 @@ data, která začínají i končí v jednom segmentu nejsou šířená dál do d
 #### Forwarding
 
 Provoz, který začíná v jednom segmentu a končí v jiném segmentu, není šířen do dalších segmentů.
+
 ![forwarding](./images/forwarding.png)
 
 Propojovací uzel u Filtrování a cíleného forwardingu již nesmí fungovat jako repeater, ale musí fungovat minimálně na L2 (aby rozuměl struktuře přenášených rámců)
