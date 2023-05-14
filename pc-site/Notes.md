@@ -608,19 +608,19 @@ Co by dále měla řešit L5:
 
 Hlavním cílem je automatická serializaci, která umožní přenos a konverzi dat a která zajistí stejnou skladbu na různých platformách. (_to neznamená, že data přijdou nezměněná, je důležitý správný překlad_). V praxi se opět neimplementuje.
 
-Typicky: různé kódování, endianita, číselné formáty. S
+Typicky: různé kódování, endianita, číselné formáty.
 
 Serializace:
 
-- jednouduché strukutry (pole, sets apod.) - přímočaré
-- složitější strukutry
+- jednoduché struktury (pole, sets apod.) - přímočaré
+- složitější struktury
   - 2D, 3D,... matice - přenosová cesta je vždy 1D
   - objekty s pointery - odesílatel/příjemce mají vždy svůj adresový prostor
   - komplexní struktura se rozdělí na poslatelné části - Abstraktní syntaxe: popsání struktury dat, př. ASN.1 → přenosová syntaxe: serializace dat do formátu, př. BER
 
 ### (A33) Úkoly aplikační vrstvy
 
-Hlavním cílem je zajistit přístup ke komunikačnímu rozhraní a umoožnit aplikaci zasílat a přijímat zprávy, díky kterým se poskytují služby
+Hlavním cílem je zajistit přístup ke komunikačnímu rozhraní a umožnit aplikaci zasílat a přijímat zprávy, díky kterým se poskytují služby
 
 Původně měla L7 obsahovat celé aplikace → nereálné → realita: obsahuje pouze komunikační základ, ne UI
 
@@ -628,7 +628,7 @@ adresování - Identifikace pomocí IRI (př. URL), lokalizace pomocí DNS
 
 protokoly implementující konkrétní přenosy (HTTP, SMTP, ...)
 
-### (A50) Architektura TCP/IP
+### (A34) Architektura TCP/IP
 
 Existující architektura
 Ze světa počítačů - preferuje nespojovaný charakter komunikace, nespolehlivost, best effort principle
