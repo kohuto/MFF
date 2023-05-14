@@ -534,12 +534,14 @@ Aspekty k řešení: signál je limitován (útlum, rušení...), kódování, m
 
 ### (A28) Úkoly linkové vrstvy
 
+#### Přenos bloků dat
+
 Hlavním cílem je přenášet bloky (framing) dat mezi síťovými rozhraními a jednotlivými uzly v rámci lokální sítě.
 
 - odesílatel vytvoří PDU a předá je L1 (MTU závisí na konkrétní technologii)
 - příjemce obdrží na L1 proud bitů - musí rozpoznat jednotlivé rámce (frames) → mohou být např. vloženy extra bity označující začátky a konce bloků.
 
-Data posíláme (směrujeme) pomocí aktivních síťových prvků (bridges, switches) a interních mechanismů (Store&Forward, Cut-Through). Vytváříme iluzi přímé cesty (každý vrchol sítě je viditelný a dosažitelný). Vnitřní struktura sítě udává, jak data proudí (nemusí odpovídat topologii L1) - př. sběrnice, hvězda, kruh, mřížka, hyperkrychle.
+Data posíláme pomocí aktivních síťových prvků a interních mechanismů (Store&Forward, Cut-Through). Vytváříme iluzi přímé cesty (každý vrchol sítě je viditelný a dosažitelný). Vnitřní struktura sítě udává, jak data proudí (nemusí odpovídat topologii L1) - př. sběrnice, hvězda, kruh, mřížka, hyperkrychle.
 
 [Adresování](#d01-principy-adresování-na-l2) - identifikace příjemce pomocí MAC adres
 
@@ -547,10 +549,12 @@ Data posíláme (směrujeme) pomocí aktivních síťových prvků (bridges, swi
 
 Transparentnost - jak předávat/rozlišit data, metadata a kontrolní signály ([escaping](#b12-zajištění-transparence), [framing](#b13-techniky-framingu-a-zapouzdření), [stuffing](#b14-techniky-stuffingu))
 
-Původní představa - přenosová média budou exkluzivní. Realita - více uzlů sdílí jedno přenosové médium. V jednu chvíli může vysílat pouze jeden (OSI s tím nepočítal) → rozdělení na dvě vrstvy
+#### Řízení přístupu
 
-- MAC (Media Access Control) - podvrstva řešící přístup k médiím
-- LLC (Logical Link Control) - podvrstva nahrazující 2
+Tam, kde je použito sdílené přenosové médium, je potřeba řídit přístup k tomuto médiu (kdo zrovna vysílá) → původní OSI s tím nepočítal → problém je potřeba vyřešit mezi L1 a L2, proto se L2 rozdělal na dvě čísti:
+
+- MAC (Media Access Control) - podvrstva řešící přístup
+- LLC (Logical Link Control) - podvrstva nahrazující L2
 
 ### (A29) Úkoly síťové vrstvy
 
