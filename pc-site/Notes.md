@@ -1359,7 +1359,7 @@ Pokažené/ztracené bloky se dají obnovit znovuposláním. Abychom věděli, k
 
 ARQ je skupina strategií pro znovuposílání založená na pozitivních/negativních ACK (acknowledgments) a časových intervalech.
 
-existuje více různých potvrzovacích strategií (ARQ):
+Existuje více různých potvrzovacích strategií (ARQ):
 
 1. [jednotlivé potvrzování](#b40-jednotlivé-potvrzování) (Stop&Wait ARQ)
 2. [kontinuální potvrzování s návratem](#kontinuální-potvrzování-s-návratem) (Go-Back-N ARQ)
