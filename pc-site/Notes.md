@@ -1238,16 +1238,13 @@ Zpět na [Přehled](#přehled).
 
 ### (B32) End-to-end komunikace a de/multiplexing
 
-TODO
-
-komunikace mezi odesílatelem a příjemcem
-
-vrstvy L1-L3 pracují na atomické úrovni
-
-L4 a vyšší vrstvy jsou implementovány pouze v koncových uzlech (ne v routerech).
+[end-to-end komunikace](#a30-úkoly-transportní-vrstvy) - komunikace mezi odesílatelem a příjemcem - na síťové vrstvě se adresují uzly jako celky, ale v rámci jednoho uzlu existuje více entit → rozlišení těchto entit se řeší na trasportní vrstvě (L4 je pouze v koncových uzlech).
 
 _Multiplexing_ - z pohledu odesílatele → spojení několika nezávislých přenosů do jednoho (na L3 máme pouze jednu přenosovou cestu)
+
 _Demultiplexing_ - z pohledu příjemce → rozdělení přijatých datagramů
+
+![multiplexing and demultiplexing](./images/demultiplexing.png)
 
 ### (B40) Transportní spojení
 
