@@ -1425,8 +1425,8 @@ Feedback techniky:
 Forward techniky:
 
 - aktivně ovlivňujem, co posíláme do sítě
-- _Traffic shaping_ - excessive traffic is delayed
-- _Traffic policing_ - excessive traffic is discarded
+- _Traffic shaping_ - provoz, který je nad kapacitu, je pozdržen
+- _Traffic policing_ - provoz, který je nad kapacitu, je zahozen
 
 ### (B46) Možnosti zajištění QoS
 
