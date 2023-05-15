@@ -1238,7 +1238,11 @@ Zpět na [Přehled](#přehled).
 
 ### (B32) End-to-end komunikace a de/multiplexing
 
-[end-to-end komunikace](#a30-úkoly-transportní-vrstvy) - komunikace mezi odesílatelem a příjemcem - na síťové vrstvě se adresují uzly jako celky, ale v rámci jednoho uzlu existuje více entit → rozlišení těchto entit se řeší na trasportní vrstvě (L4 je pouze v koncových uzlech). Aplikace (odesílatel) komunkuje s několik příjemci, je třeba je rozlišit:
+[end-to-end komunikace](#a30-úkoly-transportní-vrstvy) - komunikace mezi entitami koncových uzlů - na síťové vrstvě se adresují uzly jako celky, ale v rámci jednoho uzlu existuje více entit → rozlišení těchto entit se řeší na trasportní vrstvě (L4 je pouze v koncových uzlech). Máme více přechodových bodů mezi transportní vrstvou a bezprostředně vyšší vrstvou → adresujeme tyto body. Adresování přímo entit by bylo příliš problematické, entity totiž dynamicky vznikají a zanikají. Každou entitu přiřadíme volnému přechodovému bodu.
+
+![prechodovy bod](./images/prechodovybod.png)
+
+Aplikace (odesílatel) komunkuje s několik příjemci, je třeba je rozlišit:
 
 - identifikátor spojení je pětice (IP1, port1, protocol, IP2, port2)
 - indentifikátor odesílatele (IP1, port1, protocol)
@@ -1265,16 +1269,11 @@ _Flow control_ - Obrana před tím, aby rychlejší odesílatelé přehltili pom
 
 ### (B34) Bytový stream TCP
 
-Aplikace generuje proud bytů → ukládají se do bufferu → je-li buffer zaplněn (nebo je obdržen request), vytvoří se TCP segmenty, které se odešlou
-
-Segmenty jsou očíslovány (kvůli zpětnému sestavení)
+Aplikace generuje proud bytů → protokol TCP je ukládá do bufferu → je-li buffer zaplněn (nebo je obdržen request), vytvoří z obsahu bufferu tzv. TCP segment, který odešle. TCP nečísluje bloky, ale udává pozici právě přenášených dat v bytovém proudu.
 
 ### (B35) Navazování spojení
 
-(spojované přenosy).
-
-Navázání spojení:
-3-way handshake: uzel A odešle žádost o spojení → uzel B pošle zpět potvrzení → uzel A odešle závěrečné potvrzení → až teď je spojení navázáno.
+Při navazování spojení se v TCP/IP používá _3-way handshake_. uzel A odešle žádost o spojení → uzel B pošle zpět potvrzení → uzel A odešle závěrečné potvrzení → až teď je spojení navázáno.
 
 ### (B36) Zajištění spolehlivosti
 
