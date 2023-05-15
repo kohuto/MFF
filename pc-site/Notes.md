@@ -1273,7 +1273,7 @@ Aplikace generuje proud bytů → protokol TCP je ukládá do bufferu → je-li 
 
 ### (B35) Navazování spojení
 
-Při navazování spojení se v TCP/IP používá _3-way handshake_. uzel A odešle žádost o spojení → uzel B pošle zpět potvrzení → uzel A odešle závěrečné potvrzení → až teď je spojení navázáno.
+Při navazování spojení se v TCP/IP používá _3-way handshake_. Uzel A odešle žádost o spojení → uzel B pošle zpět potvrzení → uzel A odešle závěrečné potvrzení → až teď je spojení navázáno.
 
 ### (B36) Zajištění spolehlivosti
 
@@ -1289,8 +1289,6 @@ Problémy:
 - Ztráta bloků - celý blok není doručen. Děje se hlavně na L3 (špatně spočítaná routing path, vypršel time to live, přetížení sítě...)
 - Poškození bloků - jsou změněny bity v bloku. Poškození se děje hlavně na L1 (rušení, útlum...)
 
-### (B45) Detekce poškozených bloků
-
 #### Ztráta
 
 Detekce: číslování (blokům přířadím pořadové číslo, či označím pozice v proudu dat)
@@ -1299,11 +1297,11 @@ Obnova: příjemce pošle request odesílateli o znovuposlání
 
 #### Poškození
 
-Princip detekce: odesílatel spočítá z dat v odesílaném bloku kontrolní hodnotu a přiloží ji k bloku. Příjemce z doručených dat spočítá kontrolní hodnotu, když hodnota sedí s přiloženou hodnotu, blok (pravděpodobně) nebyl poškozen.
+Detekce: odesílatel spočítá z dat v odesílaném bloku kontrolní hodnotu a přiloží ji k bloku. Příjemce z doručených dat spočítá kontrolní hodnotu, když hodnota sedí s přiloženou hodnotu, blok (pravděpodobně) nebyl poškozen.
 
-Mechanismy pro výpočet: Kontrola parity, kontrolní součty, CRC (Cyklické redundantní součty)
+Mechanismy pro výpočet kontrolní hodnoty: Kontrola parity, kontrolní součty, CRC (Cyklické redundantní součty)
 
-Lze provést samoopravu (Hammingovy kody, vícedimenzionální kontrola parity), moc se ale nepoužívá (neefektivní). Využívá se spíše znovuposílání bloků (je nám jedno, co za chybu nastalo, kde se v bloku vyskytla apod., protože stejně pošleme celý blok znovu)
+Obnova: Lze provést samoopravu (Hammingovy kody, vícedimenzionální kontrola parity), moc se ale nepoužívá (neefektivní). Využívá se spíše znovuposílání bloků (je nám jedno, co za chybu nastalo, kde se v bloku vyskytla apod., protože stejně pošleme celý blok znovu)
 
 ### (B37) Kontrola parity a kontrolní součty
 
