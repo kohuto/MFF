@@ -1252,6 +1252,8 @@ _Demultiplexing_ - z pohledu příjemce → rozdělení přijatých datagramů
 
 ### (B33) Srovnání protokolů TCP a UDP
 
+V TCP/IP funguje L3 pouze jedním způsobem - nespojovaně, nespolehlivě, best effort, po blocích (paketech) → zajišťuje IP protokol. Transportní vrstva již nabízí vyšším vrstvám 2 varianty transportních služeb → TCP a UDP. UDP nabízí minimální změnu oproti IP, zatímco TCP nabízí maximální změnu oproti IP.
+
 | TCP                                | UDP                                |
 | ---------------------------------- | ---------------------------------- |
 | komplexní                          | primitivní                         |
