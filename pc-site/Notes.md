@@ -631,17 +631,16 @@ protokoly implementující konkrétní přenosy (HTTP, SMTP, ...)
 ### (A34) Architektura TCP/IP
 
 Existující architektura
-Ze světa počítačů - preferuje nespojovaný charakter komunikace, nespolehlivost, best effort principle
-4 vrstvy
+Ze světa počítačů - preferuje nespojovaný charakter komunikace, nespolehlivost, best effort principle, 4 vrstvy
 
-Vznikal pomaleji, vymyšlela se myšlenka, zkusila, implementovala, vznikalo zdola nahoru.
+Vznikal pomaleji: vymyslela se myšlenka → zkusila se → implementovala se → vznikalo zdola nahoru
 
-Srovnání ISO/OSI a TCP/IP
+Srovnání ISO/OSI a TCP/IP:
 
-(L1+L2) Vrstva síťového rozhraní (wifi, ethernet)
-(L3) Síťová vrstva
-(L4) Transportní vrstva
-(L7 + části L5 a L6) Aplikační vrstva
+- (L1+L2) Vrstva síťového rozhraní (wifi, ethernet)
+- (L3) Síťová vrstva
+- (L4) Transportní vrstva
+- (L7 + části L5 a L6) Aplikační vrstva
 
 ## Techniky přenosu dat
 
@@ -729,7 +728,7 @@ Cíle:
 
 Příklady:
 
-- unipolární (1V = -1, 0 V = -0 → po celý interval)
+- unipolární (1V = 1, 0 V = 0 → po celý interval)
 - bipolární RZ
   - 0 → polovina intervalu v -1V, pak polovina intervalu v 0V
   - 1 → polovinu intervalu v 1V, pak polovina intervalu v 0V
@@ -752,9 +751,9 @@ Potřeba synchronizovat čas odesílatele a příjemce, aby byly signály správ
 
 #### DC komponenta a disparita
 
-problém mám médiu - podívám se na přenášené signály - když zprůmměruju amplitudu signálu (+1 -1) - je potřeba abychom se pohybovali okolo nuly - tomu se říká vybalanocvaná (nebo také že tam není žádna)
+problém mám médiu - podívám se na přenášené signály - když zprůměruju amplitudu signálu (+1 -1) - je potřeba abychom se pohybovali okolo nuly - tomu se říká vybalancovaná (nebo také, že tam není žádná)
 
-kdybych přenášel dlouho pozitivní/negativní --> tak je faktem, že to médium to fyzicky nezvládá
+kdybych přenášel dlouho pozitivní/negativní → tak je faktem, že to médium to fyzicky nezvládá
 
 _DC → stejnosměrný proud_
 
@@ -1002,54 +1001,49 @@ Zpět na [Přehled](#přehled).
 
 úkolem síťové vrstvy je dostat pakety přes **systémy sítí**, které jsou propojené routery.
 
-### (B18) Routing a forwarding
+### (B18) Směrovací a forwardovací tabulky
 
 - Routing - Proces hledání optimální cesty
 - Forwarding - Proces samotného posílání paketů
 
-### (B19) Směrovací a forwardovací tabulky
+#### Routovací tabulky:
 
-Routovací tabulky:
-
-- Cíl - IP adresa cílové sítě (př. 192.168.2.0)
+- Cíl - IP adresa cílové sítě (př. 192.168.2.0) s maskou
 - Interface - IP adresa síťové karty, která má být použita pro předání IP datagramu
 - Gateway - IP adresa sousedního routeru (př. 192.168.1.1)
 - Metrika - vzdálenost (_cena_) při použití dané trasy do cíle (př. 11)
 
-Forwardowací tabulky
+![ethernet](./images/routingtable.png)
+
+#### Forwardowací tabulky
 
 - Předpočítané trasy
+- jsou výcucem ze směrovací tabulky → při routingu jsme spočítali optimální cestu do konkrétní cítě, a do forwardovacích tabulek routerů poi cestě jsme uložili informaci, z routingu → stačí nám info "název cílové sítě" a "next hop router"
 
-### (B20) Obvyklé přístupy směrování
+### (B19) Obvyklé a alternativní přístupy směrování
+
+#### Obvyklé
 
 - Destination-based - založeno na cílové adrese (ne na zdrojové)
-- Least-cost - výběr cesty podle nejmenší ceny
-- Hop-by-hop - každý router se rozhoduje nezávsilé na jiných
+- Least-cost - výběr cesty podle nejmenší ceny (ve smyslu používané metriky)
+- Hop-by-hop - každý router se rozhoduje nezávislé na jiných
 - Content-independent - neberou se v potaz posílaná data
 - Stateless - neberou se v potaz výsledky minulých posílání
 
-### (B21) Klasifikace směrovacích přístupů
+#### Alternativní
 
-- Adaptivní/neadaptivní - Jestli se berou v potaz změny v síti
+- source-based routing - bere se v potaz zdroj dat (alternativa k destination-based)
+- content switching - berou se v potaz posílaná data (alternativa k content-independent)
+- flows - bere se v potaz, že pakety patří k sobě → tedy historie posílání (alternativa k stateless)
+
+### (B20) Klasifikace směrovacích přístupů
+
+- Adaptivní/neadaptivní - Jestli se berou v potaz změny v síti (vytíženost cest, routerů, změny v topologii)
 - Centralizované/distribuované - Jestli routery dělají rozhodnutí v závislosti na jiných routerech
 - Izolované/neizolované - Jestli se očekává spolupráce routerů
 - Interior/exterior - jaký je rozsah nasazení v rámci hierarchického směrování → uzly "uprostřed" (interior) grafu s mnoha propojeními budou muset zpracovat více dat, než uzly na okraji (exterior), které nejsou tak vytížené
 
-### (B22) Adaptivní a neadaptivní směrování
-
-#### Adaptivní (dynamické)
-
-Berou se v potaz změny v síti (vytíženost cest, routerů, změny v topologii). Routovací tabulky se neustále přepočítávají
-
-cíl: routing convergence - všechny routery mají stejné informace o topologii
-
-#### Neadaptivní (statické)
-
-Neberou se v potaz změny v síti → tudíž nepotřebují komunikvoat s ostatními uzly. Routovací tabulky se nemění.
-
-př. Fixed directory routing, Random walk, flooding
-
-### (B23) Statické (fixní) směrování (Fixed directory routing)
+### (B21) Statické (fixní) směrování (Fixed directory routing)
 
 Routovací tabulky jsou nastaveny manuálně administrátorem
 výhody:
