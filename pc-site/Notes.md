@@ -1238,21 +1238,17 @@ Zpět na [Přehled](#přehled).
 
 ### (B32) End-to-end komunikace a de/multiplexing
 
-[end-to-end komunikace](#a30-úkoly-transportní-vrstvy) - komunikace mezi odesílatelem a příjemcem - na síťové vrstvě se adresují uzly jako celky, ale v rámci jednoho uzlu existuje více entit → rozlišení těchto entit se řeší na trasportní vrstvě (L4 je pouze v koncových uzlech).
+[end-to-end komunikace](#a30-úkoly-transportní-vrstvy) - komunikace mezi odesílatelem a příjemcem - na síťové vrstvě se adresují uzly jako celky, ale v rámci jednoho uzlu existuje více entit → rozlišení těchto entit se řeší na trasportní vrstvě (L4 je pouze v koncových uzlech). Aplikace (odesílatel) komunkuje s několik příjemci, je třeba je rozlišit:
+
+- identifikátor spojení je pětice (IP1, port1, protocol, IP2, port2)
+- indentifikátor odesílatele (IP1, port1, protocol)
+- identifikátor přijemce (IP2, port2, protocol)
 
 _Multiplexing_ - z pohledu odesílatele → spojení několika nezávislých přenosů do jednoho (na L3 máme pouze jednu přenosovou cestu)
 
 _Demultiplexing_ - z pohledu příjemce → rozdělení přijatých datagramů
 
 ![multiplexing and demultiplexing](./images/demultiplexing.png)
-
-### (B40) Transportní spojení
-
-Aplikace (odesílatel) komunkuje s několik příjemci, je třeba je rozlišit:
-
-- identifikátor spojení je pětice (IP1, port1, protocol, IP2, port2)
-- indentifikátor odesílatele (IP2, port2, protocol)
-- identifikátor přijemce (IP2, port2, protocol)
 
 ### (B33) Srovnání protokolů TCP a UDP
 
