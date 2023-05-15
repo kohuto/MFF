@@ -1205,13 +1205,32 @@ Takto by to pokračovalo až do nekonečna.
 
 ### (B29) Směrování link-state
 
-Každý uzel má informace o celé síti, tedy každý uzel může dělat výpočty sám za sebe. Neustále se kontroluje dostupnost sousedních vrcholů, v případě nedosažitelnsoti je informace předána všem uzlům.
+Každý uzel má informace o celé síti, tedy každý uzel může dělat výpočty sám za sebe. Neustále se kontroluje dostupnost sousedních vrcholů, v případě nedosažitelnosti je informace předána všem uzlům.
 
 Př. OSPF (Open Shrotest Path First)
 
 ### (B30) Srovnání distance-vector a link-state
 
+|                                         | distance-vector             | link-state                               |
+| --------------------------------------- | --------------------------- | ---------------------------------------- |
+| jak vnímá topologii sítě?               | pohledem sousedních routerů | zná celou topologii sítě                 |
+| způsob výpočtu cest v síti              | distribuovaný               | každý router vše počítá sám              |
+| konvergence výpočtu                     | pomalá                      | rychlá                                   |
+| chyba ve výpočtu                        | ovlivní ostatní routery     | neovlivní ostatní routery                |
+| aktualizace                             | každých 30 sekund           | pouze při změně (popř. každých 30 minut) |
+| komu se posílají aktualizační informace | přímým sousedům             | všem uzlům                               |
+| škálovatelnost                          | špatná (max 15 hopů)        | lepší                                    |
+| konkrétní protokol                      | RIP                         | OSPF                                     |
+
 ### (B31) Hierarchické směrování a směrovací domény
+
+Nejsou problém velké routovacá tabulky (zatím), dnes je problém primárně objem aktualizačních informací (v případě velké sítě jako internet je objem neúnosný) → jediné možné řešení je dekompozice → rozbít soustavu sítí na vhodně malé části
+
+#### Směrovací domény
+
+označní pro ty "vhodně malé části". V rámci domény jsou aktualizovány detailní směrovací informace
+
+![routing hierarchy](./images/routinghierarchy.png)
 
 ## Transportní vrstva a protokoly
 
