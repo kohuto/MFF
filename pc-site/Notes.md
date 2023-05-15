@@ -1347,7 +1347,7 @@ Klíč a text převedu na polynomy (koeficient odpovídá hodnotě bitu):
 - $01101001 \rightarrow x^6+x^5+x^3+x^0 $
 - $00110101 \rightarrow x^5+x^4+x^2+1 $
 
-Vydělím text klíčem, dostanu nový polynom (veškeré operace jsou $\bmod 2 $). Z koeficientů nového polynomu poskládám binární číslo a toto binární číslo je kontrolní hodnota. Pošlu text + kontrolní hodnotu. Příjemce pak provede CRC a musí mu vyjít nula (protože jsme přičetli zbytek).
+Vydělím text klíčem, dostanu nový polynom (veškeré operace jsou $\bmod 2 $). Z koeficientů nového polynomu poskládám binární číslo a toto binární číslo je kontrolní hodnota. Pošlu text + kontrolní hodnotu. Příjemce pak provede CRC a musí mu vyjít nula (protože jsme přičetli zbytek dělení polynomu).
 
 Používá se značení CRC-X (př. CRC-8, CRC-32), kde X označuje stupeň polynomu klíče (př. pro CRC-32 může být klíč $x^{32}+x^{25}+x^4$).
 
@@ -1358,6 +1358,12 @@ Hardwarová implementace je velice snadná, používá se XOR/ AND gateways a sh
 Pokažené/ztracené bloky se dají obnovit znovuposláním. Abychom věděli, kdy znovuposlat, potřebujeme potvrzovací strategii (Automatic Repeat Request (ARQ)).
 
 ARQ je skupina strategií pro znovuposílání založená na pozitivních/negativních ACK (acknowledgments) a časových intervalech.
+
+existuje více různých potvrzovacích strategií (ARQ):
+
+1. [jednotlivé potvrzování](#b40-jednotlivé-potvrzování) (Stop&Wait ARQ)
+2. [kontinuální potvrzování s návratem](#kontinuální-potvrzování-s-návratem) (Go-Back-N ARQ)
+3. [kontinuální potvrzování se selektivním opakováním](#b42-kontinuální-potvrzování-se-selektivním-opakováním) (Selective Repeat ARQ)
 
 ### (B40) Jednotlivé potvrzování
 
