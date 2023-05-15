@@ -1370,7 +1370,7 @@ Existuje více různých potvrzovacích strategií (ARQ):
 Odesílatel:
 
 - pošle **jeden** blok, čeká na ACK
-- obdrží ACK → když je negatviní, pošle blok znovu, když je pozitivní, pošle další
+- obdrží ACK → když je negativní, pošle blok znovu, když je pozitivní, pošle další
 - nedorazí-li žádný ACK v časovém intervalu, je blok poslán znovu
 
 Příjemce:
@@ -1382,7 +1382,7 @@ Použitelné pouze v lokálních sítích, ne ve velkých (velký delay)
 
 ### (B41) Kontinuální potvrzování s návratem
 
-#### Obecně myšlenka kontinuálního potvrzování
+#### Obecná myšlenka kontinuálního potvrzování
 
 Byty jsou posílány kontinuálně, nečekáme na ACK.
 
@@ -1398,11 +1398,20 @@ Pouze poškozený blok je poslán znovu. Neplýtváme, ale náročné na impleme
 
 ### (B43) Metoda posuvného okénka
 
+kontinuální potvrzování umožňuje odesílat bloky dat maximálním možným tempem → příjemce nemusí mít dostatečnou kapacitu na zpracování přijatých bloků → nutno zahazovat
+
+Řešení: odeslat „dopředu“ (bez potvrzení) jen tolik bloků, kolik příjemce dokáže přijmout (podle velikosti „okénka“). Posílám bloky, jakmile jsem poslal tolik bloků, kolik se vleze do okénka, počkám na pozitivní ACK. Vechvíli kdy přijde pozitivní ACK bloku A, mohu posunout okénko (=mohu poslat další blok).
+
+![metoda posuvného okénka](./images/posuvneokenko.png)
+
 ### (B44) Problém řízení toku
 
-Ujištění, že pomalí příjemci nebudou zahlcení rychlými odesílateli. Řešení: odesílatel bere v potaz kapacitní možnosti příjemce.
+Řízení toku = obecná technika jak nezhlit příjemce rychlým odesílání.
 
-TODO posuvné okénko
+Řešení: odesílatel bere v potaz kapacitní možnosti příjemce.
+
+- fyzická vrstva - pomocí signálů dává příjemce odesílateli najevo zda má, či nemá posílat
+- vyšší vrstvy - metoda okénka
 
 ### (B45) Předcházení zahlcení sítě
 
