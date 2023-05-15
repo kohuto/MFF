@@ -1039,11 +1039,12 @@ Zpět na [Přehled](#přehled).
 ### (B20) Klasifikace směrovacích přístupů
 
 - Adaptivní/neadaptivní - Jestli se berou v potaz změny v síti (vytíženost cest, routerů, změny v topologii)
-- Centralizované/distribuované - Jestli routery dělají rozhodnutí v závislosti na jiných routerech
+- Centralizované - směrování provádí jedna centrální autorita → ostatní uzly provádí její rozhodnutí
+- distribuované - směrovače vzájemně spolupracují → př. formou distribuovaného výpočtu nejkratších cest → př. [Metoda zpětného učení](#b24-metoda-zpětného-učení), [metoda zdrojového směrování](#b29-metoda-zdrojového-směrování), horká brambora (hot potato)
 - Izolované/neizolované - Jestli se očekává spolupráce routerů
 - Interior/exterior - jaký je rozsah nasazení v rámci hierarchického směrování → uzly "uprostřed" (interior) grafu s mnoha propojeními budou muset zpracovat více dat, než uzly na okraji (exterior), které nejsou tak vytížené
 
-### (B21) Statické (fixní) směrování (Fixed directory routing)
+### (B21) Statické (fixní) směrování a náhodné směrování
 
 Routovací tabulky jsou nastaveny manuálně administrátorem
 výhody:
@@ -1059,7 +1060,7 @@ Nevýhody:
 
 Lze kombinovat s adaptivním přístupem → nastavení defaultních routerů nebo použití v případě, že dynamické routování je aktuálně nedostupné
 
-### (B24) Záplavové směrování
+### (B22) Záplavové směrování a techniky řízené záplavy
 
 Příchozí pakety jsou duplikovány a rozeslány všemi dostupnými směry (krom toho, odkud paket přijel)
 
@@ -1073,15 +1074,15 @@ Nevýhody:
 
 - přílišné zatížení sítě - v případě existence ($\geq2$) cyklů může dojít až k exponenciální duplikaci paketů ve stejném uzlu.
 
-### (B25) Techniky řízené záplavy
+#### Techniky řízené záplavy
 
-Technika, jak vyřešit problém caklů (paket přijde dvakrát do jednoho uzlu)
+Technika, jak vyřešit problém cyklů (paket přijde dvakrát do jednoho uzlu)
 
-#### Hop count
+##### Hop count
 
 Paket dostane na startu číslo. V každém routeru se sníží o jedna. Když je na nule, paket se zničí. (číslo musí být dost velké, aby paket mohl dorazit do cíle).
 
-#### Sequence numbers
+##### Sequence numbers
 
 pakety dostanou pořadové číslo. V každém uzlu si pamatuji seznam dvojic _adresa odesílatele + pořadové číslo_. Přijde-li "stejná dvojice", je paket ignorován.
 
@@ -1090,15 +1091,15 @@ problémy:
 - omezená paměť uzlu
 - v případě navázaní nového spojení mohou být nově posílané pakety považovány za staré
 
-#### Reverse path forwarding
+##### Reverse path forwarding
 
 V uzlu si pamatuju směr, odkud očekávám, že přijde daný paket, když přijde tento paket jinou cestou, zruším ho.
 
-#### Spanning tree
+##### Spanning tree
 
 Nejdříve se vytvoří kostra grafu (sítě), pakety jsou posílány pouze po cestách, které jsou součástí kostry.
 
-### (B26) Centralizované směrování
+### (B23) Centralizované směrování
 
 Routovací rozhodnutí dělá primárně _rout server_ → když je potřeba routovací informace, pošle se request do rout serveru. Ostatní uzly dělají pouze forwarding.
 
@@ -1110,13 +1111,7 @@ nevýhody:
 
 - selže rout server → selže vše
 
-### (B27) Distribuované izolované směrování
-
-Každý router dělá routovací rozhodnutí sám, ale uzly nespolupracují
-
-př. Metoda zpětného učení, metoda zdrojového směrování, horká brambora (hot potato)
-
-### (B28) Metoda zpětného učení
+### (B24) Metoda zpětného učení
 
 Na začátku mám prázdnou tabulku. Přijde-li paket od neznámého odesílatele, zapamatuje se směr odesílatele. Paket je odeslán buď:
 
@@ -1125,7 +1120,7 @@ Na začátku mám prázdnou tabulku. Přijde-li paket od neznámého odesílatel
 
 Abychom udržovali aktuální informace, tak kombinujeme s [hop counterem](#hop-count). Paket obsahuje číslo (to s každým hopem zvyšujeme), jestliže je nová cesta kratší, aktualizujeme ji v seznamu.
 
-### (B29) Metoda zdrojového směrování
+### (B25) Metoda zdrojového směrování
 
 Odesílatel najde kompletní cestu k příjemci, po které se pošlou data.
 
@@ -1139,13 +1134,7 @@ Nevýhody:
 
 - nevýhody záplovavého směrování
 
-### (B30) Distribuované neizolované směrování
-
-Každý router dělá routovací rozhodnutí sám, ale uzly spolupracují
-
-př. Distance-vector směrování, link-state směrování, path-vector
-
-### (B31) Směrování distance-vector
+### (B26) Směrování distance-vector
 
 Každý uzel má vlastní routovací tabulku s nejkratší spočítanou cestou do objevených sítí. Aplikace Bellman-Fordova algoritmu.
 
@@ -1180,7 +1169,7 @@ Kompletní tabulky by vypadaly takto:
 
 ![dvr4](./images/dvr4.png)
 
-### (B32) Problém count to infinity
+### (B27) Problém count to infinity
 
 Jedná se o problém, který vznikne při Distance-vector routingu. Mějme tři uzly, kterým jsme spočítali routovací tabulky podle distance-vector routingu:
 
@@ -1206,26 +1195,22 @@ Takto by to pokračovalo až do nekonečna.
 2. Split horizon - jestliže uzel A získal informace z uzlu B, pak uzel A nebude předávat nové informace uzlu B.
 3. Poisoned reverse - jestliže je cesta zrušena, je vzdálenost nastavena na nekonečno.
 
-### (B33) Vlastnosti protokolu RIP
+### (B28) Vlastnosti protokolu RIP
 
 - vzdálenost se počítá podle počtu skoků (nekonečno je 16)
 - routovací tabulky mají max 25 záznamů
 - aktualizace se dělá každých 30s
 - nepoužitelný ve větších sítích
 
-### (B34) Směrování link-state
+### (B29) Směrování link-state
 
 Každý uzel má informace o celé síti, tedy každý uzel může dělat výpočty sám za sebe. Neustále se kontroluje dostupnost sousedních vrcholů, v případě nedosažitelnsoti je informace předána všem uzlům.
 
 Př. OSPF (Open Shrotest Path First)
 
-### (B35) Srovnání principů RIP a OSPF
+### (B30) Srovnání distance-vector a link-state
 
-### (B36) Velikost tabulek a aktualizací
-
-### (B37) Směrovací domény
-
-### (B38) Techniky směrování na L2
+### (B31) Hierarchické směrování a směrovací domény
 
 ## Transportní vrstva a protokoly
 
