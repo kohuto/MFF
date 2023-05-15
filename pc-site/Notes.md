@@ -926,7 +926,7 @@ Specifické techniky (závislé na L1):
 - starting flag + implicitní konec - Začátek rámce je označen flagem, konec rámce odpovídá konci přenosu (mám garantovné, že nemůžu lepit rámce přímo za sebe, tudíž mám garantovanou pauzu v přenosu).
 - Coding violation - speciální nedatové symboly označují start/konec bloků. Př. 4B5B
 - Počítání bloků -
-  určím si časový interval (5 sekund --> blbost ale pro ilustraci) --> za tento interval pošlu X bloků, nevím kolik --> první blok, který pošlu je inicializační (natolik specifická sekvence, že ho bezpečně poznám) --> ten mi řekne, jak je dlouho se posílá jeden blok --> poté vydělím interval délkou pro tento blok a zjistím na jakém místě je jaky blok (dá mi to intervaly pro jednotlivé bloky --> slot)
+  určím si časový interval (5 sekund --> blbost ale pro ilustraci) --> za tento interval pošlu X bloků, nevím kolik --> první blok, který pošlu je inicializační (natolik specifická sekvence, že ho bezpečně poznám) --> ten mi řekne, jak je dlouho se posílá jeden blok (doba, ktera byla potrebná na poslání tohoto bloku, bude potřeba i na poslaní každého dalšího bloku) --> poté vydělím interval délkou pro tento blok a zjistím na jakém místě je jaky blok (dá mi to intervaly pro jednotlivé bloky --> slot)
   délka bloků spočítaná na základě dělení času (funguje pouze pro bloky s fixní délkou).
 
 ### (B14) Techniky stuffingu
