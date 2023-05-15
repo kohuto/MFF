@@ -1228,7 +1228,7 @@ Nejsou problém velké routovacá tabulky (zatím), dnes je problém primárně 
 
 #### Směrovací domény
 
-označní pro ty "vhodně malé části". V rámci domény jsou aktualizovány detailní směrovací informace
+Označení pro ty "vhodně malé části". V rámci domény jsou aktualizovány detailní směrovací informace
 
 ![routing hierarchy](./images/routinghierarchy.png)
 
