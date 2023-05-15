@@ -1236,7 +1236,7 @@ Označení pro ty "vhodně malé části". V rámci domény jsou aktualizovány 
 
 Zpět na [Přehled](#přehled).
 
-### (B39) End-to-end komunikace
+### (B32) End-to-end komunikace a de/multiplexing
 
 TODO
 
@@ -1257,7 +1257,7 @@ Aplikace (odesílatel) komunkuje s několik příjemci, je třeba je rozlišit:
 - indentifikátor odesílatele (IP2, port2, protocol)
 - identifikátor přijemce (IP2, port2, protocol)
 
-### (B41) Srovnání protokolů TCP a UDP
+### (B33) Srovnání protokolů TCP a UDP
 
 | TCP                                | UDP                                |
 | ---------------------------------- | ---------------------------------- |
@@ -1268,20 +1268,20 @@ Aplikace (odesílatel) komunkuje s několik příjemci, je třeba je rozlišit:
 
 _Flow control_ - Obrana před tím, aby rychlejší odesílatelé přehltili pomalejší příjemce
 
-### (B42) Bytový stream TCP
+### (B34) Bytový stream TCP
 
 Aplikace generuje proud bytů → ukládají se do bufferu → je-li buffer zaplněn (nebo je obdržen request), vytvoří se TCP segmenty, které se odešlou
 
 Segmenty jsou očíslovány (kvůli zpětnému sestavení)
 
-### (B43) Navazování spojení
+### (B35) Navazování spojení
 
 (spojované přenosy).
 
 Navázání spojení:
 3-way handshake: uzel A odešle žádost o spojení → uzel B pošle zpět potvrzení → uzel A odešle závěrečné potvrzení → až teď je spojení navázáno.
 
-### (B44) Zajištění spolehlivosti
+### (B36) Zajištění spolehlivosti
 
 Cheme zajistit, aby data dorazila nezměněná.
 
@@ -1311,7 +1311,9 @@ Mechanismy pro výpočet: Kontrola parity, kontrolní součty, CRC (Cyklické re
 
 Lze provést samoopravu (Hammingovy kody, vícedimenzionální kontrola parity), moc se ale nepoužívá (neefektivní). Využívá se spíše znovuposílání bloků (je nám jedno, co za chybu nastalo, kde se v bloku vyskytla apod., protože stejně pošleme celý blok znovu)
 
-### (B46) Kontrola parity
+### (B37) Kontrola parity a kontrolní součty
+
+#### Kontrola parity
 
 Za skupinu bitů přidáme 1 bit:
 
@@ -1329,7 +1331,7 @@ Podle veliksoti skupiny rozlišujeme:
 - transverse parity - skupina je byte (slovo)
 - longitudinal parity - zvolím nějaký počet bitů (N), za každých N bitů umístíme kontrolní paritu
 
-### (B47) Kontrolní součty
+#### Kontrolní součty
 
 Provede se součet jednotlivých bytů (slov) → výsledek je použít jako kontrolní hodnota. Příjemce rovněž provede součet → výsledky musí bát stejné.
 
@@ -1343,7 +1345,7 @@ _Přišel (spolu s bytem) součet 1011 → když bych dělal jedničkový dopln�
 
 Lepší než kontroloní parita, stále tento způsob ale není dostatečně efektivní.
 
-### (B48) Cyklické redundantní součty
+### (B38) Cyklické redundantní součty
 
 Princip:
 
@@ -1359,13 +1361,13 @@ Používá se značení CRC-X (př. CRC-8, CRC-32), kde X označuje stupeň poly
 
 Hardwarová implementace je velice snadná, používá se XOR/ AND gateways a shift registry. Navíc je CRC velice spolehlivé (CRC-32 odhalí chybu na 99.99999998%). CRC odhalí pouze chyby způsobené hardwarem, pro odhalení chyb hacknutím je to slabé.
 
-### (B49) Potvrzovací strategie
+### (B39) Potvrzovací strategie
 
 Pokažené/ztracené bloky se dají obnovit znovuposláním. Abychom věděli, kdy znovuposlat, potřebujeme potvrzovací strategii (Automatic Repeat Request (ARQ)).
 
 ARQ je skupina strategií pro znovuposílání založená na pozitivních/negativních ACK (acknowledgments) a časových intervalech.
 
-### (B50) Jednotlivé potvrzování
+### (B40) Jednotlivé potvrzování
 
 Odesílatel:
 
@@ -1380,29 +1382,31 @@ Příjemce:
 
 Použitelné pouze v lokálních sítích, ne ve velkých (velký delay)
 
-### (B51) Kontinuální potvrzování
+### (B41) Kontinuální potvrzování s návratem
+
+#### Obecně myšlenka kontinuálního potvrzování
 
 Byty jsou posílány kontinuálně, nečekáme na ACK.
 
 Jak naložit s pokaženými bloky? V momentě, kdy objevím pokažený blok, mohlo přijít několik dalších. Dvě strategie: Potvrzování s návratem a Selektivní opakování
 
-### (B52) Potvrzování s návratem
+#### Kontinuální potvrzování s návratem
 
 Celý přenos začne znovu od místa, kde došlo k selhání. Bloky, které následovaly po vadném bloku jsou rovněž smazány (i když byly doručeny v pořádku). Snadné na implementaci, ale plýtváme.
 
-### (B53) Selektivní opakování
+### (B42) Kontinuální potvrzování se selektivním opakováním
 
 Pouze poškozený blok je poslán znovu. Neplýtváme, ale náročné na implementaci (úspěšně poslané bloky po tom vadném musí být uloženy v bufferu a nemohou být dále zpracovány, musí čekat na znovuposlání vadného).
 
-### (B54) Metoda posuvného okénka
+### (B43) Metoda posuvného okénka
 
-### (B55) Problém řízení toku
+### (B44) Problém řízení toku
 
 Ujištění, že pomalí příjemci nebudou zahlcení rychlými odesílateli. Řešení: odesílatel bere v potaz kapacitní možnosti příjemce.
 
 TODO posuvné okénko
 
-### (B56) Předcházení zahlcení sítě
+### (B45) Předcházení zahlcení sítě
 
 Chceme předejít tomu, aby odesílatelé přetížili celou síť (tzn. uvažujeme omezenou kapacitu cest a výpočetní kapacitu uzlů).
 
@@ -1417,15 +1421,13 @@ Forward techniky:
 - _Traffic shaping_ - excessive traffic is delayed
 - _Traffic policing_ - excessive traffic is discarded
 
-### (B57) Spolehlivost v TCP
+### (B46) Možnosti zajištění QoS
 
-### (B58) Možnosti zajištění QoS
+### (B47) Principy řešení DiffServ
 
-### (B59) Principy řešení DiffServ
+### (B48) Principy řešení IntServ
 
-### (B60) Principy řešení IntServ
-
-### (B61) Opatření client buffering
+### (B49) Opatření client buffering
 
 ## Internetworking
 
