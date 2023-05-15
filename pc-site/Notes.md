@@ -1318,14 +1318,14 @@ Za skupinu bitů přidáme 1 bit:
   - posílám-li skupinu 1000 → přidám 1 → pošlu 10001
   - posílám-li skupinu 1100 → přidám 0 → pošlu 11000
 
-Podle veliksoti skupiny rozlišujeme:
+Podle velikpsti skupiny rozlišujeme:
 
 - transverse parity - skupina je byte (slovo)
 - longitudinal parity - zvolím nějaký počet bitů (N), za každých N bitů umístíme kontrolní paritu
 
 #### Kontrolní součty
 
-Provede se součet jednotlivých bytů (slov) → výsledek je použít jako kontrolní hodnota. Příjemce rovněž provede součet → výsledky musí bát stejné.
+Provede se součet jednotlivých bytů (slov) → výsledek je použít jako kontrolní hodnota. Příjemce rovněž provede součet → výsledky musí být stejné.
 
 Občas se používá se dvojkový doplněk:
 
@@ -1335,7 +1335,7 @@ Občas se používá se dvojkový doplněk:
 
 _Přišel (spolu s bytem) součet 1011 → když bych dělal jedničkový doplněk tak by to vypadalo takto: ~1011+1011=1111 (součet čísla s jeho negací jsou samé jedničky). Když ale dělám dvojkový doplněk tak přičtu ještě jedničku, tudíž se zvětší počet bitů o jedna a dostanu 10000 (jedničku a samé nuly). Jednička se uřízne (je mimo rozsah), tudíž vyjdou samé nuly. Závěr: když je kontrolní součet stejný, tak součet s dvojkovým doplňkem je 0._
 
-Lepší než kontroloní parita, stále tento způsob ale není dostatečně efektivní.
+Lepší než kontrolní parita, stále tento způsob ale není dostatečně efektivní.
 
 ### (B38) Cyklické redundantní součty
 
