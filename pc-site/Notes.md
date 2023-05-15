@@ -1197,6 +1197,7 @@ Takto by to pokračovalo až do nekonečna.
 
 ### (B28) Vlastnosti protokolu RIP
 
+- princip stejný jako distance-vector
 - vzdálenost se počítá podle počtu skoků (nekonečno je 16)
 - routovací tabulky mají max 25 záznamů
 - aktualizace se dělá každých 30s
