@@ -1485,19 +1485,15 @@ Zařízení ("v zásuvce"), která se aktivně podílejí na posílání dat
 
 ### (C04) Principy propojování na L1
 
-propojovací zařízení pracuje s jednotlivé bity, nerozumí jejich významu
+propojovací zařízení (opakovač) pracuje s jednotlivé bity, nerozumí jejich významu
 
-### (C05) Funkce opakovačů
+#### Opakovač
 
 zesiluje a znovu tvaruje přenášený signál (kompenzuje zkreslení, útlum a další vlivy okolí) → obnovený signál okamžitě přepošle dál (nejsou zde žádné buffery)
 
 ![repeater](./images/repeater.png)
 
-### (C06) Vlastnosti opakovačů
-
-opakovač je průchozí (neukládá data do bufferu) → co přijde, hned odejde
-
-data prochází opakovačem z **konstantním** miniaturním zpožděním → opakovače mohou propojovat pouze segmenty se stejnou přenosovou rychlostí (nedokázaly by vyrovnávat rozdíly v rychlostech)
+opakovač je průchozí (neukládá data do bufferu) → co přijde, hned odejde → opakovače mohou propojovat pouze segmenty se stejnou přenosovou rychlostí (nedokázaly by vyrovnávat rozdíly v rychlostech)
 
 opakovač nerozumí datům (bitům) → ke všem bitům se chová stejně (tzn.vše, co přijde, předá do všech odchozích směrů → na L1 totiž nemáme ani adresy). Propouští i kolize (viz dále)
 
@@ -1507,7 +1503,7 @@ Co je propojeno pomocí opakovačů se chová jako jeden souvislý kabelový seg
 
 ![repeater segment](./images/repeatersegment.png)
 
-### (C07) Přístupová metoda CSMA/CD
+### (C05) Přístupová metoda CSMA/CD
 
 = Carrier Sense Multiple Access with Collision Detection
 
@@ -1519,17 +1515,15 @@ To, co je (v Ethernetu) propojeno pomocí opakovačů, tvoří _kolizní doménu
 
 Tato technologie se již dnes nepoužívá
 
-### (C08) Přenosová kapacita segmentu
+### Přenosová kapacita segmentu
 
-to co je propojeno pomocí opakovače se chová jako jeden segment. Sdílení
-
-pokud A posílá rámec B, tento rámec je šířen přes opakovač do dalších segmentů, kde obsazuje zdejší přenosovou kapacitu (tzn. např. D nemůže přenášet rámec k C)
+to co je propojeno pomocí opakovače na L1 se chová jako jeden segment. pokud A posílá rámec B, tento rámec je šířen přes opakovač do dalších segmentů, kde obsazuje zdejší přenosovou kapacitu (tzn. např. D nemůže přenášet rámec k C)
 
 ![shared capacity](./images/sharedcapacity.png)
 
 Řešení pomocí filtrování a cíleného forwardingu
 
-### (C09) Principy propojování na L2
+### (C06) Principy propojování na L2
 
 Na L1 vrstvě jsme spojováním dostali segmenty. Nyní na L2 dostaneme propojením segmentů sítě. Propojení se realizuje pomocí mostů a switchů.
 
@@ -1555,11 +1549,11 @@ Propojovací uzel u Filtrování a cíleného forwardingu již nesmí fungovat j
 
 Důsledkem toho je efektivnější využití přenosové kapacity. Je ale potřeba znát částečně topologii sítě.
 
-### (C11) Činnost linkového rozhraní
+### (C08) Činnost linkového rozhraní
 
 mosty a přepínače musí uložit do bufferu alespoň tolik dat (linkového rámce), aby dokázaly zjistit adresu odesílatele a příjemce → technika store&forward a cut-through
 
-### (C12) Mechanismus Store&Forward
+### (C09) Mechanismus Store&Forward
 
 čeká se na načtení celého linkového rámce a teprve pak s ním pracuje
 
@@ -1572,7 +1566,7 @@ nevýhody:
 
 - vyšší latence
 
-### (C13) Mechanismus Cut-Through
+### (C10) Mechanismus Cut-Through
 
 nečeká se na načtení celého rámce, ale začíná se s ním pracovat již po načtení jeho hlavičky (než se načte zbytek rámce, tak je úvodní část už přeposlaná dále)
 
@@ -1585,7 +1579,7 @@ nevýhody:
 - segmenty propojené mostem/přepínačem nemohou pracovat s různou přenosovou rychlostí
 - poškozené rámce se šíří dále
 
-### (C14) Segmentace sítě
+### (C11) Segmentace sítě a mikrosegmentace sítě
 
 Síť se rozdělí na segmenty, propojené na L2 (ideálně lze při rozdělení na N segmentů využít Nx přenosovou kapacitu). Přenosová kapacita v rámci jednoho segmentu je sdílená (čím více uzlů v segmentu, tím vyšší šance na kolizi). Př. rozdělím na dva segmenty, pak je původní přenosová kapacita rozdělena na dvě sdílené přenosové kapacity, které mohou být ideálně využívány nezávisle na sobě
 
@@ -1595,13 +1589,13 @@ Velké segmenty tedy chceme ideálně rozdělit na větší počet menších seg
 
 ![microsegmentation](./images/mikrosegmentace.png)
 
-### (C15) Vyhrazená přenosová kapacita
+#### Vyhrazená přenosová kapacita
 
 Vyhrazená přenosová kapacita nastává ve chvíli, kdy došlo k mikrosegmentaci (segment = 1 uzel), tzn. každý uzel má celou přenosovou kapacitu svého segmentu pro sebe.
 
 Podmínkou využití vyhrazené kapacity je dostatečná rychlost přepínače (musí stíhat přepínat/přenášet všechny souběžné přenosy → tzn. souběžné přenosy se nesmí navzájem zpomalovat). Vnitřní výpočetní kapacita přepínače musí odpovídat součtu přenosových kapacit všech segmentů.
 
-### (C16) Propojovací zařízení na L2
+### (C12) Srovnání přepínačů a mostů
 
 #### Mosty
 
@@ -1617,21 +1611,17 @@ má za úkol podporovat/vytvářet vyhrazenou přenosovou kapacitu → propojuje
 
 ![switch](./images/switches.png)
 
-### (C17) Vlastnosti zařízení na L2
-
-![viditelnost](./images/viditelnostl2.png)
-
-### (C18) Principy propojování na L3
+### (C13) Principy propojování na L3
 
 Propojují se jednotlivé sítě pomocí routerů (směrovačů) → výsledkem propojení je soustava propojených sítí = internetwork = internet
 
 ![internetwork](./images/internetwork.png)
 
-### (C19) Činnost síťového rozhraní
+### (C14) Činnost síťového rozhraní
 
 Směrovače jsou viditelné pro koncové uzly. Koncové uzly musí dokázat rozlišit mezi uzlem ve vlastní síti a uzlem v jiné síti. Posílá-li uzlu ve stejné síti, pak mu odesílá přímo (fakticky na L2). Pokud se nechází v jiné síti, pak svá data pošle (na L2) směrovači.
 
-### (C20) Pravidla 80:20 a 20:80
+### (C15) Pravidla 80:20 a 20:80
 
 #### 80:20
 
@@ -1649,7 +1639,9 @@ S nástupem Internetu a cloud computingu se to obrátilo.
 
 V důsledku pravidla 20:80 významně rostou požadavky na celkovou propustnost směrovačů. Možná řešení je použití L3 přepínače (L3 switch) či nasazení VLAN
 
-### (C21) Místní L2 broadcast
+### (C16) Místní L2 a L3 broadcast a cílený L3 broadcast
+
+#### Místní L2 broadcast
 
 Připomenutí: Broadcast - příjemce jsou všechny uzly v rámci dané oblasti (broadcast domény - v praxi je to konkrétní síť).
 
@@ -1661,17 +1653,19 @@ L2 broadcast se týká šíření rámců. Broadcast doménou je daná síť, te
 
 ![broadcast](./images/l2broadcast.png)
 
-### (C22) Místní L3 broadcast
+#### Místní L3 broadcast
 
 praktický efekt je stejný jako u L2 broadcastu. Týká se šíření paketů, zatímco L2 broadcast se týká šíření rámců → paket, odeslaný jako L3 broadcast, by měl být doručen všem uzlům v dané síti. V praxi se udělá to, že se paket vloží do linkového rámce a pošle se L2 broadcastem.
 
 ![broadcast](./images/l2broadcast.png)
 
-### (C23) Cílený L3 broadcast
+### Cílený L3 broadcast
 
 Šíří se v zadané cílové síti, která je jiná, než je síť, ve které se nachází zdroj (odesílatel). V praxi je paket poslán jako unicast, je doručen až do cílové sítě. V cílové síti se z něj stává broadcastový paket a je doručen všem uzlům v cílové síti (zabalí se do linkového rámce a je droučen pomocí L2 broadcastu).
 
-### (C24) Funkce směrovače
+### (C17) Směrovače a L3 přepínače
+
+#### Směrovače
 
 manipuluje pouze s linkovými rámci, které jsou adresovány pro něj. Př.:
 
@@ -1692,7 +1686,7 @@ jeho logické funkce jsou realizovány v SW
 
 ![smerovac](./images/router.png)
 
-### (C25) Funkce L3 přepínače
+#### L3 přepínače
 
 Manipuluje s linkovými rámci, i když mu nejsou určeny.
 
@@ -1705,7 +1699,7 @@ Manipuluje s linkovými rámci, i když mu nejsou určeny.
 
 zjednodušená představa: je to běžný (L2) přepínač, doplněný o schopnost práce na L3
 
-### (C26) Rozdíly směrovačů a L3 přepínačů
+#### Rozdíly směrovačů a L3 přepínačů
 
 #### Směrovač
 
@@ -1733,7 +1727,7 @@ L3 přepínač
 manipuluje se síťovými pakety, řídí se síťovými (L3) adresami (IP1 a IP2)
 ![l3 prepinac](./images/l3switch.png)
 
-### (C27) Využití L4 a L7 přepínačů
+### (C18) Využití L4 a L7 přepínačů
 
 L4 přepínače fungují na L3, manipulují se síťovými pakety, rozhodují se podle síťových (L3) adres i podle transportních (L4) adres (v TCP/IP: dle IP adres i dle čísel portů)
 
@@ -1751,7 +1745,7 @@ provozu (typicky podle cílového portu → př. multimedia mají přednost)
 
 Rozdílné směrování - př. rozdělování požadavků na různé služby mezi servery, poskytující různé služby
 
-### (C28) Principy a účel sítí VLAN
+### (C19) Principy a koncepty sítí VLAN
 
 Situace bez VLAN: uzly musí být zařazovány do sítí podle toho, kde jsou fyzicky umístěny (Uzly, které tvoří L3 síť jsou navzájem viditelné a dosažitelné). Fyzické umístění nemusí korespondovat s logickými kritérii
 
@@ -1759,10 +1753,6 @@ Princip virtuální sítě (VLAN) - již neplatí, že to, co je propojeno na li
 
 <img src="./images/vlan1.png" alt="Image" width="250" >
 <img src="./images/vlan2.png" alt="Image" width="250" >
-
-### (C29) Koncepty VLAN sítí
-
-liší hlavně svým účelem a cílem
 
 #### Lokální VLAN
 
@@ -1775,7 +1765,7 @@ liší hlavně svým účelem a cílem
 - sdružuje uživatele se stejnými právy/zájmy/chováním/zařazením
 - dělá se hlavně kvůli snadné správě uživatelů a nastavení přístupových práv
 
-### (C30) Logický model VLAN sítě
+### (C20) Logický model VLAN sítě
 
 - každá VLAN má přiřazené unikátní číslo - VLAN Identifier (VID) a také volitelné jméno
 
@@ -1784,7 +1774,9 @@ Typy segmentů zahrnuté do infrasttruktury:
 - VLAN-unaware segmenty - uzly zprávě jedné VLAN
 - VLAN-aware segmenty - uzly zprávě jedné VLAN
 
-### (C31) Přístupové VLAN porty
+### (C21) Přístupové a trunkovací VLAN porty
+
+#### Přístupové VLAN porty
 
 propojuje VLAN-unaware segmenty
 
@@ -1793,15 +1785,15 @@ propojuje VLAN-unaware segmenty
   - přicházejí jsou označeny daným VID, jestliže už označené jsou, tak jsou propuštěny pouze pokud sedí VID
   - odcházejí, tak jim je odebráno označení
 
-### (C32) Trunkovací VLAN porty
+#### Trunkovací VLAN porty
 
 propojuje VLAN-aware segmenty
 
 - označen jedním nebo více VID
 
-### (C33) Konfigurace VLAN sítí
+### (C22) Konfigurace VLAN sítí
 
-### (C34) Tagování 802.1q Dot1q
+### (C23) Tagování 802.1q Dot1q
 
 VLAN tag je přidán do původního ethernetového rámce mezi Source MAC a Type.
 
@@ -1810,9 +1802,9 @@ VLAN tag je přidán do původního ethernetového rámce mezi Source MAC a Type
 
 ![802.1q](./images/tag8021qdot1q.png)
 
-### (C35) Směrování mezi VLAN sítěmi
+### (C24) Směrování mezi VLAN sítěmi
 
-### (C36) Princip a typy firewallů
+### (C25) Princip a typy firewallů
 
 Úkolem internetworkingu je rovněž řízení přístupu (= aby se uživatel dostal pouze tam, kam má právo se dostat). Obecným řešením je firewall.
 
