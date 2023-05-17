@@ -1998,7 +1998,7 @@ multicastová skupina jsou uzly, které přijímají vysílání příslušného
 
 multicastová skupina je adresovaná (jednou) multicastovou IP adresou (IPv4 třídy D). Ta není rozdělena na síťovou a relativní část.
 
-### (D09) Řešení nedostatku IPv4 adres
+### (D07) Řešení nedostatku IPv4 adres
 
 při přidělení IP adresy síťovému rozhraní musí být dodržen význam obou složek:
 
@@ -2021,7 +2021,9 @@ Jak řešit nedostatek IP adres v dnešní době?
 - Dočasná řešení - zpomalení úbytku → subneting, CIDR, privátní IPv4 (+ NAT)
 - Trvalá řešení - zvětšení adresového prostoru → IPv6
 
-### (D11) Mechanismus subnettingu
+### (D08) Subnetting a supernetting
+
+#### Mechanismus subnettingu
 
 Motivace: rozdělím blok IP adres na menší bloky. Menší bloky přidělím různým (pod)sítím (tzv. subnets). Rozdělení nesmí být viditelné zvenku, soustava (pod)sítí musí mít pouze jeden vstupní bod.
 
@@ -2035,7 +2037,7 @@ Síťová maska má v první části 1 (1 = síťová část) a v druhé části
 
 ![subneting example](./images/subnetingexample.png)
 
-### (D12) Mechanismus supernettingu
+### Mechanismus supernettingu
 
 z několika menších bloků IP adres uděláme jeden větší blok. Jde o posun předělu směrem doleva, k vyšším bitům.
 
@@ -2043,7 +2045,7 @@ Lze např. použít při přidělování "nejbližší nižší", kdy mi bylo p�
 
 podmínka - musí být vyčerpány všechny možné kombinace v těch bitech, přes které se předěl posouvá
 
-### (D13) Mechanismus CIDR
+### (D09) Mechanismus CIDR
 
 motivace: dělení na třídy není transparentní - hlavně pro společnosti střední velikosti je 256 málo a 66000 adres moc. Cíl je zrušit koncept IPv4 tříd a přidělovat libovolně velké bloky.
 
@@ -2057,7 +2059,7 @@ Princip umožňuje dělit CIDR bloky na menší (a analogicky lze i spojovat). M
 
 Poznámka: Mechanismus CIDR je (na rozdíl od subnetingu) viditelný pro celý internet. Může být rovněž zachován koncept tříd → třídy A/B/C odpovídají CIDR bolkům s prefixy 8/16/24
 
-### (D14) Hierarchie registrátorů
+### (D10) Hierarchie registrátorů
 
 CIDR umožňuje vznik hierarchie přidělovatelů - vyšší dostane větší CIDR blok, který rozdělí na menší CIDR bloky a sám je přidělí
 nižším přidělovatelům (případně koncovým uživatelům).
@@ -2069,11 +2071,7 @@ nižším přidělovatelům (případně koncovým uživatelům).
 
 ![hierarchy registerer](./images/hierarchyregister.png)
 
-### (D15) Závislost IP adres na ISP
-
-Přidělování IP adres pomocí CIDR učinilo IP adresy závislé na způsobu připojení (ISP). páteřní směrovače znají pouze cesty k největším CIDR blokům → nižší směrovače již mají informace o rozdělení (některých) CIDR bloků na menší CIDR bloky.
-
-### (D16) Koncept privátních IP adres
+### (D11) Koncept privátních IP adres a NAT
 
 Připomenutí: ve veřejném Internetu musí mít každý uzel (rozhraní) unikátní IP adresu (kvůli směrování)
 
@@ -2082,7 +2080,7 @@ nejsou zvenku vidět (privátní sítě). Nutno zabránit šíření informací 
 
 ![concept of private ip](./images/privateip.png)
 
-### (D17) Princip překladu adres
+#### NAT
 
 NAT (překlad adres) funguje na síťové vrstvě - pracuje s IP datagramy
 
@@ -2100,21 +2098,17 @@ Příchozí přenosy:
 
 ![NAT translate](./images/nattranslate.png)
 
-### (D18) Způsob fungování NAT
+### (D12) Doručování datagramů při aktivním NAT
 
-### (D19) Charakter NAT/PAT vazeb
+### (D13) Charakter NAT/PAT vazeb
 
-### (D20) Princip a vlastnosti PAT
+### (D14) Doručování datagramů při aktivním PAT
 
-### (D21) Způsob fungování PAT
+### (D15) Varianty PAT kuželů
 
-### (D22) Varianty chování NAT/PAT
+### (D16) Problémy NAT/PAT
 
-### (D23) Problémy NAT/PAT
-
-/
-
-### (D24) Cíle návrhu IPv6 adres
+### (D17) Cíle IPv6 adres a vztah k IPv4 adresám
 
 hrozba vyčerpání adresového prostoru IPv4 adres (poprvé v roce 1990). IPv4 jsou v protokolu IP příliš hluboce zakořeněny na to, aby se daly změnit. Proto bylo nutné vyvinout nový protokol IP (IPv6) a s ním změnit některé věci z původního protokolu IPv4.
 
@@ -2126,7 +2120,7 @@ Cíle:
 - anycastové adresy
 - odstranění broadcast adres
 
-### (D25) Vztah IPv4 a IPv6 adres
+#### Vztah IPv4 a IPv6 adres
 
 neexistuje kompatibilita mezi IPv4 a IPv6 - tzn. zařízení IPv4 a IPv6 nejsou schopna vzájemně komunikovat přímo.
 
@@ -2136,7 +2130,7 @@ interoperabilita mezi IPv4 a IPv6 je možná (ale složitá). Možnosti:
 - překlad - mezi IPv4 datagramy a IPv6 pakety
 - tunelování - pakety IPv6 jsou vkládány do IPv4 datagramů a přenášeny přes IPv4 síť
 
-### (D26) Tvar a zápis IPv6 adres
+### (D18) Struktura a zápis IPv6 adres
 
 IPv6 adresy se zapisují po 16-bitových slovech, každé je vyjádřeno hexadecimálně. Př. 805b:2d9d:dc28:0000:0000:fc57:d4c8:1fff (8x 16 bitů)
 
@@ -2146,22 +2140,16 @@ Zkracování zápisu:
 - nulová slova se vynechají: 805b:2d9d:dc28::fc57:d4c8:1fff
 - pro „vkládání“ IPv4 adres do IPv6 → posledních 32 bitů se zapíše jako u IPv4: ::212.200.31.255
 
-### (D27) Základní druhy IPv6 adres
+### (D19) Unicastové IPv6 adresy
 
-Existují tři základní druhy:
-
-1. unicast (individuální) adresy - identifikují vždy jedno síťové rozhraní, komunikace probíhá s tímto rozhraním
-2. Multicast (skupinové) adresy - identifikují (multicastovou) skupinu uzlů, komunikace probíhá se všemi uzly ve skupině
-3. anycast (výběrové) adresy - identifikují skupinu uzlů, komunikace probíhá jen s jedním uzlem ve skupině
-
-### (D28) Dělení IPv6 unicast adres
+identifikují vždy jedno síťové rozhraní, komunikace probíhá s tímto rozhraním
 
 1. global unicast - veřejné IPv6 adresy, musí být unikátní v celém Internetu
 2. local unicast - individuální privátní adresy, platné i pro více (pod)sítí
 3. link local - individuální „privátní“ adresy, platné jen pro danou (pod) síť
 4. site local - lokální místní adresy (nemají se již používat)
 
-### (D29) Globální IPv6 unicast adresy
+#### Globální IPv6 unicast adresy
 
 Adresa má 3 části:
 
@@ -2171,13 +2159,13 @@ Adresa má 3 části:
 
 „koncovým bodem“ pro (globální) směrování jsou jednotlivá **místa** (skupina (pod)sítí pod jednou společnou správou). Směrovací algoritmy ve veřejném Internetu hledají cesty jen k jednotlivým místům (určené prefixem) v rámci veřejné topologie. Poté, co najdou místo, tak si další doručení v rámci skupiny podsítí řeší správce místa sám (pomocí indetifikátoru podsítě) v rámci místní topologie. A nakonec v podsíti je pomocí identifikátoru rozhraní doručen obsah ke konkrétnímu interfacu
 
-### (D30) Principy adresování na L4
+### (D20) Principy adresování na L4
 
 připomenutí: na L3 (i na vrstvě síťového rozhraní) se adresují uzly jako celky (nedokážeme rozlišit různé entity v rámci téhož uzlu)
 
 Adresování na L4 potřebuje rozlišit různé entity v rámci daného uzlu, ale nepotřebuje identifikovat uzel jako celek. Proto použijeme pouze porty (abstraktní adresy).
 
-### (D31) Porty a jejich číslování
+### (D21) Porty a jejich číslování
 
 port je 16-biotvé číslo. Systém registrovaných portů spravuje IANA
 
@@ -2187,7 +2175,7 @@ typy portů:
 - uživatelské porty (Registered Ports) (1024 – 49151) - opět určeny pro speciální účel, ale mohou být použity i pro něco jiného
 - Dynamic Ports (Private Ports) (49152 – 65535) - neoznačené, dostupné pro nespecifikované účely
 
-### (D32) Principy adresování na L7
+### (D22) Principy adresování na L7
 
 je třeba identifikovat různé typy objektů (texty, obrázky, videa, ...
 )
@@ -2196,35 +2184,6 @@ možnosti adresování:
 
 - nezávisle na umístění objektu - identifikuje se objekt jako takový, nezávisle na jeho umístění. V TCP/IP URN
 - v závislosti na umístění objektu - součástí identifikace (adresy) je i umístění objektu. V TCP/IP - URL (Uniform Resource Locator)
-
-### (D33) Obecná struktura URI
-
-= Uniform Resource Identifier - obecný systém pojmenovávání.
-
-![URI scheme](./images/urischeme.png)
-
-obecný tvar:
-
-- schéma
-- autorita
-  - uživatelské info (jméno, heslo → dnes již deprecated)
-  - host - doménové jméno, IP adresa
-  - port - port na L4
-- cesta (path)
-- query - často parametry formuláře
-- fragment - např. id na HTML stránce
-
-příklady:
-
-- HTTP schéma
-  - př. http://www.earchiv.cz
-  - adresy webových stránek nebo jiných zdrojů
-- FTP schéma
-  - ftp://sunsite.mff.cuni.cz/Network/RFCs/rfc-index-latest.txt
-  - cesty k souborům nebo adresářům pomocí FTP protokolu
-- mailto schéma
-  - mailto:jiri@peterka.cz
-  - emailové adresy zahrnující další parametry
 
 ## Protokoly IPv4 a IPv6
 
