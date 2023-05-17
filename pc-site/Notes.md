@@ -1829,7 +1829,7 @@ Dva přístupy:
 1. vše je blokováno, ale něco je povoleno - tzn. nejprve se vše zablokuje, a pak se povolí konkrétní "pozitivní" výjimky
 2. vše je povoleno, ale něco je blokováno - tzn. nechá se vše povolené a následně se zakážou konkrétní "negativní" výjimky
 
-### (C37) Demilitarizovaná zóna
+### (C26) Demilitarizovaná zóna a aplikační brány
 
 obvyklé řešení pro firewally, fungující na principu „vše je zakázáno, něco je povoleno“. Mezi vnější sítí a vnitřní sítí se vytvoří ztv. demilitarizovaná zóna (DMZ). Ta není průchozí (je povolen pouze provoz, který začíná nebo končí uvnitř DMZ → tzn. vše jsme zakázali) → realizace pomocí konfigurace směrovacích tabulek v obou směrovačích oddělujících zóny.
 
@@ -1839,11 +1839,22 @@ Aby byla umožněna komunikace s vnějším světem, umístí se do DMZ brány, 
 
 ![dmz](./images/dmzgateway.png)
 
-### (C38) Aplikační brány
+### (C27) Realizace DMZ
 
-### (C39) Realizace DMZ
+### (C28) Paketové filtry a ACL
 
-### (C40) Paketové filtry a ACL
+#### Paketový filtr
+
+blokování i povolování se odehrává na úrovni síťové vrstvy (L3) → manipulace s L3 pakety → podle obsahu paketu je paket filtrem buď propuštěn nebo zastaven.
+
+#### ACL
+
+obecné označení pro „seznamy pravidel“, které specifikují konkrétní
+pravidla blokování či povolování. Jsou určené především pro firewally charakteru paketových filtrů.
+
+1. standardní seznamy ACL - jejich pravidla se ptají pouze na to,
+   odkud paket přichází
+2. rozšířené seznamy ACL - jejich pravidla se ptají i na další věci (př. cílovou adresu, číslo portu,...)
 
 ## Adresy a adresování
 
