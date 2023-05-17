@@ -2536,7 +2536,7 @@ V IPv6 může fragmentovat pouze odesílající uzel. Aby se pokusil vyhnout fra
 
 Pokud narazí směrovač na paket, který by měl být fragmentován, zahodí ho.
 
-Inforamce o fragmentaci jsou uložené ve speciální fragmentační hlavičce. Fragment Offset - stejně jako Fragmentation Offset u IPv4 (posunutí vůči začátku datové části původního paketu) Identification - stejné jako u IPv4
+Informace o fragmentaci jsou uložené ve speciální fragmentační hlavičce. Fragment Offset - stejně jako Fragmentation Offset u IPv4 (posunutí vůči začátku datové části původního paketu) Identification - stejné jako u IPv4
 
 ![IPv6 packets fragment header](./images/ipv6fragmentheader.png)
 
