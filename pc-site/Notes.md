@@ -1909,7 +1909,8 @@ Dříve označovaný jako MAC-48
 
 - novější verze
 - 3 byty na OUI, 5 bytů na sériové číslo (40 bitů)
-- Máme převod EUI-48 → EUI-64 - přidáme FF-EE za OUI př.: FC-77-74-FF-FE-19-41-1E
+- Máme převod EUI-48 → EUI-64
+  - přidáme FF-EE za OUI př.: FC-77-74-FF-FE-19-41-1E
 
 ### (D03) Principy adresování na L3
 
