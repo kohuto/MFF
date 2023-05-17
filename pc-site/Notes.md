@@ -1804,12 +1804,17 @@ Dynamické přístupy
 
 VLAN tag je přidán do původního ethernetového rámce mezi Source MAC a Type.
 
-- TPID = Tag prodotocol identifier
+- TPID = Tag protocol identifier
 - TCI = Tag control information - obsahuje VID
 
 ![802.1q](./images/tag8021qdot1q.png)
 
 ### (C24) Směrování mezi VLAN sítěmi
+
+Provoz mezi VLAN sítěmi na L3 musí procházet skrz routery
+
+- VLAN‐unaware router - pro každou VLAN připojenou k routeru je na routeru potřeba samostatný port. Neefektivní přístup.
+- VLAN‐aware router - rozhraní je rozděleno na několik virtuálních podrozhraní (každé odpovídá dané VLAN)
 
 ### (C25) Princip a typy firewallů
 
@@ -1817,7 +1822,7 @@ VLAN tag je přidán do původního ethernetového rámce mezi Source MAC a Type
 
 Firewall je tedy obecně řešení, které implementuje požadovaná pravidla přístupu (ale i odesílaných věcí). Může být realizován jako kombinace hardwaru/softwaru.
 
-Může být buď spoečný (chrání celé sítě), nebo individuální (chrání jednoho uživatele).
+Může být buď společný (chrání celé sítě), nebo individuální (chrání jednoho uživatele).
 
 Dva přístupy:
 
