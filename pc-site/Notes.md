@@ -2436,15 +2436,15 @@ situace: uzel A zná IP adresu uzlu B, a potřebuje znát jeho HW adresu
 
 1. uzel A se podívá do své ARP cache - pokud zde najde HW adresu k IP adrese uzlu B, končí
 2. uzel A sestaví a rozešle (linkovým broadcastem) ARP zprávu s dotazem
-3. každý uzel v síti zachytí ARP zprávu (vysílanou broadcastem).Zaprvé vyjme ze zprávy vazbu mezi IP a HW adresu uzlu A a uloží si ji do cache (případně, pokud už ji v cachi má, tak ji prodlouží). Zadruhé zjistí, zda je uzlem B → pokud ne, ARP zprávu zahodí a končí. Pokud ano, sestaví sestavá ARP zprávu s odpovědí.
+3. každý uzel v síti zachytí ARP zprávu (vysílanou broadcastem). Zaprvé vyjme ze zprávy vazbu mezi IP a HW adresu uzlu A a uloží si ji do cache (případně, pokud už ji v cachi má, tak ji prodlouží). Zadruhé zjistí, zda je uzlem B → pokud ne, ARP zprávu zahodí a končí. Pokud ano, sestaví sestavá ARP zprávu s odpovědí.
 
 ### (D42) Reverzní ARP protokol
 
 Lze prohodit fungování a provádět převod HW adresa → IP adresa. Tedy uzel zná svou HW adresu a chtěl by znát svou IP adresu.
 
-1. uzel A nezná svou IP adresu, sestaví RARP zprávu (stejnný formát jako ARP s drobnými změnami)
+1. uzel A nezná svou IP adresu, sestaví RARP zprávu (stejný formát jako ARP s drobnými změnami)
 2. uezl A uloží RARP zprávu do linkového rámce a rozešle broadcastem po místní síti
-3. uzel D, který funguje jako RARP server odpoví pomocí unicastu (pkud je RARP serverů více, odpoví kterýkoliv z nich)
+3. uzel D, který funguje jako RARP server odpoví pomocí unicastu (pokud je RARP serverů více, odpoví kterýkoliv z nich)
 
 Nevýhody:
 
