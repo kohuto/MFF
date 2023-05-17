@@ -1950,7 +1950,7 @@ přesněji se IP adresy přidělují síťovým rozhraním uzlu. Koncové uzly (
 Třídy D a E:
 
 - zbývající 1/8 adres
-- třída D - [multicastové adresy](#d07-ipv4-multicastové-adresy). Nejvyšší bity 1110 → 1/16 adres
+- třída D - [multicastové adresy](#d06-ipv4-multicast). Nejvyšší bity 1110 → 1/16 adres
 - třída E - pro budoucí rozšíření. Nejvyšší bity 1111 → 1/16 adres
 
 ![IPv4 classes D and E](./images/classde.png)
