@@ -1781,11 +1781,24 @@ propojuje VLAN-unaware segmenty
 
 #### Trunkovací VLAN porty
 
-propojuje VLAN-aware segmenty
+propojuje VLAN-aware segmenty → VLAN se mohou „rozkládat“ i přes více přepínačů → VLAN trunking je řešení, kdy 1 spoj mezi více přepínači přenáší provoz, který spadá do více různých VLAN
 
 - označen jedním nebo více VID
 
+![VLAN trunking](./images/vlantrunking.png)
+
 ### (C22) Konfigurace VLAN sítí
+
+Statické (portové) přístupy
+
+- Každý port je konfigurován ručně správcem sítě.
+- Relativně malá režie, vyšší zabezpečení, nedostatečně flexibilní
+
+Dynamické přístupy
+
+- Členství ve VLAN se řeší dynamicky
+- Informace musí být sdíleny mezi přepínači
+- Výrazně zjednodušuje návrh a nasazení sítě
 
 ### (C23) Tagování 802.1q Dot1q
 
