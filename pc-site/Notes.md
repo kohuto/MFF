@@ -1831,15 +1831,44 @@ Dva přístupy:
 
 ### (C26) Demilitarizovaná zóna a aplikační brány
 
-obvyklé řešení pro firewally, fungující na principu „vše je zakázáno, něco je povoleno“. Mezi vnější sítí a vnitřní sítí se vytvoří ztv. demilitarizovaná zóna (DMZ). Ta není průchozí (je povolen pouze provoz, který začíná nebo končí uvnitř DMZ → tzn. vše jsme zakázali) → realizace pomocí konfigurace směrovacích tabulek v obou směrovačích oddělujících zóny.
+obvyklé řešení pro firewally, fungující na principu „vše je zakázáno, něco je povoleno“. Mezi vnější sítí a vnitřní sítí se vytvoří ztv. demilitarizovaná zóna (DMZ). Ta není průchozí (je povolen pouze provoz, který začíná nebo končí uvnitř DMZ → tzn. vše jsme zakázali)
+
+#### Aplikační brány
+
+= server, který zprostředkuje komunikaci s vnější zónou.
+
+1. WWW klient (browser) ve vnitřní síti pošle svůj požadavek (HTTP request) proxy bráně
+2. proxy brána vygeneruje požadavek na cílový server
+3. proxy brána přijme odpověď cílového serveru
+4. proxy brána předá odpověď browseru ve vnitřní síti
+
+brána funguje na aplikační vrstvě → je vždy aplikačně závislá.
+
+![dmz](./images/proxyserver.png)
+
+### (C27) Realizace DMZ
+
+#### Duální firewall
+
+Vnější a vnitřní síť oddělují dva routery, jejichž směrovací tabulky jsou speciálně nakonfigurované, aby nepropouštěly data do vnitřní sítě přímo.
 
 ![dmz](./images/dmz.png)
 
-Aby byla umožněna komunikace s vnějším světem, umístí se do DMZ brány, které předávají povolený provoz.
+Aby byla umožněna komunikace s vnějším světem, umístí se do DMZ brána, která předává povolený provoz.
 
 ![dmz](./images/dmzgateway.png)
 
-### (C27) Realizace DMZ
+#### Single firewall
+
+Stačí nám 1 router. Router zakazuje přímý průchod z vnější sítě do vnitřní. Přesměruje provoz do proxy brány, která provoz povolí a pošle do vnitřní sítě.
+
+![dmz](./images/aplicationgates1.png)
+
+#### Integrovaná DMZ
+
+nepotřebujeme vůbec router. V rámci uzlu, který spojuje vnitřní a vnější síť, se vytvoří software, který funguje jako brána.
+
+![dmz](./images/aplicationgates2.png)
 
 ### (C28) Paketové filtry a ACL
 
