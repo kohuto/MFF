@@ -1761,10 +1761,12 @@ Princip virtuální sítě (VLAN) - již neplatí, že to, co je propojeno na li
 
 - každá VLAN má přiřazené unikátní číslo - VLAN Identifier (VID) a také volitelné jméno
 
-Typy segmentů zahrnuté do infrasttruktury:
+VLAN lze vnímat jako "projekci" sítě, která se skládá ze segmentů → forwarding i filtrování fungují pořád stejně.
 
-- VLAN-unaware segmenty - uzly zprávě jedné VLAN
-- VLAN-aware segmenty - uzly zprávě jedné VLAN
+Typy segmentů zahrnuté do infrastruktury:
+
+- VLAN-unaware segmenty - obsahuje uzly z právě jedné VLAN
+- VLAN-aware segmenty - zarhnuje uzly z několika VLAN = uskutečňuje provoz z několika různých VLAN
 
 ### (C21) Přístupové a trunkovací VLAN porty
 
