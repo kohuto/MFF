@@ -2363,7 +2363,7 @@ protokol (součást L3), který umožňuje řešit chyby a nestandardní situace
 Dva typy zpráv:
 
 1. Chybové zprávy (Error message)
-2. Informáční zprávy (informational message)
+2. Informační zprávy (informational message)
 
 ICMP zprávy jsou určené i pro příjemce v jiných sítích, proto je nutné umět zprávy směrovat → ICMP zpráva se vloží do IP datagramů.
 
@@ -2417,7 +2417,9 @@ Odpověď:
 2. prohodí se source a target adresy
 3. doplní se zdrojová HW adresa
 
-### (D53) Princip ARP cachování
+### (D41) ARP dotazy a cachování
+
+#### ARP cachování
 
 Vyrovnávací paměť, ve které si ARP pamatuje výsledky převodů IP → HW (tzv. resolution). jde o tabulku, kde jsou informace o vazbách mezi IP a HW adresami (tzv. bindings)
 
@@ -2426,7 +2428,7 @@ Vazby mohou být:
 - statické
 - dynamické - musí být pravidelně zapomínány (aby reflektovaly změny v síti) a obnovovány (aby se omezovaly nové dotazy)
 
-### (D54) Zpracování ARP dotazu
+#### Zpracování ARP dotazu
 
 situace: uzel A zná IP adresu uzlu B, a potřebuje znát jeho HW adresu
 
@@ -2436,7 +2438,7 @@ situace: uzel A zná IP adresu uzlu B, a potřebuje znát jeho HW adresu
 2. uzel A sestaví a rozešle (linkovým broadcastem) ARP zprávu s dotazem
 3. každý uzel v síti zachytí ARP zprávu (vysílanou broadcastem).Zaprvé vyjme ze zprávy vazbu mezi IP a HW adresu uzlu A a uloží si ji do cache (případně, pokud už ji v cachi má, tak ji prodlouží). Zadruhé zjistí, zda je uzlem B → pokud ne, ARP zprávu zahodí a končí. Pokud ano, sestaví sestavá ARP zprávu s odpovědí.
 
-### (D55) Reverzní ARP protokol
+### (D42) Reverzní ARP protokol
 
 Lze prohodit fungování a provádět převod HW adresa → IP adresa. Tedy uzel zná svou HW adresu a chtěl by znát svou IP adresu.
 
@@ -2444,7 +2446,7 @@ Lze prohodit fungování a provádět převod HW adresa → IP adresa. Tedy uzel
 2. uezl A uloží RARP zprávu do linkového rámce a rozešle broadcastem po místní síti
 3. uzel D, který funguje jako RARP server odpoví pomocí unicastu (pkud je RARP serverů více, odpoví kterýkoliv z nich)
 
-### (D56) Nevýhody RARP protokolu
+Nevýhody:
 
 - je starý a velmi jednoduchý
 - funguje na L3
@@ -2453,7 +2455,7 @@ Lze prohodit fungování a provádět převod HW adresa → IP adresa. Tedy uzel
 - obsah RARP serveru musí být nastaven manuálně
 - přiděluje se pouze IP adresa (a ne žádné další parametry)
 
-### (D57) Koncept protokolu DHCP
+### (D43) Protokol DHCP
 
 založen na BOOTP (bootstrap protocol).
 
@@ -2462,7 +2464,7 @@ založen na BOOTP (bootstrap protocol).
   následně přidělit stejnou IP adresu jinému uzlu) → nejčastější varianta. Dalšími variantami je ruční a trvalé přiřazení
 - funguje na L7
 
-### (D58) DHCP alokační strategie
+### (D44) DHCP alokační strategie
 
 #### Ruční (statická) přidělení
 
@@ -2476,7 +2478,7 @@ IP adresu určí DHCP server sám, a přidělí ji trvale na neomezenou dobu ze 
 
 IP adresu určí DHCP server sám, a přidělí ji na omezenou dobu ze seznamu dostupných adres. Omezená doba = tzv. DHCP lease (DHCP pronájem) je specifikovaná v době pronájmu (př. hodina, den, ...).
 
-### (D59) Chování DHCP klienta
+### (D45) Chování DHCP klienta
 
 - alokace: klient nemá IP adresu a žádá DHCP server o pronájem IP adresy
 - realokace: klient již má pronajatou IP adresu, ale snaží se pronájem potvrdit (př. byl vypnut, ale doba pronájmu stále trvá) → tímto krome je vlastně ochoten přijmout novou adresu
@@ -2484,7 +2486,7 @@ IP adresu určí DHCP server sám, a přidělí ji na omezenou dobu ze seznamu d
 - rebinding: snaží se získat pronájem stejné IP adresy od jiného DHCP serveru pokud se nepodařila obnova (v 87.5% doby pronájmu)
 - uvolnění: klient vrací pronajatou IP adresu ještě před koncem jejího pronájmu
 
-### (D60) Rozdíly IPv6 oproti IPv4
+### (D46) Rozdíly IPv6 oproti IPv4
 
 - jednodušší formát paketu (méně polí v hlavičce)
 - rozšiřující hlavičky jsou úspornější a efektivnější
@@ -2494,13 +2496,13 @@ IP adresu určí DHCP server sám, a přidělí ji na omezenou dobu ze seznamu d
 - zabudovaná podpora bezpečnosti (IPSEC)
 - popdpora pro alokaci zdrojů a QoS
 
-### (D61) Struktura IPv6 paketu
+### (D47) Struktura IPv6 paketu
 
 Má více hlaviček - jednu povinnou fixní délky a další rozšiřující. Nepovinné tělo.
 
 ![strucuter of IPv6 pacekt](./images/ipv6structure.png)
 
-### (D62) Položky IPv6 hlavičky
+### (D48) Položky IPv6 hlavičky
 
 ![IPv6 packets header](./images/ipv6header.png)
 
@@ -2511,13 +2513,13 @@ Má více hlaviček - jednu povinnou fixní délky a další rozšiřující. Ne
 - Next Header - nejsou-li přítomny rozšiřující hlavičky, tak udává typ nákladu (jako Protocol u IPv4), jsou-li přítomny, udává typ první z nich
 - Hop Limit - analogie k Time to Live z IPv4
 
-### (D63) Koncept IPv6 toků
+### (D49) Koncept IPv6 toků
 
 tok = skupina paketů, které spolu nějak souvisí (stejný odesilatel i příjemce + stejný význam/smysl)
 
 v IPv6 je tok identifikován zdrojovou IPv6 adresou a identifikátorem toku (není potřeba analyzovat směrovačem data v těle paketu).
 
-### (D64) IPv6 rozšiřující hlavičky
+### (D50) IPv6 rozšiřující hlavičky
 
 ![IPv6 packets header](./images/ipv6optionalheader.png)
 
@@ -2525,7 +2527,7 @@ rozšiřující hlavičky jsou nepovinné, nahrazují options v IPv4. Jsou řaze
 
 př.: Typ 44 - fragmentační hlavička.
 
-### (D65) IPv6 fragmentační hlavička
+### (D51) Principy IPv6 fragmentace
 
 V IPv6 může fragmentovat pouze odesílající uzel. Aby se pokusil vyhnout fragmentaci může:
 
@@ -2538,7 +2540,7 @@ Inforamce o fragmentaci jsou uložené ve speciální fragmentační hlavičce. 
 
 ![IPv6 packets fragment header](./images/ipv6fragmentheader.png)
 
-### (D66) IPv6 Path MTU Discovery
+### (D52) IPv6 Path MTU Discovery
 
 postup zjišťování (nejmenšího) MTU po cestě od daného uzlu ke zvolenému cíli
 
@@ -2546,7 +2548,7 @@ postup zjišťování (nejmenšího) MTU po cestě od daného uzlu ke zvolenému
 2. pokud paket kvůli velikosti neprojde, dostane zdroj zpět ICMPv6 zprávu Packet Too Big (obsahuje potřebnou velikost MTU)
 3. použije novou (nižší) hodnotu MTU a celý postup opakuje
 
-### (D67) Formát ICMPv6 zprávy
+### (D53) Formát ICMPv6 zprávy
 
 protokol ICMPv6 slouží ke stejnému účelu jako ICMP u IPv4 (signalizaci nestandardních situací).
 
