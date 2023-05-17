@@ -2236,7 +2236,7 @@ Omezuje dobu, po kterou má daný datagram existovat - dnes se jedná o počet p
 
 #### Nástroj TraceRoute
 
-vynulování TTL může být provedeno záměrně → nsátroj traceroute. TTL je nastaveno na 1, další směrovač sníží na 0 a pošle ICMP. Čímž zjistíme adresu "dalšího uzlu". Poté nastavíme na 2 atd.
+vynulování TTL může být provedeno záměrně → nástroj traceroute. TTL je nastaveno na 1, další směrovač sníží na 0 a pošle ICMP. Čímž zjistíme adresu "dalšího uzlu". Poté nastavíme na 2 atd.
 
 TraceRoute je diagnostický nástroj, která hledá sekvenci routerů na cestě k zadanému cílovému uzlu.
 
@@ -2271,7 +2271,7 @@ provedeme jedničkový doplněk:
 
 zapíšeme výsledek kontrolního součtu `b861` do určeného pole.
 
-Ověření kontrolního součtu v cíli - provedeme stejným způsobem výpočet součtu (včetně pole pro kontrolní součet) → výsledek musí dát nula (v checksum je negace součtu → ~N+N=0). Jestliže nedá, paket je zničen, ale přijemce není informován prostřednictvím ICMP (protože mohla být poškozená adresa odesílatele).
+Ověření kontrolního součtu v cíli - provedeme stejným způsobem výpočet součtu (včetně pole pro kontrolní součet) → výsledek musí dát nula (v checksum je negace součtu → ~N+N+1=0 při zarovnání na 16 bitů). Jestliže nedá, paket je zničen, ale přijemce není informován prostřednictvím ICMP (protože mohla být poškozená adresa odesílatele).
 
 ### (D28) IPv4 doplňky hlavičky
 
@@ -2296,7 +2296,7 @@ Technologie síťového rozhraní pracují s rámci omezené velikosti (IP datag
 
 MTU = maximální povolená "nákladová" část (bez hlavičky) linkového rámce.
 
-řešení: Rozdělíme příliš velký IP datagram na menší datagramy (fragmenty). Měli bychom se tomu ale vyhýbat jako čert křiži. U IPv4 může fragmentovat ktreýkoliv uzel po cestě (včetně směrovačů), u IPv6 pouze odesílající uzel.
+řešení: Rozdělíme příliš velký IP datagram na menší datagramy (fragmenty). Měli bychom se tomu ale vyhýbat jako čert křiži. U IPv4 může fragmentovat kterýkoliv uzel po cestě (včetně směrovačů), u IPv6 pouze odesílající uzel.
 
 ### (D30) IPv4 varianty detekce MTU
 
@@ -2326,7 +2326,7 @@ Identifikace:
 
 - V položce Identification mají fragmenty stejnou
   hodnotu jako původní datagram (poznáme, že patří k sobě)
-- nebyl-li fragemntován, tak není definován
+- nebyl-li fragmentován, tak není definován
 
 Fragmentation offset:
 
