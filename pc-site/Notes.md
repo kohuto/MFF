@@ -2018,7 +2018,7 @@ Jak se řešil nedostatek IP adres kdysi?
 
 Jak řešit nedostatek IP adres v dnešní době?
 
-- Dočasná řešení - zpomalení úbytku → subneting, CIDR, privátní IPv4 (+NAT)
+- Dočasná řešení - zpomalení úbytku → subneting, CIDR, privátní IPv4 (+ NAT)
 - Trvalá řešení - zvětšení adresového prostoru → IPv6
 
 ### (D11) Mechanismus subnettingu
