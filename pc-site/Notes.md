@@ -2168,7 +2168,7 @@ Adresování na L4 potřebuje rozlišit různé entity v rámci daného uzlu, al
 
 ### (D21) Porty a jejich číslování
 
-port je 16-biotvé číslo. Systém registrovaných portů spravuje IANA
+port je 16-bitové číslo. Systém registrovaných portů spravuje IANA
 
 typy portů:
 
@@ -2190,7 +2190,7 @@ možnosti adresování:
 
 Zpět na [Přehled](#přehled).
 
-### (D34) Vlastnosti protokolu IPv4
+### (D23) Vlastnosti protokolu IPv4
 
 - univerzální
   - snaží se fungovat „nad vším“
@@ -2200,45 +2200,47 @@ Zpět na [Přehled](#přehled).
   - nemají ekvivalent v HW, musí se zpracovávat v SW
   - říká se jim IP (zatímco u IPv6 se hovoří o paketech) datagramy, protože se přenáší nespojovaně
 - je zaměřen na jednoduchost, efektivnost a rychlost
-  - je nespojovaný - nečísluje přenášené datagramy, negarantuje, pořadí doručení, negarantuje dobu doručení
+  - je nespojovaný - nečísluje přenášené datagramy, negarantuje pořadí doručení, negarantuje dobu doručení
   - funguje jako nespolehlivý - negarantuje doručení, negarantuje nepoškozenost dat, nepoužívá potvrzení, nepodporuje řízení toku
 - je „síťově neutrální“ - pracuje stylem best effort, nepodporuje QoS
 
-### (D35) Struktura IPv4 datagramu
+### (D24) Struktura IPv4 datagramu
 
 datagram má dvě hlavní části - hlavičku a tělo
 
 - hlavička má proměnnou velikost (délka musí být násobky 4B, minimum je 20B). Údaj o délce hlavičky = IHL
-- tělo (datová část) - proměnná velikost - nutný údaj o velikosti = Total length (zahrnuje těli i hlavičku). Max velikost 64kB
+- tělo (datová část) - proměnná velikost - nutný údaj o velikosti = Total length (zahrnuje tělo i hlavičku). Max velikost 64kB
 
 ![length of ipv6 packet](./images/lengthipv6.png)
 
 poznámka - datagram nemá patičku s kontrolním součtem, kontrolní součet se provádí pouze v hlavičce, integritu užitečných dat si musí zajistit "ten komu data patří"
 
-### (D36) Položky IPv4 hlavičky
+### (D25) Položky IPv4 hlavičky
 
 celkem 14 položek - 13 povinných + 1 volitelná
 
 ![ipv4 packet header](./images/headeripv4.png)
 
-- version - dnes 4 IPv4
+- version - dnes 4 jako IPv4
 - IHL - velikost hlavičky v jednotkách 32 bitů (typicky 5 → 5x 32 bitů)
-- Type of Servise (TOS) - nikdo neví porč to tam je
+- Type of Servise (TOS) - nikdo neví proč to tam je
 - Total length - celková délka (v B) datagramu (včetně hlavičky)
-- identification, flags a fragmentation offset - pouze pro potřey fragmentace (nedochází-li k ní, jsou položky zbytečné)
+- identification, flags a fragmentation offset - pouze pro potřeby fragmentace (nedochází-li k ní, jsou položky zbytečné)
 - protocol - udává typ dat v těle datagramu (1=ICMP, 6=TCP, 17=UDP, ...)
 
-### (D37) IPv4 Time to Live
+### (D26) IPv4 Time to Live a Nástroj TraceRoute
+
+#### IPv4 Time to Live
 
 Omezuje dobu, po kterou má daný datagram existovat - dnes se jedná o počet přeskoků. Doporučená počáteční hodnota → 64. Každý router po cestě sníží hodnotu o 1 (a přepočítá kontrolní součet). Když je hodnota 0, je datagram zničen (odesílatel je informován pomocí ICMP)
 
-### (D38) Nástroj TraceRoute
+#### Nástroj TraceRoute
 
 vynulování TTL může být provedeno záměrně → nsátroj traceroute. TTL je nastaveno na 1, další směrovač sníží na 0 a pošle ICMP. Čímž zjistíme adresu "dalšího uzlu". Poté nastavíme na 2 atd.
 
 TraceRoute je diagnostický nástroj, která hledá sekvenci routerů na cestě k zadanému cílovému uzlu.
 
-### (D39) IPv4 kontrolní součet
+### (D27) IPv4 kontrolní součet
 
 zajišťuje integritu hlavičky (nezahrnuje tělo datagramu). Výpočet:
 
@@ -2271,7 +2273,7 @@ zapíšeme výsledek kontrolního součtu `b861` do určeného pole.
 
 Ověření kontrolního součtu v cíli - provedeme stejným způsobem výpočet součtu (včetně pole pro kontrolní součet) → výsledek musí dát nula (v checksum je negace součtu → ~N+N=0). Jestliže nedá, paket je zničen, ale přijemce není informován prostřednictvím ICMP (protože mohla být poškozená adresa odesílatele).
 
-### (D40) IPv4 doplňky hlavičky
+### (D28) IPv4 doplňky hlavičky
 
 Umožňují specifikovat dodatečné informace. Dnes se moc nepoužívají. Mohou mít různou velikost
 
@@ -2286,7 +2288,7 @@ Příklady doplňků:
 - Timestamp - zaznamenává čas průchodu jednotlivými směrovači
 - Source Routing - v hlavičce IP datagramu je vložena posloupnost směrovačů, kudy datagram bude procházet
 
-### (D41) Principy IPv4 fragmentace
+### (D29) Principy IPv4 fragmentace
 
 Technologie síťového rozhraní pracují s rámci omezené velikosti (IP datagram může být větší) → mohli bychom omezit velikost datagramů → ne vždy je to ale možné → po cestě mohou být IP datagramy vkládány do linkových rámců různé velikosti a různé technologie pracují s různě velkými rámci (ethernet II by to vložil do většího ramce, než je Ethernet 802.3 schopen pojmout)
 
@@ -2296,7 +2298,7 @@ MTU = maximální povolená "nákladová" část (bez hlavičky) linkového rám
 
 řešení: Rozdělíme příliš velký IP datagram na menší datagramy (fragmenty). Měli bychom se tomu ale vyhýbat jako čert křiži. U IPv4 může fragmentovat ktreýkoliv uzel po cestě (včetně směrovačů), u IPv6 pouze odesílající uzel.
 
-### (D42) IPv4 varianty detekce MTU
+### (D30) IPv4 varianty detekce MTU
 
 Jak předejít fragmentaci MTU?
 
@@ -2305,20 +2307,20 @@ Jak předejít fragmentaci MTU?
 3. řídit se místním MTU - nemusí vždy stačit (můžeme narazit na menší MTU po cestě)
 4. řídit se Path MTU - nákladné, navíc nemusí vždy stačit (IP je nespojovaný → skutečná data mohou jít jinou cestou)
 
-### (D43) IPv4 Path MTU Discovery
+### (D31) IPv4 Path MTU Discovery
 
 Path MTU („MTU po celé cestě“) = minimum přes všechna MTU
 od zdrojového uzlu až po cílový. Path MTU se dá zjistit pomocí Path MTU discovery.
 
 Datagramy jsou opakovaně posílány s nastaveným dont fragment flagem (viz dále) na true. Vždy, když by měl být datagram fragmentován, zahodí se, odesílatel obdrží ICMP zprávu a pošle datagram znovu s menší velikostí MTU → problém je, že sice víme, že MTU měla být menší, ale nevíme, jak moc menší měla být, proto musíme tipnout, jak moc je potřeba zmenšit nový datagram. Tento proces opakujeme, dokud datagram nedorazí do cíle.
 
-### (D44) Proces IPv4 fragmentace
+### (D32) Proces IPv4 fragmentace
 
 datová část (ne hlavička) paketu je rozdělena na fragmenty → z fragmentů jsou vytvořeny nové datagramy → hlavičky jsou vytvořeny jako kopie původní hlavičky (a změněny příslušná pole)
 
 ![fragmentace](./images/fragmentation.png)
 
-### (D45) IPv4 fragmentační hlavičky
+### (D33) IPv4 fragmentační hlavičky
 
 Identifikace:
 
@@ -2341,20 +2343,20 @@ Příznaky fragmentace (celkem 3 bity):
 
 ![příznaky fragmentace](./images/fragmentflags.png)
 
-### (D46) Proces IPv4 defragmentace
+### (D34) Proces IPv4 defragmentace
 
 Jednotlivé fragmenty skládá zpět (do původního datagramu) koncový příjemce (žádný jiný uzel nemusí mít k dispozici všechny fragmenty). Fragmenty do cíle nemusí dorazit ve stejném pořadí (dokonce ani ne všechny). Proto jsou příchozí fragmenty strčeny do bufferu. Jestliže do časového úseku nejsou doručeny všechny, vše je zahozeno. Odesílatel je informován prostřednictvím ICMP time exceeded message
 
 ![header](./images/defragmentation.png)
 
-### (D47) Problémy IPv4 de/fragmentace
+### (D35) Problémy IPv4 de/fragmentace
 
 - celý koncept musí být podporován všemi uzly
 - netriviální overhead především u zpětného sestavování
 - nepřijde-li jeden fragment, celý datagram je zahozen
 - IP protokol je bezstavový (nemá časové limity, čekání apod.) - čekání na fragmenty tento princip porušuje
 
-### (D48) Principy protokolu ICMPv4
+### (D36) Protokol ICMPv4
 
 protokol (součást L3), který umožňuje řešit chyby a nestandardní situace (IP to nezvládá) pomocí posílání zpráv.
 
@@ -2365,7 +2367,7 @@ Dva typy zpráv:
 
 ICMP zprávy jsou určené i pro příjemce v jiných sítích, proto je nutné umět zprávy směrovat → ICMP zpráva se vloží do IP datagramů.
 
-### (D49) Struktura ICMPv4 zprávy
+### (D37) Struktura ICMPv4 zprávy
 
 ![icmp message structure](./images/icmpmessage.png)
 
@@ -2376,7 +2378,7 @@ ICMP zprávy jsou určené i pro příjemce v jiných sítích, proto je nutné 
   - doplňkové pole hlavičky - většinou chybí, pouze pro určitý typ zprávy
 - Tělo - může klidně chybět. Př. u chybových zpráv obsahuje hlavičku datagramu, kterého se zpráva týká a prvních 8 bytů jeho těla (datové části)
 
-### (D50) Příklady ICMPv4 zprávy
+### (D38) Příklady ICMPv4 zprávy
 
 příklady ICMP zpráv:
 
@@ -2386,7 +2388,7 @@ příklady ICMP zpráv:
 - Redirect - přesměrování
 - Echo Request/Reply - testování dostupnosti
 
-### (D51) Principy protokolu ARP
+### (D39) Protokol ARP
 
 slouží potřebám převodu IP adres na HW (linkové) adresy. Fungují jen v dané síti (nepřekračují hranice).
 
@@ -2399,7 +2401,7 @@ slouží potřebám převodu IP adres na HW (linkové) adresy. Fungují jen v da
 
 ![principle of ARP](./images/arpprincip.png)
 
-### (D52) Struktura ARP zprávy
+### (D40) Struktura ARP zprávy
 
 ![principle of ARP](./images/arpmessage.png)
 
