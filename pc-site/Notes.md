@@ -1676,14 +1676,6 @@ manipuluje pouze s linkovými rámci, které jsou adresovány pro něj. Př.:
 5. Paket opět vloží do linkového rámce. Linková adresa (nyní již v síti Y) příjemce je nastavená na B
 6. V Y je rámec doručen k uzlu B
 
-Tradiční komplexní zařízení umožňující směrování a přeposílání
-Vhodné pro přechod mezi heterogenními prostředími
-
-– je optimalizován na logické funkce
-• směrování, aplikace přístupových práv, …..
-
-jeho logické funkce jsou realizovány v SW
-
 ![smerovac](./images/router.png)
 
 #### L3 přepínače
