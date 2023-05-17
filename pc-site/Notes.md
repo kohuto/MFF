@@ -1891,25 +1891,25 @@ Zpět na [Přehled](#přehled).
 
 ### (D01) Principy adresování na L2
 
-Ethernetové (MAC) adresy. Používá se na L2 respektive na MAC sublayer.
-nastaveny výrobcem
-nedají se změnit
-musí být unikátní v rámci jedné sítě.
+Ethernetové (MAC) adresy. Používá se na L2 respektive na MAC sublayer. Nastaveny výrobcem → "nedají" se změnit. Musí být unikátní v rámci jedné sítě. Adresy vyšších vrstev (IP adresy na síťové vrstvě) jsou na těchto HW adresách nezávislé (platí pro IPv4).
 
 ### (D02) Adresy EUI-48 a EUI-64
 
 = Extended Unique Identifier
 
-EUI‐48 (48 bits)
-Dříve označovaný jako MAC-48
-6 hex čísel oddělených pomlčkou nebo dvojtečkou
-př.: FC-77-74-19-41-1E nebo FC:77:74:19:41:1E
-jsou dvousložkové - vyšší 3 byty představují identifikaci výrobce (OUI - každý výrobce má svou přidělenou organizací IEEE), nižší tři byty předatvují číslo síťového rozhraní (výrobní číslo)
+#### EUI‐48 (48 bits)
 
-EUI‐64 (64 bits)
-novější verze
-3 byty na OUI, 5 bytů na sériové číslo (40 bitů)
-lze na ně převést EUI-48 přidáním FF-EE za OUI př.: FC-77-74-FF-FE-19-41-1E
+Dříve označovaný jako MAC-48
+
+- 6 hex čísel oddělených pomlčkou nebo dvojtečkou
+- př.: FC-77-74-19-41-1E nebo FC:77:74:19:41:1E
+- jsou dvousložkové - vyšší 3 byty představují identifikaci výrobce (OUI - každý výrobce má svou přidělenou organizací IEEE), nižší tři byty představují číslo síťového rozhraní (výrobní číslo)
+
+#### EUI‐64 (64 bits)
+
+- novější verze
+- 3 byty na OUI, 5 bytů na sériové číslo (40 bitů)
+- Máme převod EUI-48 → EUI-64 - přidáme FF-EE za OUI př.: FC-77-74-FF-FE-19-41-1E
 
 ### (D03) Principy adresování na L3
 
