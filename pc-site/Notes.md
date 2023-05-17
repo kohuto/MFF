@@ -1837,7 +1837,7 @@ obvyklé řešení pro firewally, fungující na principu „vše je zakázáno,
 
 Aby byla umožněna komunikace s vnějším světem, umístí se do DMZ brány, které předávají povolený provoz.
 
-![dmz](./images/dmz.png)
+![dmz](./images/dmzgateway.png)
 
 ### (C38) Aplikační brány
 
