@@ -1831,7 +1831,7 @@ Dva přístupy:
 
 ### (C26) Demilitarizovaná zóna a aplikační brány
 
-obvyklé řešení pro firewally, fungující na principu „vše je zakázáno, něco je povoleno“. Mezi vnější sítí a vnitřní sítí se vytvoří ztv. demilitarizovaná zóna (DMZ). Ta není průchozí (je povolen pouze provoz, který začíná nebo končí uvnitř DMZ → tzn. vše jsme zakázali)
+obvyklé řešení pro firewally, fungující na principu „vše je zakázáno, něco je povoleno“. Mezi vnější sítí a vnitřní sítí se vytvoří tzv. demilitarizovaná zóna (DMZ). Ta není průchozí (je povolen pouze provoz, který začíná nebo končí uvnitř DMZ → tzn. vše jsme zakázali)
 
 #### Aplikační brány
 
@@ -1925,15 +1925,15 @@ přesněji se IP adresy přidělují síťovým rozhraním uzlu. Koncové uzly (
 
 ![ip adresses at interfaces](./images/ipadressestointerfaces.png)
 
-### (D04) Tvar a zápis IPv4 adres
+### (D04) IPv4 adresy a jejich třídy
 
-4 byty (32 bitů).
-zápis: 4 desítková čísla 0-255 (jedno pro každý byte) oddělená tečkou.
-adresa rozdělena na dvě části: síťovou a relativní. Kde bude předěl? 3 možnosti → podle toho 3 třídy IPv4 adres:
+- 4 byty (32 bitů).
+- 4 desítková čísla 0-255 (jedno pro každý byte) oddělená tečkou
+- adresa rozdělena na dvě části: síťovou a relativní. Kde bude předěl? 3 možnosti → podle toho 3 třídy IPv4 adres:
 
 ![predel v IPv4](./images/predelipv4.png)
 
-### (D05) Třídy a prostor IPv4 adres
+#### Třídy
 
 | Třída A               | Třída B               | Třída C               |
 | --------------------- | --------------------- | --------------------- |
@@ -1954,7 +1954,7 @@ Třídy D a E:
 
 ![IPv4 classes D and E](./images/classde.png)
 
-### (D06) Speciální IPv4 adresy
+### (D05) Speciální IPv4 adresy
 
 Některé IPv4 adresy mají speciální význam.
 Základní princip:
@@ -1987,7 +1987,7 @@ loopback - většinou se používá 127.0.0.1, ale zabraná je pro to celá skup
 
 ![loopback](./images/loopback.png)
 
-### (D07) IPv4 multicastové adresy
+### (D06) IPv4 multicast
 
 multicast = přenos od 1 zdroje k více příjemcům současně (unicast: od 1 k 1, broadcast: od 1 ke všem)
 
@@ -1998,9 +1998,7 @@ multicastová skupina jsou uzly, které přijímají vysílání příslušného
 
 multicastová skupina je adresovaná (jednou) multicastovou IP adresou (IPv4 třídy D). Ta není rozdělena na síťovou a relativní část.
 
-### (D08) Realizace multicastu na L2
-
-### (D09) Přidělování IPv4 adres sítím
+### (D09) Řešení nedostatku IPv4 adres
 
 při přidělení IP adresy síťovému rozhraní musí být dodržen význam obou složek:
 
@@ -2011,16 +2009,14 @@ proto musíme IP adresy přidělovat po celých blocích (všechny adresy se ste
 
 ![block of ip adresses](./images/blockofips.png)
 
-poznámka: kdyby měly různé sítě stejnou síťovou část, mátlo by to směrovací algoritmy, které by pak nevěděly kam poslat pakety. Tzn. nepoužíté adresy nemohou být použity nikým jiným.
+poznámka: kdyby měly různé sítě stejnou síťovou část, mátlo by to směrovací algoritmy, které by pak nevěděly, kam poslat pakety. Tzn. nepoužíté adresy nemohou být použity nikým jiným.
 
-Přidělovací strategie:
+Jak se řešil nedostatek IP adres kdysi?
 
-- kdysi - zájemce s potřebou X adres dostal „nejbližší vyšší blok“
-- později - princip „více nejbližších menších bloků“
+- zájemce s potřebou X adres dostal „nejbližší vyšší blok“
+- princip „více nejbližších menších bloků“
 
-### (D10) Řešení nedostatku IPv4 adres
-
-„nejbližší vyšší blok“ a „více nejbližších menších bloků“ se již nepoužívá → adresy docházely příliš rychle. Dnes dvě řešení
+Jak řešit nedostatek IP adres v dnešní době?
 
 - Dočasná řešení - zpomalení úbytku → subneting, CIDR, privátní IPv4 (+NAT)
 - Trvalá řešení - zvětšení adresového prostoru → IPv6
