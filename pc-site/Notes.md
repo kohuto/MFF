@@ -2115,9 +2115,15 @@ nejsou zvenku vidět (privátní sítě). Nutno zabránit šíření informací 
 
 ![concept of private ip](./images/privateip.png)
 
-#### NAT
+NAT (překlad adres) funguje na síťové vrstvě - mechanismus pro překlad mezi veřejnými a privátními IP adresami. Přináší výhody jako:
 
-NAT (překlad adres) funguje na síťové vrstvě - pracuje s IP datagramy
+- úspora adres
+- vyhnout se nutnosti přeadresování sítě při změně ISP
+  většívolnost při přidělování IP adres ve vlastní síti
+
+![NAT translate](./images/nattranslate.png)
+
+### (D12) Doručování datagramů při aktivním NAT
 
 Odchozí přenosy:
 
@@ -2131,17 +2137,70 @@ Příchozí přenosy:
 5. odpověď je zachycena routerem a cílová adresa je nahrazena původní privátní adresou
 6. modifikovaná odpověď je odeslaná do privátní sítě
 
-![NAT translate](./images/nattranslate.png)
-
-### (D12) Doručování datagramů při aktivním NAT
-
 ### (D13) Charakter NAT/PAT vazeb
+
+#### NAT
+
+vazba mezi vnitřními a vnějšími adresami při překladu může být:
+
+Statická
+
+- lze dopředu sestavit převodní tabulku → zařízení z vnitřní sítě vystupují navenek vždy pod stejnou vnější IP adresou
+- zařízení ve vnitřní síti jsou vždy dostupná přes své vnější IP adresy
+- rozsahy vnitřních a vnějších IP adres musí být stejné (nic jsme neušětřili)
+
+Dynamická
+
+- převodní tabulka se sestavuje až podle potřeby → zařízení z vnitřní sítě vystupují navenek pod různými vnějšími IP adresami
+- zařízení ve vnitřní síti nemusí být dostupná z vnější sítě (pokud nemají přidělenou vnější IP adresu)
+- rozsahy vnitřních adres může být větší než vnějších IP adres
+
+#### PAT
+
+vazba (mapping, binding) mezi vnitřní IP a portem a vnější IP a portem vzniká dynamicky a je pouze dočasná. Představa je taková, že vytvořením vazby se jakoby dočasně otevírá brána skrze PAT, kterou lze procházet jak směrem „ven“, tak i směrem „dovnitř“. Podle toho, jak brána funguje, rozlišujeme:
+
+- Full Cone NAT
+- (IP) Restricted Cone NAT
+- Port Restricted NAT
+- Symmetric NAT
 
 ### (D14) Doručování datagramů při aktivním PAT
 
+Jedná se o rozšíření NATu, které překládá navíc i porty. Jinak je princip vlastně stejný.
+
+1. uzel `192.168.1.3` ve vnitřní síti odesílá IPv4 datagram do Internetu z portu `33444`
+2. směrovač s PATem přepíše v datagramu `192.168.1.3:33444` na `94.112.198.149:44555` (překlad zapíše do tabbulky)
+3. odpověď přijde na adresu `94.112.198.149:44555`
+4. směrovač s PATem podle své tabulky pozná, že odpověď „na port“ `44555` patří uzlu s vnitřní adresou `192.168.1.3`, na jeho port `33444`
+5. v IP datagramu `94.112.198.149:44555` přepíše na `192.168.1.3:33444`
+
 ### (D15) Varianty PAT kuželů
 
+#### Full Cone NAT
+
+- vnitřní IP adresa a port se překládají na stejnou vnější IP adresu a port
+- odpovídat může kterýkoli vnější uzel z kteréhokoli svého portu
+
+#### (IP) Restricted Cone NAT
+
+- vnitřní IP adresa a port se překládají na stejnou vnější IP adresu a port
+- odpovídat mohou jen oslovené vnější uzly, ale z libovolného portu
+
+#### Port Restricted NAT
+
+- vnitřní IP adresa a port se překládají na stejnou vnější IP adresu a port
+- odpovídat mohou jen oslovené vnější uzly, a jen z oslovených portů
+
+#### Symmetric NAT
+
+- vnitřní IP adresa a port se překládají na stejnou vnější IP adresu ale jiný port
+- odpovídat mohou jen oslovené vnější uzly, a jen z oslovených portů
+
 ### (D16) Problémy NAT/PAT
+
+- nemůže fungovat v případě, kdy protokol vyšší vrstvy „schovává“ IP
+  adresy do těla IPv4 datagramu (NAT neví, že by je měl přeložit). Řešením je inteligentní NAT/PAT → zná protokoly, které toto dělají
+- nelze iniciovat komunikaci zvenčí, do vnitřní sítě (krom statického NATu). Řešením je NAT Traversal
 
 ### (D17) Cíle IPv6 adres a vztah k IPv4 adresám
 
