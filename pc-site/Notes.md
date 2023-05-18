@@ -1430,11 +1430,45 @@ Forward techniky:
 
 ### (B46) Možnosti zajištění QoS
 
+Z hlediska implementace budeme řešit na síťové vrstvě → musí být implementováno ve všech uz"lech po celé trase, jinak QoS nelze podporovat. "Nativní" podpora může být implementovaná i na linkové vrstvě (př. ATM).
+
+dva hlavní principy:
+
+#### Upřednostnění (prioritizace)
+
+Zavedeme úrovně priority, kanál se přihásí k nějaké úrovni, podle toho je s ním poté nakládáno.
+
+Na tomto principu pracuje DiffServ.
+
+#### Vyhrazení (garance)
+
+každý přenos (blok dat) si řekne, jaké podmínky pro svůj přenos požaduje (přenosová rychlost, latence, pravidelnost, ...). Pokud ale síť nemůže požadavky zajistit, požadavek odmítne.
+
+Na tomto principu pracuje IntServ.
+
 ### (B47) Principy řešení DiffServ
+
+Zavede se několik tříd priority. Každý paket (IP datagram) má v hlavičce údaj o tom, ke které třídě se hlásí (údaj uložen v zbytečném bytu). Směrovače podle toho s paketem nakládají → musí podporovat všechny směrovače po cestě.
+
+![DiffServ](./images/diffserv.png)
 
 ### (B48) Principy řešení IntServ
 
+1. Na transportní vrstvě se specifikují (v momentě navazování spojení) požadavky na rezervaci zdrojů na úrovni síťové vrstvy. Pokud potřebné zdroje nejsou (na síťové vrstvě) k dispozici, spojení není navázáno.
+2. Na síťové vrstvě se pak v zásadě protokolu IP „odejmou“ určité zdroje (přenosová i výpočetní kapacita) a vyčlení se pro přenosy s podporou QoS. V zásadě jde o přechod z přepojování paketů na přepojování okruhů
+
+Odejmutí zdrojů protokolu IP zajistí protokol RVSP → projde všechny směrovače na trase a sjedná s nimi vyčlenění zdrojů.
+
 ### (B49) Opatření client buffering
+
+U jednosměrných multimédií (přenos videa) – lze obnovovat pravidelnost vhodným bufferováním u příjemce.
+
+Princip:
+
+- data se ukládají do bufferu tak, jak přichází (třeba i nepravidelně)
+- příjemce čte data z bufferu tak, jak potřebuje on (pravidelně)
+
+Obvykle realizováno na aplikační vrstvě.
 
 ## Internetworking
 
